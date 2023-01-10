@@ -26,23 +26,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "../../Redux";
 import { useNavigate } from "react-router-dom";
 
-interface Props {
-  user: any;
-  isSidebarOpen: boolean;
-  setIsSidebarOpen?: any;
-}
 
-const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }: Props) => {
+
+const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
-  const handleClick = (event: any) => setAnchorEl(event.currentTarget);
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
   const navigate = useNavigate();
 
-  const mode = useSelector((state: any) => state.global.mode);
+  const mode = useSelector((state) => state.global.mode);
 
   return (
     <AppBar

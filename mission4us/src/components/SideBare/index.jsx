@@ -120,7 +120,7 @@ const Header = ({ isSidebarOpen }) => {
           <FlexBetween color={theme.palette.secondary.light}>
             <Box display="flex" alignItems="center" gap="0.5rem">
               <Typography variant="h4" fontWeight="bold">
-                BIGNOVA-BO
+                MISSION4US
               </Typography>
             </Box>
           </FlexBetween>
