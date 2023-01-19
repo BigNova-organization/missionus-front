@@ -34,7 +34,10 @@ const Layout = () => {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
+        <Box flexGrow={1}>
+
         <Outlet />
+        </Box>
       </Box>
     </Box>
   );

@@ -1,26 +1,49 @@
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import { Provider } from "react-redux";
+// import { BrowserRouter } from "react-router-dom";
+// import App from "./App";
+// import { configureStore } from "@reduxjs/toolkit";
+// import globalReducer from "./Redux"
+// const store = configureStore({
+//   reducer: {
+//     global: globalReducer,
+//   },
+// });
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <Provider store={store}>
+//       <BrowserRouter>
+//         <App />
+//       </BrowserRouter>
+//     </Provider>
+
+//   </React.StrictMode>,
+//   document.getElementById("root")
+// );
+
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
-import globalReducer from "./Redux"
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+
+
+const root = document.getElementById("root");
+
 const store = configureStore({
   reducer: {
     global: globalReducer,
   },
 });
-
-
-ReactDOM.render(
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
-
-
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

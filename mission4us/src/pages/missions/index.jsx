@@ -6,13 +6,13 @@ import Head from "../../components/Head";
 
 
 
-const Blogs = () => {
+const Missions = () => {
   const theme = useTheme();
   return (
     <Box className="dashboard">
-      <Head title='Blogs' />
+      <Head title='Missions' />
     </Box>
   );
 };
 
-export default Blogs;
+export default Missions;

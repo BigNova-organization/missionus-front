@@ -19,6 +19,9 @@ import {
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
   BookOutlined,
+  FileCopyOutlined,
+  GestureOutlined,
+  Work
 } from "@mui/icons-material";
 
 import { useEffect, useState } from "react";
@@ -38,31 +41,39 @@ const navItems = [
     icon: null,
   },
   {
-    text: "Users",
+    text: "Profile",
     icon: <Groups2Outlined />,
   },
   {
-    text: "Calendar",
+    text: "Missions",
     icon: <CalendarMonthOutlined />,
   },
   {
+    text: "Page Cv",
+    icon: <FileCopyOutlined />,
+  },
+  {
+    text: "Jobs",
+    icon: <Work />,
+  },
+  {
     text: "Recruitment",
-    icon: <PublicOutlined />,
+    icon: <GestureOutlined />,
   },
   {
     text: "Gestion",
     icon: null,
   },
   {
-    text: "Blogs",
+    text: "Abonnement",
     icon: <BookOutlined />,
   },
+  // {
+  //   text: "Manage",
+  //   icon: null,
+  // },
   {
-    text: "Manage",
-    icon: null,
-  },
-  {
-    text: "Documentation",
+    text: "Parametre",
     icon: <AdminPanelSettingsOutlined />,
   },
 ];

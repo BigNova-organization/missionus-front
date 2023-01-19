@@ -6,13 +6,13 @@ import Head from "../../components/Head";
 
 
 
-const Calendar = () => {
+const Abonnement = () => {
   const theme = useTheme();
   return (
     <Box className="dashboard">
-      <Head title='Calendar' />
+      <Head title='Abonnement' />
     </Box>
   );
 };
 
-export default Calendar;
+export default Abonnement;

@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import InnerContent from "./innerContents/InnerContent";
 import Tabs from "../pages/Tabs/Tabs";
-import Settings from "../pages/Setings/Settings";
+import Settings from "../pages/Parametre";
 import Login from "../pages/Auth/Login";
 
 import Tab1 from "../components/Tab1";
@@ -17,11 +17,14 @@ import Layout from "../scences/layout/index";
 import Dashboard from "../pages/dashboard/dashboard";
 import Users from "../pages/users";
 import Gestion from "../pages/gestion";
-import Blogs from "../pages/blogs";
+import Blogs from "../pages/abonnement";
 import Recruitment from "../pages/recruiment";
-import Calendar from "../pages/calendar";
-import Documentation from "../pages/documentation";
 import Profile from "../pages/profile";
+import Missions from "../pages/missions";
+import PageCv from "../pages/PageCv";
+import Abonnement from "../pages/abonnement";
+import Parametre from "../pages/Parametre";
+import Jobs from "../pages/Jobs";
 
 const MainRoutes = () => (
   <Routes>
@@ -46,14 +49,17 @@ const MainRoutes = () => (
             </Route>
             <Route path="tab3" element={<Tab3 />} />
           </Route>
-          <Route path="settings" element={<Settings />} />
+          <Route path="parametre" element={<Parametre />} />
           <Route path="users" element={<Users />} />
           <Route path="gestion" element={<Gestion />} />
-          <Route path="blogs" element={<Blogs />} />
+          <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />
-          <Route path="calendar" element={<Calendar />} />
-          <Route path="documentation" element={<Documentation />} />
+          <Route path="Missions" element={<Missions />} />
+          <Route path="Page Cv" element={<PageCv />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="Jobs" element={<Jobs />} />
+
+          
         </Route>
       </Route>
     </Route>
