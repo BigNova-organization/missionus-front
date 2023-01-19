@@ -1,16 +1,9 @@
 import React from "react"
 import {Link} from "react-router-dom"
 
-export type UserType = {
-	id: number
-	name: string
-	email: string
-	phone: string
-	website: string
-}
-type UsersType = Array<UserType>
+ 
 
-const Users = (props: any) => {
+const Users = (props) => {
 	const [users, setUsers] = React.useState<UsersType>([])
 
 	React.useEffect(() => {

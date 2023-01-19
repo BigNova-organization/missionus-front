@@ -11,7 +11,7 @@ const useAuth=()=>{
   }
 }
 
-const  PublicRoutes=(props:any) =>{
+const  PublicRoutes=(props) =>{
 
   const auth=useAuth()
 

@@ -3,7 +3,7 @@ import {Outlet} from "react-router-dom"
 
 import TavNav from "../../components/TabNav"
 
-const Tabs = (props: any) => {
+const Tabs = (props) => {
 	const {userName} = props.props
 	return (
 		<div className="tabs">

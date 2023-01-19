@@ -5,7 +5,7 @@ import {Navigate, Outlet} from "react-router-dom"
 const useAuth = () => {
 	//get item from localstorage
 
-	let user: any
+	let user
 
 	const _user = localStorage.getItem("user")
 
@@ -27,11 +27,11 @@ const useAuth = () => {
 }
 
 //protected Route state
-type ProtectedRouteType = {
-	roleRequired?: "ADMIN" | "USER"
-}
+// type ProtectedRouteType = {
+// 	roleRequired?: "ADMIN" | "USER"
+// }
 
-const ProtectedRoutes = (props: ProtectedRouteType) => {
+const ProtectedRoutes = (props) => {
 	const {auth, role} = useAuth()
 
 	//if the role required is there or not

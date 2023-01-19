@@ -1,13 +1,13 @@
 import React from "react"
 
-type Props = {
-	roleRequired: "ADMIN" | "USER"
-	message?: string
-	children?: React.ReactNode
-}
+// type Props = {
+// 	roleRequired: "ADMIN" | "USER"
+// 	message?: string
+// 	children?: React.ReactNode
+// }
 
 const useRole = () => {
-	let user: any
+	let user
 
 	const _user = localStorage.getItem("user")
 
@@ -21,7 +21,7 @@ const useRole = () => {
 	}
 }
 
-const WithPermission = (props: Props) => {
+const WithPermission = (props) => {
 	const {roleRequired, message, children} = props
 	const role = useRole()
 	return (

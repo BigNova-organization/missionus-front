@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import "./styles.css";
 
 function App() {
-  const mode = useSelector((state: any) => state.global.mode);
+  const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <ThemeProvider theme={theme}>

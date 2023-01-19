@@ -1,11 +1,8 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
 
- interface props {
-    title:string
-}
- 
-const Head = ({title}:props) => {
+
+const Head = ({title}) => {
   const theme = useTheme();
 
   return (
