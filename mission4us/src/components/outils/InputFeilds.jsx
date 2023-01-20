@@ -5,7 +5,7 @@ import { UseHooks } from '../../pages/PageCv/Hooks';
 
 import { TextField } from '@material-ui/core';
 
-const InputFeilds = ({errors,id,value,onChange,autoComplete,label,type,multiline,rows}) => {
+const InputFeilds = ({errors,id,value,onChange,autoComplete,label,type,multiline,rows,onBlur}) => {
 
   const { OnSubmit, initialState,validationSchema } = UseHooks();
 
@@ -29,6 +29,8 @@ const InputFeilds = ({errors,id,value,onChange,autoComplete,label,type,multiline
           onChange={onChange}
           multiline={multiline}
           minRows={rows}
+          onBlur={onBlur}
+             
         />
      
   )

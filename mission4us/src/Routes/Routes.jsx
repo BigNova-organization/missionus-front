@@ -25,6 +25,8 @@ import PageCv from "../pages/PageCv";
 import Abonnement from "../pages/abonnement";
 import Parametre from "../pages/Parametre";
 import Jobs from "../pages/Jobs";
+import AddJob from "../pages/Jobs/fomAjout";
+import UpdateJob from "../pages/Jobs/formModif";
 
 const MainRoutes = () => (
   <Routes>
@@ -58,6 +60,8 @@ const MainRoutes = () => (
           <Route path="Page Cv" element={<PageCv />} />
           <Route path="profile" element={<Profile />} />
           <Route path="Jobs" element={<Jobs />} />
+          <Route path="Jobs/Add Job" element={<AddJob/>} />
+          <Route path="Jobs/Update Job" element={<UpdateJob/>} />
 
           
         </Route>
