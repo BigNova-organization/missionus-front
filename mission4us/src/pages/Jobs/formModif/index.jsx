@@ -1,25 +1,34 @@
 import "./styles.css";
 import React from 'react'
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, TextField, Typography, useTheme } from "@mui/material";
 import Head from "../../../components/Head";
 import Body from '../../../components/Body';
 import { Formik } from "formik";
 import InputFeilds from "../../../components/outils/InputFeilds";
 import Space from "../../../components/outils/Space";
-import RowBox from "../../../components/RowBox";
-import Button from '@material-ui/core/Button';
-import CustomButton from "../../../components/outils/customButton";
+import SendIcon from '@mui/icons-material/Send';
+import Button from '@mui/material/Button';
+
+import * as Yup from 'yup'
 
 const UpdateJob = () => {
   const theme = useTheme();
  
   const initialValues={
     nom:'',
-    prenom:'',
     description:'',
-    secteur:''
     
   }
+  const validationSchema=Yup.object().shape({
+    nom: Yup.string()
+      .required('Le nom est obligatoire'),
+    description: Yup.string()
+    .min(10, 'Description doit contenir au min 10 caracteres')
+      .max(150, 'Description doit contenir au max 150 caracteres')
+      .required('La description est obligatoire'),
+   
+  })
+
   return (
     <Box
       sx={{
@@ -30,12 +39,12 @@ const UpdateJob = () => {
     >
       <Head title="Page Modification d'un Job" />
       <Body>
-      <Typography color={theme.palette.secondary[700]} variant={"h1"}>
+      {/* <Typography color={theme.palette.secondary[700]} variant={"h1"}>
           Modifier un job {" "}
-      </Typography>
+      </Typography> */}
       <Formik
        initialValues={initialValues}
-       
+       validationSchema={validationSchema}
        onSubmit={(values,{setSubmitting}) => {
         console.log(values,'myvalues')
         setTimeout(() => {
@@ -56,7 +65,8 @@ const UpdateJob = () => {
        }) => (
          <form onSubmit={handleSubmit}>
                 <Space space={20} />
-                <RowBox>
+              
+     
                   <InputFeilds 
                   label={"Nom"} 
                   onChange={handleChange}
@@ -64,28 +74,18 @@ const UpdateJob = () => {
                   value={values.nom}
                   id='nom'
                   />
+                  {/* {errors.nom && touched.nom && errors.nom ? (
+                    <div style={{color:'red',fontSize:15}}>{errors.nom}</div>
+                  ) : null} */}
+                  <div style={{color:'red',fontSize:15}}>
                   {errors.nom && touched.nom && errors.nom}
-                  <InputFeilds 
-                  label={"Prénom"}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.prenom} 
-                  id='prenom'
-                  />
-                  {errors.prenom && touched.prenom && errors.prenom}
-                </RowBox>
-                <RowBox>
-                  <InputFeilds 
-                  label={"Secteur"} 
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.secteur}
-                  id='secteur'
-                  />
-                  {errors.secteur && touched.secteur && errors.secteur}
-                </RowBox>
+                  </div>
+                  
+                  
+                
+                  <Space space={20} />
                
-                <RowBox>
+                
                   <InputFeilds
                     label={"Description"}
                     multiline={true}
@@ -94,25 +94,25 @@ const UpdateJob = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.description}
+                  //   helperText={touched.description ? errors.description : ""}
+                  // error={touched.description && Boolean(errors.description)}
                    
                   />
+                  <div style={{color:'red',fontSize:15}}>
                   {errors.description && touched.description && errors.description}
-                </RowBox>
+                  </div>
+                
                 <Space space={20} />
 
-               
-
-
-
-                {/* <CustomButton
-                  text="Ajouter"
-                  variant="contained"
-                  color="primary"
-                  size="medium"
-                 
-                  onClick={OnSubmit}
-                /> */}
-                 <Button variant="contained" color="primary" size="medium" type="submit" disabled={isSubmitting}>Envoyer</Button> 
+                <Button variant="contained" 
+                  endIcon={<SendIcon />} 
+                  size='medium' 
+                  style={{backgroundColor:'#237a57'}}
+                  type="submit" 
+                  disabled={isSubmitting}
+                  >
+                    Valider
+                  </Button>
                  </form>
            )}
        </Formik>

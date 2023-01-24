@@ -20,7 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-
+import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button';
 const useButtonStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -119,7 +120,29 @@ const Jobs = () => {
   };
   return (
     <Box className="dashboard">
-      <Head title='Jobs' />
+      <Box
+      sx={{
+        padding: "10px",
+        color: theme.palette.grey[100],
+        fontSize: "22px",
+        backgroundColor: theme.palette.background.default ,
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'space-between'
+
+      }}
+    >
+      <div><p>Jobs</p></div>
+      
+      <Button variant="contained" 
+      endIcon={<AddIcon />} 
+      size='medium' 
+      style={{backgroundColor:'#237a57'}}
+      onClick={()=>navigate("Add Job")  }
+      >
+        Ajouter
+      </Button>
+    </Box>
       <Body>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>

@@ -6,10 +6,10 @@ import Body from '../../../components/Body';
 import { Formik } from "formik";
 import InputFeilds from "../../../components/outils/InputFeilds";
 import Space from "../../../components/outils/Space";
-import RowBox from "../../../components/RowBox";
-import Button from '@material-ui/core/Button';
-import CustomButton from "../../../components/outils/customButton";
+import SendIcon from '@mui/icons-material/Send';
+import Button from '@mui/material/Button';
 
+import * as Yup from 'yup'
 const AddJob = () => {
   const theme = useTheme();
  
@@ -20,6 +20,20 @@ const AddJob = () => {
     secteur:''
     
   }
+
+  const validationSchema=Yup.object().shape({
+    nom: Yup.string()
+      .required('Le nom est obligatoire'),
+    prenom: Yup.string()
+      .required('Le prenom est obligatoire'),
+    secteur: Yup.string()
+      .required('Le secteur est obligatoire'),
+    description: Yup.string()
+    .min(10, 'Description doit contenir au min 10 caracteres')
+      .max(150, 'Description doit contenir au max 150 caracteres')
+      .required('la description est obligatoire'),
+   
+  })
   return (
     <Box
       sx={{
@@ -30,12 +44,12 @@ const AddJob = () => {
     >
       <Head title="Page Ajout d'un Job" />
       <Body >
-      <Typography color={theme.palette.secondary[700]} variant={"h1"}>
+      {/* <Typography color={theme.palette.secondary[700]} variant={"h1"}>
           Ajouter un job {" "}
-      </Typography>
+      </Typography> */}
       <Formik
        initialValues={initialValues}
-       
+       validationSchema={validationSchema}
        onSubmit={(values,{setSubmitting}) => {
         console.log(values,'myvalues')
         setTimeout(() => {
@@ -56,7 +70,7 @@ const AddJob = () => {
        }) => (
          <form onSubmit={handleSubmit}>
                 <Space space={20} />
-                <RowBox>
+                
                   <InputFeilds 
                   label={"Nom"} 
                   onChange={handleChange}
@@ -64,7 +78,9 @@ const AddJob = () => {
                   value={values.nom}
                   id='nom'
                   />
+                    <div style={{color:'red',fontSize:15}}>
                   {errors.nom && touched.nom && errors.nom}
+                  </div>
                   <InputFeilds 
                   label={"Prénom"}
                   onChange={handleChange}
@@ -72,9 +88,11 @@ const AddJob = () => {
                   value={values.prenom} 
                   id='prenom'
                   />
+                    <div style={{color:'red',fontSize:15}}>
                   {errors.prenom && touched.prenom && errors.prenom}
-                </RowBox>
-                <RowBox>
+                  </div>
+                
+                
                   <InputFeilds 
                   label={"Secteur"} 
                   onChange={handleChange}
@@ -82,10 +100,12 @@ const AddJob = () => {
                   value={values.secteur}
                   id='secteur'
                   />
+                    <div style={{color:'red',fontSize:15}}>
                   {errors.secteur && touched.secteur && errors.secteur}
-                </RowBox>
+                  </div>
+                
                
-                <RowBox>
+                
                   <InputFeilds
                     label={"Description"}
                     multiline={true}
@@ -96,23 +116,23 @@ const AddJob = () => {
                     value={values.description}
                    
                   />
+                    <div style={{color:'red',fontSize:15}}>
                   {errors.description && touched.description && errors.description}
-                </RowBox>
+                  </div>
+                
                 <Space space={20} />
 
-               
-
-
-
-                {/* <CustomButton
-                  text="Ajouter"
-                  variant="contained"
-                  color="primary"
-                  size="medium"
-                 
-                  onClick={OnSubmit}
-                /> */}
-                 <Button variant="contained" color="primary" size="medium" type="submit" disabled={isSubmitting} >Envoyer</Button> 
+         
+                 <Button variant="contained" 
+                  endIcon={<SendIcon />} 
+                  size='medium' 
+                  style={{backgroundColor:'#237a57'}}
+                  type="submit" 
+                  disabled={isSubmitting}
+                  >
+                    Valider
+                  </Button>
+                
                  </form>
            )}
        </Formik>

@@ -19,17 +19,18 @@ const InputFeilds = ({errors,id,value,onChange,autoComplete,label,type,multiline
           type={type}
           variant="outlined"
           margin="normal"
-          required
+          // required
           id={id}
           label={label}
           autoComplete={autoComplete}
-          autoFocus
+          // autoFocus
           // {...register("email")}
           value={value}
           onChange={onChange}
           multiline={multiline}
           minRows={rows}
           onBlur={onBlur}
+          fullWidth
              
         />
      
