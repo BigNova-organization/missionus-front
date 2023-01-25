@@ -30,7 +30,8 @@ const Drawer = (props) => {
           !open && hidden
         } ${changeAnchor(anchor,styles)}`}
       >
-        <div className={header} />
+        {props.children}
+        {/* <div className={header} /> */}
       </div>
     </>
   );

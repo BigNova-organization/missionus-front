@@ -27,6 +27,7 @@ import Parametre from "../pages/Parametre";
 import Jobs from "../pages/Jobs";
 import AddJob from "../pages/Jobs/fomAjout";
 import UpdateJob from "../pages/Jobs/formModif";
+import AddMission from "../pages/missions/formAjoutMission";
 
 const MainRoutes = () => (
   <Routes>
@@ -57,6 +58,7 @@ const MainRoutes = () => (
           <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />
           <Route path="Missions" element={<Missions />} />
+          {/* <Route path="Missions/Add Mission" element={<AddMission/>} /> */}
           <Route path="Page Cv" element={<PageCv />} />
           <Route path="profile" element={<Profile />} />
           <Route path="Jobs" element={<Jobs />} />

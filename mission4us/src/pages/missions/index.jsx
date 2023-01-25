@@ -6,6 +6,7 @@ import Head from "../../components/Head";
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import Drawer from "../../components/Drawer/Drawer.jsx";
+import AddMission from "./formAjoutMission";
 
 
 const Missions = () => {
@@ -39,7 +40,9 @@ const Missions = () => {
       >
         Ajouter
       </Button>
-      <Drawer anchor="right" open={open} onClose={handleClose} />
+      <Drawer anchor="right" open={open} onClose={handleClose} >
+        <AddMission open={open} onClose={handleClose}/>
+      </Drawer>
       </div>
     </Box>
     </Box>

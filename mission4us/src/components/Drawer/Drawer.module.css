@@ -37,7 +37,7 @@
     position: fixed;
     overflow-y: auto;
     flex-direction: column;
-  
+    border-top-left-radius: 10px;
     background-color: #ffffff;
     width: 500px;
     flex-shrink: 0;
