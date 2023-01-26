@@ -63,7 +63,7 @@ const SelectMenue = ({ label, data, onChange }) => {
       
     >
       <MenuItem value="" disabled>
-        <em>Selectionner une langue</em>
+        Selectionner une langue
       </MenuItem>
       <MenuItem classes={{root: classes.menuItem}} value={10}>Français</MenuItem>
       <MenuItem classes={{root: classes.menuItem}} value={20}>English</MenuItem>

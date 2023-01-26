@@ -54,8 +54,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const columns = [
-  { id: "nom", label: "Nom", minWidth: 100},
-  { id: "prenom", label: "Prénom", minWidth: 100 },
+  { id: "intitule", label: "Intitule", minWidth: 100},
   {
     id: "description",
     label: "Description",
@@ -78,24 +77,25 @@ const columns = [
 ];
 
 
-function createData(nom, prenom, description, secteur) {
+function createData(intitule, description, secteur) {
   
-  return { nom, prenom, description, secteur };
+  return { intitule, description, secteur };
 }
 
 const rows = [
-  createData('Kherbouche','Samia','front-end Enginner' , 'Prive'),
-  createData('Bekka','Reda','fullstack Enginner' , 'Prive'),
-  createData('Amariche','Zineddine','fullstack Enginner' , 'Prive'),
-  createData('Kherbouche','Samia','front-end Enginner' , 'Prive'),
-  createData('Bekka','Reda','fullstack Enginner' , 'Prive'),
-  createData('Amariche','Zineddine','fullstack Enginner' , 'Prive'),
-  createData('Kherbouche','Samia','front-end Enginner' , 'Prive'),
-  createData('Bekka','Reda','fullstack Enginner' , 'Prive'),
-  createData('Amariche','Zineddine','fullstack Enginner' , 'Prive'),
-  createData('Kherbouche','Samia','front-end Enginner' , 'Prive'),
-  createData('Bekka','Reda','fullstack Enginner' , 'Prive'),
-  createData('Amariche','Zineddine','fullstack Enginner' , 'Prive'),
+  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
+  createData('Enseignant','loremImpum' , 'Prive'),
+  createData('Plombier','loremImpum' , 'Prive'),
+  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
+  createData('Enseignant','loremImpum' , 'Prive'),
+  createData('Plombier','loremImpum' , 'Prive'),
+  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
+  createData('Enseignant','loremImpum' , 'Prive'),
+  createData('Plombier','loremImpum' , 'Prive'),
+  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
+  createData('Enseignant','loremImpum' , 'Prive'),
+  createData('Plombier','loremImpum' , 'Prive'),
+
 
 ];
 
@@ -166,8 +166,7 @@ const Jobs = () => {
               .map((row) => {
                 return (
                   <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                     <StyledTableCell >{row.nom}</StyledTableCell>
-                        <StyledTableCell>{row.prenom}</StyledTableCell>
+                     <StyledTableCell >{row.intitule}</StyledTableCell>
                         <StyledTableCell >{row.description}</StyledTableCell>
                         <StyledTableCell>{row.secteur}</StyledTableCell>
                         
