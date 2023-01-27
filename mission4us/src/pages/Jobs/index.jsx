@@ -22,6 +22,9 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import ModalDelete from "../../components/modal";
+
 const useButtonStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -118,6 +121,9 @@ const Jobs = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const [ouvrir, setOuvrir] = React.useState(false);
+  const handleOuvrir = () => setOuvrir(true);
+  const handleFermer = () => setOuvrir(false);
   return (
     <Box className="dashboard">
       <Box
@@ -172,6 +178,7 @@ const Jobs = () => {
                         
                         <StyledTableCell align="left">
                         <div className={buttonStyle.root}>
+                        <Tooltip title="Modifier">
                         <IconButton
                           aria-label="edit"
                           color='primary'
@@ -180,9 +187,16 @@ const Jobs = () => {
                           <EditIcon />
                           
                         </IconButton>
-                        <IconButton aria-label="delete" color='secondary'>
+                        </Tooltip>
+                        <Tooltip title="Supprimer">
+                        <IconButton 
+                        aria-label="delete" 
+                        color='secondary'
+                        onClick={handleOuvrir}
+                        >
                           <DeleteIcon />
                         </IconButton>
+                        </Tooltip>
                           </div>
                           </StyledTableCell>
                   </StyledTableRow>
@@ -191,6 +205,12 @@ const Jobs = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <ModalDelete
+          open={ouvrir}
+          onClose={handleFermer}
+          title={"Voulez vous supprimer ce job?"}
+          
+      />
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"

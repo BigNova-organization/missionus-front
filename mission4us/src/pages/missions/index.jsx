@@ -24,6 +24,8 @@ import { useNavigate } from 'react-router-dom';
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Tooltip from '@material-ui/core/Tooltip';
+import ModalDelete from "../../components/modal";
 
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -135,6 +137,9 @@ const Missions = () => {
   setRowsPerPage(+event.target.value);
   setPage(0);
   };
+  const [ouvrir, setOuvrir] = React.useState(false);
+  const handleOuvrir = () => setOuvrir(true);
+  const handleFermer = () => setOuvrir(false);
   return (
     <Box className="dashboard">
       <Box
@@ -151,6 +156,7 @@ const Missions = () => {
     >
       <div><p>Missions</p></div>
       <div>
+      
       <Button variant="contained" 
       endIcon={<AddIcon />} 
       size='medium' 
@@ -159,7 +165,7 @@ const Missions = () => {
       >
         Ajouter
       </Button>
-      <Drawer anchor="right" open={open} onClose={handleClose} >
+      <Drawer anchor="right" open={open}  >
         <AddMission open={open} onClose={handleClose}/>
       </Drawer>
       </div>
@@ -195,7 +201,7 @@ const Missions = () => {
                         
                         <StyledTableCell align="left">
                         <div className={buttonStyle.root}>
-                        
+                        <Tooltip title="Modifier">
                         <IconButton
                           aria-label="edit"
                           color='primary'
@@ -204,10 +210,20 @@ const Missions = () => {
                           <EditIcon />
                           
                         </IconButton>
-                        <IconButton aria-label="delete" color='secondary'>
+                        </Tooltip>
+
+                        <Tooltip title="Supprimer">
+                        <IconButton 
+                        aria-label="delete" 
+                        color='secondary'
+                        onClick={handleOuvrir}
+                        >
                           <DeleteIcon />
                         </IconButton>
+                        </Tooltip>
+                       
                           </div>
+                       
                           </StyledTableCell>
                   </StyledTableRow>
                 );
@@ -215,6 +231,12 @@ const Missions = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <ModalDelete
+          open={ouvrir}
+          onClose={handleFermer}
+          title={"Voulez vous supprimer cette mission?"}
+          
+      />
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
@@ -225,6 +247,7 @@ const Missions = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         style={{backgroundColor:'#34b782'}}
       />
+        
     </Paper>
        
       </Body> 

@@ -1,4 +1,4 @@
-// import "./styles.css";
+
 import React from 'react'
 import { Box, Typography, useTheme } from "@mui/material";
 import Head from "../../../components/Head";
@@ -13,11 +13,10 @@ import MenuItem from '@mui/material/MenuItem';
 import * as Yup from 'yup'
 import RowBox from '../../../components/RowBox';
 import CustomSelect from '../../../components/CustomSelect';
-import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import './styles.css'
+import DatePickers from '../../../components/datePicker';
+import "./styles.css";
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from "@material-ui/core/IconButton";
 
 const options = [
   // { value: '', label: '' },
@@ -74,18 +73,29 @@ const AddMission = ({open,onClose}) => {
       sx={{
         width: "100%",
         height: "100%",
-        flex: 1,
+       
        
       }}
     >
 
-      <Head title="Ajouter une Mission" style={{backgroundColor:'black'}}/>
+      {/* <Head title="Ajouter une Mission" style={{backgroundColor:'black'}}/> */}
+      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:'#237a57'}}>
+      <Tooltip title="Fermer">
+      <IconButton aria-label="close" style={{color:'white'}} onClick={onClose}>
+        <CloseIcon />
+      </IconButton>
+       </Tooltip>            
+      <Typography  variant={"h4"} style={{paddingLeft:15}}> Ajouter une mission {" "}</Typography>
+                   
+
+      </div>
       
-      <Body sx={{ padding:10}}>
+      <Body >
       {/* <Typography color={theme.palette.secondary[700]} variant={"h1"}>
           Ajouter un job {" "}
       </Typography> */}
       <Formik
+      
        initialValues={initialValues}
        validationSchema={validationSchema}
        onSubmit={(values,{setSubmitting}) => {
@@ -107,7 +117,7 @@ const AddMission = ({open,onClose}) => {
          setFieldValue
          /* and other goodies */
        }) => (
-         <form onSubmit={handleSubmit} style={{ padding:10}}>
+         <form onSubmit={handleSubmit} >
                 
                 
                 <div style={{flex:1}}>
@@ -124,8 +134,7 @@ const AddMission = ({open,onClose}) => {
                   </div>
                 </div>
                 
-                <RowBox >
-                <div style={{flex:1,marginRight:10}}>
+                <div style={{flex:1}}>
                 <CustomSelect
                   // className='input'
                   onChange={value=>setFieldValue('client',value.value)}
@@ -138,26 +147,8 @@ const AddMission = ({open,onClose}) => {
                   <div style={{color:'red',fontSize:15}}>
                   {errors.client && touched.client && errors.client}
                   </div>
-                </div>
-
-                <div style={{flex:1}}>
-                <CustomSelect
-                  // className='input'
-                  onChange={value=>setFieldValue('job',value.value)}
-                  value={values.job}
-                  options={options}
-                  // placeholder={'Choisissez votre client'}
-                  
-                  />
-               
-                  <div style={{color:'red',fontSize:15}}>
-                  {errors.job && touched.job && errors.job}
-                  </div>
-                </div>
-                
-                
-                </RowBox>
-                <RowBox>
+               </div>
+                  <RowBox>
                 <div style={{flex:1,marginRight:10}}>
                 <InputFeilds 
                   label={"N° téléphone "} 
@@ -189,7 +180,6 @@ const AddMission = ({open,onClose}) => {
                 
                 
                 </RowBox>
-               
                 <RowBox>
                 <div style={{flex:1,marginRight:10}}>
                 <InputFeilds 
@@ -219,11 +209,52 @@ const AddMission = ({open,onClose}) => {
                 </div>
 
                 </RowBox>
-                  {/* <RowBox>
-                  <div style={{flex:1}}>
-                    
+               
+                <CustomSelect
+                  // className='input'
+                  onChange={value=>setFieldValue('job',value.value)}
+                  value={values.job}
+                  options={options}
+                  // placeholder={'Choisissez votre client'}
+                  
+                  />
+               
+                  <div style={{color:'red',fontSize:15}}>
+                  {errors.job && touched.job && errors.job}
                   </div>
-                  </RowBox> */}
+             
+                
+                
+               
+                
+                  <Space space={20} />
+               
+                   <RowBox>
+                  {/* <div style={{flex:1}}>
+                    
+                  </div> */}
+                   <div style={{flex:1,marginRight:10}}>
+                  <DatePickers
+                  id='datedeb'
+                  label={"Date Debut"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.datedeb}
+                  />
+                  <div style={{color:'red',fontSize:15}}>
+                  {errors.datedeb && touched.datedeb && errors.datedeb}
+                  </div>
+                  </div>
+                  <div style={{flex:1}}>
+                  <DatePickers
+                  id='datefin'
+                  label={"Date Fin"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.datefin}
+                  />
+                  </div>
+                  </RowBox> 
                 
                  
                 
