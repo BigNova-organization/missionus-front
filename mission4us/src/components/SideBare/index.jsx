@@ -36,14 +36,14 @@ const navItems = [
     text: "Dashboard",
     icon: <HomeOutlined />,
   },
-  {
-    text: "Admins",
-    icon: null,
-  },
-  {
-    text: "Profile",
-    icon: <Groups2Outlined />,
-  },
+  // {
+  //   text: "Admins",
+  //   icon: null,
+  // },
+  // {
+  //   text: "Profile",
+  //   icon: <Groups2Outlined />,
+  // },
   {
     text: "Missions",
     icon: <CalendarMonthOutlined />,
@@ -60,10 +60,10 @@ const navItems = [
     text: "Recruitment",
     icon: <GestureOutlined />,
   },
-  {
-    text: "Gestion",
-    icon: null,
-  },
+  // {
+  //   text: "Gestion",
+  //   icon: null,
+  // },
   {
     text: "Abonnement",
     icon: <BookOutlined />,
@@ -113,7 +113,7 @@ const Sidebar = ({
           isSidebarOpen={isSidebarOpen}
           navigate={navigate}
         />
-        <BottomItems isSidebarOpen={isSidebarOpen} />
+        {/* <BottomItems isSidebarOpen={isSidebarOpen} /> */}
       </CustDrawer>
     </Box>
   );
