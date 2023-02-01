@@ -26,7 +26,8 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Tooltip from '@material-ui/core/Tooltip';
 import ModalDelete from "../../components/modal";
-
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import DevisMission from "./formDevis";
 const useButtonStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -140,6 +141,12 @@ const Missions = () => {
   const [ouvrir, setOuvrir] = React.useState(false);
   const handleOuvrir = () => setOuvrir(true);
   const handleFermer = () => setOuvrir(false);
+
+  const [openDevis, setOpenDevis] = useState(false);
+
+  const handleOpenDevis = useCallback(() => setOpenDevis(true), []);
+
+  const handleCloseDevis = useCallback(() => setOpenDevis(false), []);
   return (
     <Box className="dashboard">
       <Box
@@ -205,7 +212,7 @@ const Missions = () => {
                         <IconButton
                           aria-label="edit"
                           color='primary'
-                          onClick={handleOpen}
+                          // onClick={handleOpen}
                         >
                           <EditIcon />
                           
@@ -221,6 +228,19 @@ const Missions = () => {
                           <DeleteIcon />
                         </IconButton>
                         </Tooltip>
+
+                        <Tooltip title="Devis">
+                        <IconButton 
+                        aria-label="devis" 
+                        // color='secondary'
+                        onClick={handleOpenDevis}
+                        >
+                          <FormatQuoteIcon />
+                        </IconButton>
+                        </Tooltip>
+                        
+                          {/* <AddMission open={open} onClose={handleClose}/> */}
+                        
                        
                           </div>
                        
@@ -231,6 +251,9 @@ const Missions = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Drawer anchor="right" open={openDevis} >
+        <DevisMission open ={openDevis} onClose={handleCloseDevis}/>
+      </Drawer>
       <ModalDelete
           open={ouvrir}
           onClose={handleFermer}

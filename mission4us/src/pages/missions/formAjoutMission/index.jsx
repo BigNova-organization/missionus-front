@@ -9,22 +9,25 @@ import Space from "../../../components/outils/Space";
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import * as Yup from 'yup'
 import RowBox from '../../../components/RowBox';
 import CustomSelect from '../../../components/CustomSelect';
 import DatePickers from '../../../components/datePicker';
-import "./styles.css";
+// import "./styles.css";
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
+import {MenuItem } from "@material-ui/core"
 
 const options = [
   // { value: '', label: '' },
   { value: 'client1', label: 'Reda Bekka' },
   { value: 'client2', label: 'Samia Kh' },
- 
+]
 
-
+const optionsJob = [
+  // { value: '', label: '' },
+  { value: 'job1', label: 'Plombier' },
+  { value: 'job2', label: 'Ingenieur en dev' },
 ]
 const AddMission = ({open,onClose}) => {
   const theme = useTheme();
@@ -136,13 +139,21 @@ const AddMission = ({open,onClose}) => {
                 
                 <div style={{flex:1}}>
                 <CustomSelect
-                  // className='input'
-                  onChange={value=>setFieldValue('client',value.value)}
+                  id={"client"}
+                  name={"client"}
+                  onChange={handleChange}
                   value={values.client}
-                  options={options}
-                  // placeholder={'Choisissez votre client'}
                   
-                  />
+                  >
+                  <MenuItem value="" disabled>
+                    Selectionner un client
+                  </MenuItem>
+                    {options.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </CustomSelect>
                
                   <div style={{color:'red',fontSize:15}}>
                   {errors.client && touched.client && errors.client}
@@ -212,12 +223,23 @@ const AddMission = ({open,onClose}) => {
                
                 <CustomSelect
                   // className='input'
-                  onChange={value=>setFieldValue('job',value.value)}
-                  value={values.job}
-                  options={options}
-                  // placeholder={'Choisissez votre client'}
+                  id={"job"}
+                  name={"job"}
+                  onChange={handleChange}
+                  value={values.job} 
                   
-                  />
+                  
+                  >
+                  <MenuItem value="" disabled>
+                    Selectionner un job
+                  </MenuItem>
+                    {optionsJob.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+
+                  </CustomSelect>
                
                   <div style={{color:'red',fontSize:15}}>
                   {errors.job && touched.job && errors.job}
