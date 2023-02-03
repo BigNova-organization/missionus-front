@@ -21,8 +21,10 @@ import {
   BookOutlined,
   FileCopyOutlined,
   GestureOutlined,
-  Work
+  Work,
+  PersonOutlined
 } from "@mui/icons-material";
+// import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -35,6 +37,10 @@ const navItems = [
   {
     text: "Dashboard",
     icon: <HomeOutlined />,
+  },
+  {
+    text: "Utilisateurs",
+    icon: <PersonOutlined />,
   },
   // {
   //   text: "Admins",

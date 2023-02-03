@@ -53,7 +53,7 @@ const MainRoutes = () => (
             <Route path="tab3" element={<Tab3 />} />
           </Route>
           <Route path="parametre" element={<Parametre />} />
-          <Route path="users" element={<Users />} />
+          <Route path="utilisateurs" element={<Users />} />
           <Route path="gestion" element={<Gestion />} />
           <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />
