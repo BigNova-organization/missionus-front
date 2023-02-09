@@ -1,74 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import { Select, MenuItem } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@mui/material";
+import { Box, FormHelperText, Stack, useTheme } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   select: {
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       border: "1px solid #237a57",
     },
+
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
+      paddingLeft: "20px",
+      width: "100%",
     },
-    overflow: "hidden",
-    flexGrow: 1,
-    margin: "10px",
   },
   menuItem: {
-    // background: '#237a57',
-    // paddingLeft:"20px",
-    '&:hover': {
-      background: '#237a5709'
+    "&:hover": {
+      background: "#237a5709",
     },
-    color: '#000'
-  },
-  InputProps: {
-    color: '#ff0000',
-    backgroundColor:"#23a"
+    color: "#000",
   },
 
+  icon: {
+    fill: theme.palette.info.contrastText,
+  },
+  iconDark: {
+    fill: "#237a57",
+  },
 }));
 
-const SelectMenue = ({ label, data, onChange }) => {
-  const [age, setAge] = React.useState("");
+const SelectMenue = ({
+  label,
+  data,
+  handleOpen,
+  selectionTitle,
+  error,
+  helperText,
+  value,
+  onBlur
+}) => {
+  const theme = useTheme();
+  const { mode } = useSelector((state) => state.global);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    handleOpen(event.target.value);
   };
   const classes = useStyles();
-
   return (
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      value={age}
-      onChange={handleChange}
-      displayEmpty
-      variant="outlined"
-      //   style={{ width: "100%" }}
-      className={classes.select}
-      MenuProps={{
-        maxHeight: 200,
-        paddingLeft: "20px",
-      }}
-
-      InputProps={{
-        classes: {
-          select: classes.InputProps,
-        },
-      }}
-
-      
-    >
-      <MenuItem value="" disabled>
-        Selectionner une langue
-      </MenuItem>
-      <MenuItem classes={{root: classes.menuItem}} value={10}>Français</MenuItem>
-      <MenuItem classes={{root: classes.menuItem}} value={20}>English</MenuItem>
-      {/* <MenuItem value={30}>Thirty</MenuItem> */}
-    </Select>
+    <Stack width={"100%"}>
+      <Select
+        labelId={"demo-simple-select-label"}
+        id={"demo-simple-select"}
+        value={value}
+        onChange={handleChange}
+        displayEmpty
+        variant="outlined"
+        style={{
+          flexGrow: 1,
+          margin: "10px",
+          color: theme.palette.secondary.light,
+          border: `.2px solid ${error ? theme.palette.error.main :theme.palette.secondary.light}`,
+        }}
+        className={classes.select}
+        inputProps={{
+          classes: {
+            icon: mode == "light" ? classes.icon : classes.iconDark,
+          },
+        }}
+        error={error}
+        onBlur={onBlur}
+        
+      >
+        <MenuItem value="" disabled>
+          {selectionTitle}
+        </MenuItem>
+        {data.map((item, index) => {
+          return (
+            <MenuItem
+              key={index}
+              classes={{ root: classes.menuItem }}
+              value={item.value}
+            >
+              {item.name}
+            </MenuItem>
+          );
+        })}
+      </Select>
+      <FormHelperText sx={{color:theme.palette.error.main , pl:3}}>{helperText}</FormHelperText>
+    </Stack>
   );
 };
 export default SelectMenue;

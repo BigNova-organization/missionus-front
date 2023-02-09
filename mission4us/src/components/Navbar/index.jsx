@@ -23,10 +23,8 @@ import {
 } from "@mui/material";
 import FlexBetween from "../FlexBetween";
 import { useDispatch, useSelector } from "react-redux";
-import { setMode } from "../../Redux";
+import { setMode } from "../../Redux/modeTheme";
 import { useNavigate } from "react-router-dom";
-
-
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -51,13 +49,18 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
       <Toolbar
         sx={{
           justifyContent: "space-between",
-          backgroundColor: theme.palette.primary.dark,
+          backgroundColor: theme.palette.neutral.main,
         }}
       >
         {/* LEFT SIDE */}
         <FlexBetween>
           <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            {!isSidebarOpen ? <MenuIcon /> : <ChevronLeft />}
+            {!isSidebarOpen ? <MenuIcon 
+            
+            sx={{color: theme.palette.secondary.light}}
+            /> : <ChevronLeft 
+            sx={{color: theme.palette.secondary.light}}
+            />}
           </IconButton>
         </FlexBetween>
 
@@ -75,7 +78,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined
                 sx={{
                   fontSize: "25px",
-                  color: theme.palette.primary.contrastText,
+                  color: theme.palette.secondary.light,
                 }}
               />
             )}
@@ -105,14 +108,14 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 <Typography
                   fontWeight="bold"
                   fontSize="0.9rem"
-                  sx={{ color: theme.palette.primary.contrastText }}
+                  sx={{ color:  theme.palette.secondary.light}}
                 >
                   {"reda bekka"}
                 </Typography>
                 <Typography
                   fontSize=".8rem"
                   sx={{
-                    color: theme.palette.primary.contrastText,
+                    color: theme.palette.secondary.light,
                     fontWeight: "500",
                   }}
                 >
@@ -121,7 +124,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               </Box>
               <ArrowDropDownOutlined
                 sx={{
-                  color: theme.palette.primary.contrastText,
+                  color: theme.palette.secondary.light,
                   fontSize: "25px",
                 }}
               />

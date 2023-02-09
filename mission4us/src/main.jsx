@@ -3,13 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { configureStore } from "@reduxjs/toolkit";
-import globalReducer from "./Redux"
-const store = configureStore({
-  reducer: {
-    global: globalReducer,
-  },
-});
+import store from "./Redux/store";
 
 
 ReactDOM.render(

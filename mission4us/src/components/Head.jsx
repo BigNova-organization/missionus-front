@@ -11,7 +11,7 @@ const Head = ({title}) => {
         padding: "25px",
         color: theme.palette.grey[100],
         fontSize: "22px",
-        backgroundColor: theme.palette.background.default 
+        backgroundColor: theme.palette.primary.contrastText
 
       }}
     >

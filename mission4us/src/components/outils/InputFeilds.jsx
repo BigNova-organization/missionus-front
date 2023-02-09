@@ -1,69 +1,92 @@
-import React from 'react'
-import {  Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import { UseHooks } from '../../pages/PageCv/Hooks';
-
-import { TextField } from '@material-ui/core';
-
+import React from "react";
+import { UseHooks } from "../../pages/PageCv/Hooks";
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@material-ui/core";
+import { useTheme } from "@mui/material";
+import { useSelector } from "react-redux";
+// import {TextField} from '@material-ui';
 const InputFeilds = (props) => {
-const {errors,id,value,onChange,autoComplete,label,type,multiline,rows,onBlur,select}=props
-  const { OnSubmit, initialState,validationSchema } = UseHooks();
+  const {
+    error,
+    id,
+    value,
+    onChange,
+    autoComplete,
+    label,
+    type,
+    multiline,
+    rows,
+    onBlur,
+    select,
+    margin,
+    required,
+    helperText,name,
+    handleBlur
+  } = props;
+  const { OnSubmit, initialState, validationSchema } = UseHooks();
+  const { mode } = useSelector((state) => state.global);
 
-  const classes = useStyles()
+  const classes = useStyles(mode);
+  const theme = useTheme();
 
   return (
-      <TextField
-          error={!!errors}
-          helperText={errors}
-          className={classes.inputStyles}
-          type={type}
-          variant="outlined"
-          margin="normal"
-          // required
-          id={id}
-          label={label}
-          autoComplete={autoComplete}
-          // autoFocus
-          // {...register("email")}
-          value={value}
-          onChange={onChange}
-          multiline={multiline}
-          minRows={rows}
-          onBlur={onBlur}
-          fullWidth
-          select={select}
-          
-             
-        >
-          {props.children}
-        </TextField>
-     
-  )
-}
+    <TextField
+    name={name}
+      error={error}
+      helperText={helperText}
+      className={mode == "dark" ? classes.inputStyles : classes.inputStylesDark}
+      type={type}
+      variant="outlined"
+      margin="normal"
+      id={id}
+      label={label}
+      autoComplete={autoComplete}
+      onChange={(val) => {
+        if(margin){
+          onChange(val.target.value);
+        }else{
 
-export default InputFeilds
+          onChange(val);
+        }
+      }}
+      multiline={multiline}
+      minRows={rows}
+      // onBlur={handleBlur}
 
+      onBlur={onBlur}
+      fullWidth
+      select={select}
+      style={{ margin: margin ? "0px" : "10px", }}
+      InputLabelProps={{
+        style: { color: theme.palette.secondary.light },
+      }}
+      required={required}
+      InputProps={{
+        style: { color: theme.palette.neutral.dark },
+      }}
+    />
+  );
+};
 
-import { makeStyles } from "@material-ui/core/styles";
+export default InputFeilds;
 
 const useStyles = makeStyles((theme) => ({
   inputStyles: {
-    // width: "100%",
-    margin:"10px",
-    flexGrow:1,
-    '&::placeholder': {
-        color: "#237a57",
-      },
+    flexGrow: 1,
+    color: "#FFF",
+    "&.MuiInputBase-input MuiOutlinedInput-input": {
+      color: theme.palette.primary.light,
+      backgroundColor: "#FFF",
+    },
     "& .Mui-focused": {
       color: "#237a57",
       fontWeight: "bold",
     },
 
+
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
         border: ".5px solid #ccc",
-        color: "#237a57",
-
       },
       "&:hover fieldset": {
         border: "2px solid #237a57",
@@ -71,19 +94,41 @@ const useStyles = makeStyles((theme) => ({
       "&.Mui-focused fieldset": {
         border: "2px solid #237a57",
       },
-   
     },
   },
 
-//   BoxImageGif: {
-//     width: "279.78px",
-//     height: "279.78px",
-//     backgroundImage: "url(" + background + ")",
-//     backgroundPosition: "center",
-//     backgroundSize: "cover",
-//     backgroundRepeat: "no-repeat",
-//   },
+  inputStylesDark: {
+    flexGrow: 1,
+    color: "#FFF",
+    "& .MuiInputBase-input MuiOutlinedInput-input": {
+      color: "#FFF",
+      backgroundColor: "#FFF",
+    },
+    "& .Mui-focused": {
+      color: "#FFF",
+      fontWeight: "bold",
+    },
+
+    "&.MuiFormLabel-root":{
+      color: "#FFF",
+    },
+
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        border: ".5px solid #ccc",
+      color: "#FFF",
+
+      },
+      "&:hover fieldset": {
+        border: "2px solid #237a57",
+      color: "#FFF",
+
+      },
+      "&.Mui-focused fieldset": {
+        border: "2px solid #237a57",
+      color: "#FFF",
+
+      },
+    },
+  },
 }));
-
-// export default useStyles;
-

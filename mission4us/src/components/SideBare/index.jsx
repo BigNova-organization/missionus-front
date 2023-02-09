@@ -134,7 +134,7 @@ const Header = ({ isSidebarOpen }) => {
     <>
       {isSidebarOpen && (
         <Box m="2rem 2rem 1.4rem 3rem">
-          <FlexBetween color={theme.palette.secondary.light}>
+          <FlexBetween color={theme.palette.primary.light}>
             <Box display="flex" alignItems="center" gap="0.5rem">
               <Typography variant="h4" fontWeight="bold">
                 MISSION4US

@@ -91,26 +91,31 @@ export const themeSettings = (mode) => {
   return {
     palette: {
       mode: mode,
-      ...(mode === "dark"
+      ...(mode === "light"
         ? {
             // palette values for dark mode
             primary: {
               ...tokensDark.primary,
               main: tokensDark.primary[500],
-              light: tokensDark.primary[500],
-              dark:tokensDark.secondary[700],
+              light: tokensDark.primary[100],
+              dark:tokensDark.grey[0],
+              contrastText:tokensDark.primary[900],
             },
             secondary: {
               ...tokensDark.secondary,
               main: tokensDark.secondary[500],
-              light: tokensDark.primary[100],
+              light: tokensDark.grey[100],
+              dark:tokensDark.grey[100],
+              contrastText:tokensDark.grey[100],
             },
             neutral: {
               ...tokensDark.grey,
-              main: tokensDark.grey[500],
+              ...tokensDark.thirdly,
+              main: tokensDark.thirdly[400],
+              dark: tokensDark.grey[0],
             },
             background: {
-              default: tokensDark.secondary[900],
+              default: tokensDark.primary[800],
               alt: tokensDark.primary[900],
             },
           }
@@ -119,21 +124,27 @@ export const themeSettings = (mode) => {
             primary: {
               ...tokensLight.primary,
               main: tokensDark.grey[50],
-              light: tokensDark.grey[100],
-              dark:tokensDark.grey[10],
+              light: tokensDark.primary[500],
+              dark:tokensDark.grey[0],
+              contrastText:tokensDark.primary[500],
+
 
             },
             secondary: {
               ...tokensLight.secondary,
+              ...tokensLight.grey,
               main: tokensDark.secondary[600],
               light: tokensDark.secondary[700],
+              dark:tokensDark.grey[0],
+              contrastText:tokensDark.grey[100],
             },
             neutral: {
               ...tokensLight.grey,
-              main: tokensDark.grey[500],
+              main: tokensDark.grey[0],
+              dark: tokensDark.thirdly[400],
             },
             background: {
-              default: tokensDark.primary[500],
+              default: tokensDark.grey[50],
               alt: tokensDark.grey[50],
             },
           }),
