@@ -145,123 +145,131 @@ const AddUser = ({open,onClose}) => {
                     selectionTitle=" Selectionner un utilisateur *"
                     data={options}
                     handleOpen={(val) => {
-                      setFieldValue("langue", val);
+                      setFieldValue("user", val);
                     }}
-                    error={errors.user && touched.user}
+                    error={errors.user && touched.user && errors.user}
                     helperText={
-                      errors.permis && touched.user ? errors.user : ""
+                      errors.user && touched.user ? errors.user : ""
                     }
                     value={values.user}
                     onBlur={() => {
-                      setFieldTouched("permis", true);
+                      setFieldTouched("user", true);
                     }}
-                    
+                    marginRight
                   />
 
                   <RowBox>
-                <div style={{flex:1,marginRight:10}}>
+                
                 <InputFeilds 
                   label={"Nom complet"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.nom}
                   id='nom'
+                  required={true}
+                  error={errors.nom && touched.nom}
+                  helperText={errors.nom && touched.nom ? errors.nom : ""}
                
                   />
-                  <div style={{color:'red',fontSize:12}}>
+                  {/* <div style={{color:'red',fontSize:12}}>
                   {errors.nom && touched.nom && errors.nom}
-                  </div>
-                </div>
+                  </div> */}
+                
                
-                <div style={{flex:1}}>
+               
                 <InputFeilds 
                   label={"Compte bancaire"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.compte}
-                  id='compte'
-                 
+                  value={values.nom}
+                  id='nom'
+                  // required={true}
+                  // error={errors.compte && touched.compte}
+                  // helperText={errors.compte && touched.compte ? errors.compte : ""}
                   />
-                  <div style={{color:'red',fontSize:12}}>
+                  {/* <div style={{color:'red',fontSize:12}}>
                   {errors.compte && touched.compte && errors.compte}
-                  </div>
-                </div>
+                  </div> */}
+                
                   
                 </RowBox>
              
                 <RowBox>
-                <div style={{flex:1,marginRight:10}}>
+                {/* <div style={{flex:1,marginRight:10}}> */}
                 <InputFeilds 
                   label={"N° téléphone "} 
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.tel}
                   id='tel'
+                  required={true}
+                  error={errors.tel && touched.tel}
+                  helperText={errors.tel && touched.tel ? errors.tel : ""}
                
                   />
-                  <div style={{color:'red',fontSize:12}}>
+                  {/* <div style={{color:'red',fontSize:12}}>
                   {errors.tel && touched.tel && errors.tel}
-                  </div>
-                </div>
+                  </div> */}
+                {/* </div> */}
                
-                <div style={{flex:1}}>
+                
                 <InputFeilds 
                   label={"Adresse"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.adresse}
                   id='adresse'
-                 
+                  required={true}
+                  error={errors.adresse && touched.adresse}
+                  helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
                   />
-                  <div style={{color:'red',fontSize:12}}>
-                  {errors.adresse && touched.adresse && errors.adresse}
-                  </div>
-                </div>
+               
+               
                   
                 </RowBox>
                  {values.user==='user1' &&(
                     <>
-                     <div style={{flex:1}}>
+                     
                     <InputFeilds 
                       label={"Registre de commecre"} 
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.registre}
                       id='registre'
-                     
+                      required={true}
+                      error={errors.registre && touched.registre}
+                      helperText={errors.registre && touched.registre ? errors.registre : ""}
+                      
                       />
-                      <div style={{color:'red',fontSize:12}}>
-                      {errors.registre && touched.registre && errors.registre}
-                      </div>
-                    </div>
+                     
+                    
                     <RowBox>
-                    <div style={{flex:1,marginRight:10}}>
+                    
                     <InputFeilds 
                       label={"NIS"} 
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.nis}
                       id='nis'
-                     
+                      required={true}
+                       error={errors.nis&& touched.nis}
+                      helperText={errors.nis && touched.nis ? errors.nis : ""}
                       />
-                      <div style={{color:'red',fontSize:12}}>
-                      {errors.nis && touched.nis && errors.nis}
-                      </div>
-                    </div>
+                  
+                   
 
-                    <div style={{flex:1,}}>
+                    
                     <InputFeilds 
                       label={"NIF"} 
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.nif}
                       id='nif'
-                     
+                      required={true}
+                      error={errors.nif && touched.nif}
+                      helperText={errors.nif && touched.nif ? errors.nif : ""}
                       />
-                      <div style={{color:'red',fontSize:12}}>
-                      {errors.nif && touched.nif && errors.nif}
-                      </div>
-                    </div>
+                   
                     </RowBox>
                     </>
                    
