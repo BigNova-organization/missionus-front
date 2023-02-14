@@ -28,6 +28,7 @@ import Jobs from "../pages/Jobs";
 import AddJob from "../pages/Jobs/fomAjout";
 import UpdateJob from "../pages/Jobs/formModif";
 import AddMission from "../pages/missions/formAjoutMission";
+import VisualiserCv from "../pages/VisualiserCv";
 
 const MainRoutes = () => (
   <Routes>
@@ -40,32 +41,58 @@ const MainRoutes = () => (
           <Route path="dashboard" element={<Dashboard />} />
           <Route
             path="tabs"
-            element={<Tabs props={{ userName: "BigNova web" }} />}
+            element={<Tabs props={{ userName: "BigNova" }} />}
           >
             <Route path="/tabs" element={<Navigate replace to="tab1" />} />
             <Route path="tab1" element={<Tab1 />} />
+
             <Route
               path="tab2"
               element={<ProtectedRoutes roleRequired="USER" />}
             >
               <Route path="/tabs/tab2" element={<Tab2 />} />
             </Route>
+
             <Route path="tab3" element={<Tab3 />} />
           </Route>
+
+          {/* <Route
+            path="PageCv"
+            element={<Tabs props={{ userName: "mission4us" }} />}
+          >
+            <Route path="/PageCv" element={<Navigate replace to="PageCv" />} />
+
+            <Route path="PageCv" element={<PageCv />} />
+
+            <Route
+              path="PageCv"
+              element={<ProtectedRoutes roleRequired="USER" />}
+            >
+              <Route path="/PageCv/VisualiserCv" element={<VisualiserCv />} />
+            </Route>
+
+            <Route
+              path="tab2"
+              element={<ProtectedRoutes roleRequired="USER" />}
+            >
+              <Route path="/tabs/tab2" element={<Tab2 />} />
+            </Route>
+
+            <Route path="tab3" element={<Tab3 />} />
+          </Route> */}
+
+          <Route path="PageCv" element={<PageCv />} />
+          <Route path="PageCv/VisualiserCv" element={<VisualiserCv />} />
           <Route path="parametre" element={<Parametre />} />
           <Route path="utilisateurs" element={<Users />} />
           <Route path="gestion" element={<Gestion />} />
           <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />
           <Route path="Missions" element={<Missions />} />
-          {/* <Route path="Missions/Add Mission" element={<AddMission/>} /> */}
-          <Route path="Page Cv" element={<PageCv />} />
           <Route path="profile" element={<Profile />} />
           <Route path="Jobs" element={<Jobs />} />
-          <Route path="Jobs/Add Job" element={<AddJob/>} />
-          <Route path="Jobs/Update Job" element={<UpdateJob/>} />
-
-          
+          <Route path="Jobs/Add Job" element={<AddJob />} />
+          <Route path="Jobs/Update Job" element={<UpdateJob />} />
         </Route>
       </Route>
     </Route>

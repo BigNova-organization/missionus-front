@@ -22,7 +22,7 @@ import {
   FileCopyOutlined,
   GestureOutlined,
   Work,
-  PersonOutlined
+  PersonOutlined,
 } from "@mui/icons-material";
 // import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
@@ -55,7 +55,7 @@ const navItems = [
     icon: <CalendarMonthOutlined />,
   },
   {
-    text: "Page Cv",
+    text: "PageCv",
     icon: <FileCopyOutlined />,
   },
   {
@@ -167,20 +167,28 @@ const ListItems = ({
 }) => {
   const theme = useTheme();
 
+  //   <Typography
+  //   key={text}
+  //   sx={{
+  //     m: !isSidebarOpen ? "2rem 0 1rem 1rem" : "2rem 0 1rem 3rem",
+  //     fontSize: !isSidebarOpen ? "11px" : "14px",
+  //    color: theme.palette.primary.light
+  //   }}
+  // >
+  //   {text}
+  // </Typography>
   return (
     <List>
       {navItems.map(({ text, icon }) => {
         if (!icon) {
           return (
-            <Typography
-              key={text}
-              sx={{
-                m: !isSidebarOpen ? "2rem 0 1rem 1rem" : "2rem 0 1rem 3rem",
-                fontSize: !isSidebarOpen ? "11px" : "14px",
-              }}
-            >
-              {text}
-            </Typography>
+            <PrimaryText
+              fontWeight={"500"}
+              fontSize={"25px"}
+              text={text}
+              color={theme.palette.secondary.light}
+              cursor
+            />
           );
         }
         const lcText = text.toLowerCase();
@@ -195,28 +203,76 @@ const ListItems = ({
               sx={{
                 backgroundColor:
                   active === lcText
-                    ? theme.palette.secondary[700]
-                    : "transparent",
+                    ? theme.palette.primary.light
+                    : theme,
                 color:
                   active === lcText
-                    ? theme.palette.grey[100]
-                    : theme.palette.primary[100],
+                    ? theme.palette.background.default
+                    : theme.palette.primary.light,
+                    "&:hover": {
+                      //you want this to be the same as the backgroundColor above
+                      backgroundColor:theme.palette.primary.light,
+                      color:theme.palette.background.default
+                  }
               }}
             >
               <ListItemIcon
                 sx={{
                   ml: !isSidebarOpen ? ".6rem" : "2rem",
-                  color:
-                    active === lcText
-                      ? theme.palette.grey[100]
-                      : theme.palette.primary[200],
+                //   color: active === lcText ?  theme.palette.background.default: theme.palette.primary.light,
+                //   backgroundColor:
+                //   active === lcText
+                //     ? theme.palette.primary.light
+                //     : theme,
+                //   "&:hover": {
+                //     //you want this to be the same as the backgroundColor above
+                //     backgroundColor:theme.palette.primary.light,
+                //     color:theme.palette.background.default
+                // }
+                // backgroundColor:
+                // active === lcText
+                //   ? theme.palette.primary.light
+                //   : theme,
+              color:
+                active === lcText
+                  ? theme.palette.background.default
+                  : theme.palette.primary.light,
+                   "&:hover": {
+                    //  you want this to be the same as the backgroundColor above
+                     backgroundColor:theme.palette.primary.light,
+                     color:theme.palette.background.default
+                 }
                 }}
               >
                 {icon}
               </ListItemIcon>
+              
+              
               <ListItemText primary={text} />
+
               {active === lcText && (
-                <ChevronRightOutlined sx={{ ml: "auto" }} />
+                <ChevronRightOutlined sx={{ ml: "auto",
+                // color: active === lcText ?  "#FFF": theme.palette.primary.light,
+              //   "&:hover": {
+              //     //you want this to be the same as the backgroundColor above
+              //     backgroundColor:theme.palette.primary.light,
+              //     color:theme.palette.primary.light
+              // }
+              // backgroundColor:
+              // active === lcText
+              //   ? theme.palette.primary.light
+              //   : theme,
+            // color:
+            //   active === lcText
+            //     ? theme.palette.background.default
+            //     : theme.palette.primary.light,
+                // "&:hover": {
+                  //you want this to be the same as the backgroundColor above
+                  // backgroundColor:theme.palette.primary.light,
+                  // color:theme.palette.background.default
+              // }
+              
+              }} />
               )}
             </ListItemButton>
           </ListItem>
@@ -226,44 +282,44 @@ const ListItems = ({
   );
 };
 
-const BottomItems = ({ isSidebarOpen }) => {
-  const theme = useTheme();
+// const BottomItems = ({ isSidebarOpen }) => {
+//   const theme = useTheme();
 
-  return (
-    <Box position="absolute" bottom="2rem" width="100%">
-      <Divider />
-      <Box
-        display={"flex"}
-        alignItems="center"
-        textTransform="none"
-        gap="1rem"
-        m={!isSidebarOpen ? "1rem 0rem 0 1rem" : "2rem 0rem 0 2rem"}
-      >
-        <Box
-          component="img"
-          alt="profile"
-          src={profileImage}
-          height="40px"
-          width="40px"
-          borderRadius="50%"
-          sx={{ objectFit: "cover" }}
-        />
-        <Box textAlign="left">
-          <Typography
-            fontWeight="bold"
-            fontSize="0.9rem"
-            sx={{ color: theme.palette.secondary[100] }}
-          >
-            {"Reda Bekka"}
-          </Typography>
-          <Typography
-            fontSize="0.8rem"
-            sx={{ color: theme.palette.secondary[200] }}
-          >
-            {"All permission"}
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
-  );
-};
+//   return (
+//     <Box position="absolute" bottom="2rem" width="100%">
+//       <Divider />
+//       <Box
+//         display={"flex"}
+//         alignItems="center"
+//         textTransform="none"
+//         gap="1rem"
+//         m={!isSidebarOpen ? "1rem 0rem 0 1rem" : "2rem 0rem 0 2rem"}
+//       >
+//         <Box
+//           component="img"
+//           alt="profile"
+//           src={profileImage}
+//           height="40px"
+//           width="40px"
+//           borderRadius="50%"
+//           sx={{ objectFit: "cover" }}
+//         />
+//         <Box textAlign="left">
+//           <Typography
+//             fontWeight="bold"
+//             fontSize="0.9rem"
+//             sx={{ color: theme.palette.secondary[100] }}
+//           >
+//             {"Reda Bekka"}
+//           </Typography>
+//           <Typography
+//             fontSize="0.8rem"
+//             sx={{ color: theme.palette.secondary[200] }}
+//           >
+//             {"All permission"}
+//           </Typography>
+//         </Box>
+//       </Box>
+//     </Box>
+//   );
+// };

@@ -52,8 +52,7 @@ const CustDrawer = ({
         sx={{
           width: drawerWidth,
           "& .MuiDrawer-paper": {
-            color: theme.palette.primary[100],
-            backgroundColor: theme.palette.background.alt,
+            backgroundColor: theme.palette.background.default,
             boxSixing: "border-box",
             borderWidth: isNonMobile ? 0 : "2px",
             width: drawerWidth,

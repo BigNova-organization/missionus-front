@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { fr } from "yup-locales";
 import useStyles from "../styles";
@@ -25,8 +26,11 @@ export function UseHooks() {
   const emailPhoneRegex =
     /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/;
 
+  const navigate = useNavigate();
   const OnSubmit = async (data) => {
-     console.log('ddd',data);
+    navigate("VisualiserCv");
+
+    console.log("ddd", data);
     // await dispatch({ type: "LOGIN", payload: data });
   };
 
@@ -50,7 +54,10 @@ export function UseHooks() {
     date: Yup.string().required("la date est requis"),
     adresse: Yup.string()
       .min(6, "L'adresse est trop court - doit être de 6 caractères minimum.")
-      .max(200, "L'adresse est trop long - doit être de 200 caractères maximum.")
+      .max(
+        200,
+        "L'adresse est trop long - doit être de 200 caractères maximum."
+      )
       .required("L'adresse est requis"),
     apropos: Yup.string()
       .min(6, "a propos est trop court - doit être de 6 caractères minimum.")
@@ -66,24 +73,21 @@ export function UseHooks() {
   });
   const classes = useStyles();
 
-
-
   const [authUser, setAuthUser] = useState(initialState);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     // console.log(`value`, value)
     setAuthUser({ ...authUser, [name]: value });
-  
-  console.log('authUser', authUser)
-  };
 
+    console.log("authUser", authUser);
+  };
 
   return {
     initialState,
     validationSchema,
     OnSubmit,
     classes,
-    handleChangeInput
+    handleChangeInput,
   };
 }

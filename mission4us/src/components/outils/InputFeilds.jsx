@@ -56,7 +56,7 @@ const InputFeilds = (props) => {
       onBlur={onBlur}
       fullWidth
       select={select}
-      style={{ margin: margin ? "0px" : "10px", }}
+      style={{ marginRight: margin ? "0px" : "20px", }}
       InputLabelProps={{
         style: { color: theme.palette.secondary.light },
       }}

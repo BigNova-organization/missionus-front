@@ -13,7 +13,6 @@ import {
   useTheme,
 } from "@mui/material";
 
-import "./styles.css";
 import Head from "../../components/Head";
 import Body from "../../components/Body";
 import { Formik } from "formik";
@@ -36,6 +35,7 @@ import { Person, VerifiedUser } from "@material-ui/icons";
 import { Person2Outlined } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { PrimaryText } from "../../components/utils/typography";
+import { useNavigate } from "react-router-dom";
 
 const PageCv = () => {
   const theme = useTheme();
@@ -101,12 +101,14 @@ const PageCv = () => {
 
   return (
     <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        flex: 1,
-        bgcolor: theme.palette.neutral.main,
-      }}
+      sx={
+        {
+          // width: "100%",
+          // height: "100%",
+          // flex: 1,
+          // bgcolor: theme.palette.neutral.main,
+        }
+      }
     >
       <Head title="Page Cv" />
       <Body>
@@ -121,15 +123,17 @@ const PageCv = () => {
           initialValues={initialState}
           validationSchema={validationSchema}
           onSubmit={(values, formikAction) => {
-            const { code } = values;
+            // const { code } = values;
 
-            let object = {
-              code,
-              token,
-              userName,
-            };
+            // let object = {
+            //   code,
+            //   token,
+            //   userName,
+            // };
             // console.log('log object ' ,  object )
             // dispatch(onConfirmCode(object));
+
+            OnSubmit();
           }}
         >
           {({
@@ -166,19 +170,9 @@ const PageCv = () => {
 
             return (
               <>
-                <Space space={"40px"} />
-                <Stack
-                  width={"100%"}
-                  // alignItems={"center"}
-                  spacing={3}
-                  pb={1}
-                  display="flex"
-                >
-                  <Stack
-                    direction={"column"}
-                    justifyContent="center"
-                    spacing={2.6}
-                  >
+                <Space space={"20px"} />
+                <Stack width={"100%"} spacing={3} display="flex">
+                  <Stack direction={"column"} justifyContent="center">
                     <PrimaryText
                       fontWeight={"500"}
                       fontSize={"25px"}
@@ -186,6 +180,8 @@ const PageCv = () => {
                       color={theme.palette.secondary.light}
                       cursor
                     />
+                    <Space space={"20px"} />
+
                     <Badge overlap="circular">{circle}</Badge>
 
                     <InputBase
@@ -367,9 +363,9 @@ const PageCv = () => {
                     selectionTitle="Selectionner une langue *"
                     data={listLangue}
                     handleOpen={(val) => {
-                      setFieldValue('langue',val)
+                      setFieldValue("langue", val);
                     }}
-                    error={errors.langue  && touched.langue }
+                    error={errors.langue && touched.langue}
                     helperText={
                       errors.permis && touched.langue ? errors.langue : ""
                     }
@@ -377,13 +373,13 @@ const PageCv = () => {
                     onBlur={() => {
                       setFieldTouched("permis", true);
                     }}
+                    marginRight
                   />
                   <SelectMenue
                     selectionTitle="Selectionner une catégorie *"
                     data={listPermis}
                     handleOpen={(val) => {
-                      setFieldValue('permis',val)
-
+                      setFieldValue("permis", val);
                     }}
                     error={errors.permis && touched.permis}
                     helperText={
@@ -393,6 +389,7 @@ const PageCv = () => {
                     onBlur={() => {
                       setFieldTouched("permis", true);
                     }}
+                    marginRight
 
                   />
                 </Box>
@@ -414,7 +411,9 @@ const PageCv = () => {
                     titleModel={"Ajouter une expérience"}
                     error={errors.experience && touched.experience}
                     helperText={
-                      errors.experience && touched.experience ? errors.experience : ""
+                      errors.experience && touched.experience
+                        ? errors.experience
+                        : ""
                     }
                     onBlur={() => {
                       setFieldTouched("experience", true);
@@ -431,7 +430,9 @@ const PageCv = () => {
                     titleModel={"Ajouter une Formation"}
                     error={errors.formation && touched.formation}
                     helperText={
-                      errors.formation && touched.formation ? errors.formation : ""
+                      errors.formation && touched.formation
+                        ? errors.formation
+                        : ""
                     }
                     onBlur={() => {
                       setFieldTouched("formation", true);
@@ -457,7 +458,9 @@ const PageCv = () => {
                     titleModel={"Ajouter une expérience"}
                     error={errors.competence && touched.competence}
                     helperText={
-                      errors.competence && touched.competence ? errors.competence : ""
+                      errors.competence && touched.competence
+                        ? errors.competence
+                        : ""
                     }
                     onBlur={() => {
                       setFieldTouched("competence", true);
@@ -483,7 +486,6 @@ const PageCv = () => {
                   sousTitre={"Réseaux sociaux non disponible"}
                   addToCv={createRsociaux}
                   titleModel={"Ajouter un réseaux sociaux"}
-
                   error={errors.reseaux && touched.reseaux}
                   helperText={
                     errors.reseaux && touched.reseaux ? errors.reseaux : ""
@@ -492,7 +494,7 @@ const PageCv = () => {
                     setFieldTouched("reseaux", true);
                   }}
                   setFieldValue={setFieldValue}
-                    name={"reseaux"}
+                  name={"reseaux"}
                 />
                 <Space space={30} />
 
@@ -527,7 +529,8 @@ const PageCv = () => {
                       color: theme.palette.grey[100],
                       bgcolor: theme.palette.grey[600],
                     }}
-                    onClick={handleSubmit}
+                    // onClick={handleSubmit}
+                    onClick={OnSubmit}
                   >
                     Visualiser
                   </Button>

@@ -9,13 +9,16 @@ const Head = ({title}) => {
     <Box
       sx={{
         padding: "25px",
-        color: theme.palette.grey[100],
+        color: theme.palette.primary.light,
         fontSize: "22px",
-        backgroundColor: theme.palette.primary.contrastText
+        backgroundColor: theme.palette.background.default
 
       }}
+
     >
       {title}
+
+ 
     </Box>
   );
 };

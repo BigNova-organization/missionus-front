@@ -17,11 +17,17 @@ import DatePickers from '../../../components/datePicker';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
 import {MenuItem } from "@material-ui/core"
+import SelectMenue from '../../../components/outils/SelectMenue';
 
+// const options = [
+//   // { value: '', label: '' },
+//   { value: 'user1', label: 'Fournisseur' },
+//   { value: 'user2', label: 'Client' },
+// ]
 const options = [
   // { value: '', label: '' },
-  { value: 'user1', label: 'Fournisseur' },
-  { value: 'user2', label: 'Client' },
+  { value: 'user1', name: 'Fournisseur' },
+  { value: 'user2', name: 'Client' },
 ]
 
 const optionsJob = [
@@ -113,7 +119,7 @@ const AddUser = ({open,onClose}) => {
        }) => (
          <form onSubmit={handleSubmit} >
                    
-                <div style={{flex:1}}>
+                {/* <div style={{flex:1}}>
                 <CustomSelect
                   id={"user"}
                   name={"user"}
@@ -134,7 +140,23 @@ const AddUser = ({open,onClose}) => {
                   <div style={{color:'red',fontSize:12,float:'left'}}>
                   {errors.user && touched.user && errors.user}
                   </div>
-               </div>
+               </div> */}
+                     <SelectMenue
+                    selectionTitle=" Selectionner un utilisateur *"
+                    data={options}
+                    handleOpen={(val) => {
+                      setFieldValue("langue", val);
+                    }}
+                    error={errors.user && touched.user}
+                    helperText={
+                      errors.permis && touched.user ? errors.user : ""
+                    }
+                    value={values.user}
+                    onBlur={() => {
+                      setFieldTouched("permis", true);
+                    }}
+                    
+                  />
 
                   <RowBox>
                 <div style={{flex:1,marginRight:10}}>

@@ -77,7 +77,6 @@ export default function ChipsArray({
     <Box
       component={"div"}
       sx={{
-        paddingLeft: "10px",
         width: "100%",
         cursor: "pointer",
       }}
@@ -164,7 +163,7 @@ export default function ChipsArray({
           </Box>
         )}
       </Box>
-      <FormHelperText sx={{ color: themes.palette.error.main, pl: 0 }}>
+      <FormHelperText sx={{ color: themes.palette.error.main, pl: 0 , fontSize:"14px" }}>
         {helperText}
       </FormHelperText>
 

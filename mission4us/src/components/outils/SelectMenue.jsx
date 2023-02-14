@@ -40,7 +40,8 @@ const SelectMenue = ({
   error,
   helperText,
   value,
-  onBlur
+  onBlur,
+  marginRight
 }) => {
   const theme = useTheme();
   const { mode } = useSelector((state) => state.global);
@@ -60,7 +61,7 @@ const SelectMenue = ({
         variant="outlined"
         style={{
           flexGrow: 1,
-          margin: "10px",
+           marginRight: marginRight ? "20px" : "0px",
           color: theme.palette.secondary.light,
           border: `.2px solid ${error ? theme.palette.error.main :theme.palette.secondary.light}`,
         }}
