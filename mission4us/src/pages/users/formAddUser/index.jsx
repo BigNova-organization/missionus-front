@@ -42,7 +42,6 @@ const AddUser = ({open,onClose}) => {
     nom:'',
     user:'',
     tel:'',
-    email:'',
     adresse:'',
     compte:'',
     registre:'',
@@ -58,8 +57,6 @@ const AddUser = ({open,onClose}) => {
       .required('Utilisateur est obligatoire'),
     tel: Yup.string()
       .required('Téléphone est obligatoire'),
-    email: Yup.mixed()
-      .required('Email est obligatoire'),
     adresse: Yup.string()
       .required('Adresse est obligatoire'),
     compte: Yup.string(),
@@ -81,14 +78,14 @@ const AddUser = ({open,onClose}) => {
        
       }}
     >
-      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:'#237a57'}}>
+      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:theme.palette.background.default, color: theme.palette.primary.light,}}>
       <Tooltip title="Fermer">
-      <IconButton aria-label="close" style={{color:'white'}} onClick={onClose}>
+      <IconButton aria-label="close" style={{ color: theme.palette.primary.light,}} onClick={onClose}>
         <CloseIcon />
       </IconButton>
        </Tooltip>            
       <Typography  variant={"h4"} style={{paddingLeft:15}}> Ajouter un utilisateur {" "}</Typography>
-                   
+      
 
       </div>
       
@@ -114,7 +111,8 @@ const AddUser = ({open,onClose}) => {
          handleBlur,
          handleSubmit,
          isSubmitting,
-         setFieldValue
+         setFieldValue,
+         setFieldTouched,
          /* and other goodies */
        }) => (
          <form onSubmit={handleSubmit} >
@@ -169,11 +167,10 @@ const AddUser = ({open,onClose}) => {
                   required={true}
                   error={errors.nom && touched.nom}
                   helperText={errors.nom && touched.nom ? errors.nom : ""}
+                  
                
                   />
-                  {/* <div style={{color:'red',fontSize:12}}>
-                  {errors.nom && touched.nom && errors.nom}
-                  </div> */}
+                
                 
                
                
@@ -212,7 +209,7 @@ const AddUser = ({open,onClose}) => {
                   </div> */}
                 {/* </div> */}
                
-                
+              
                 <InputFeilds 
                   label={"Adresse"} 
                   onChange={handleChange}
@@ -229,7 +226,7 @@ const AddUser = ({open,onClose}) => {
                 </RowBox>
                  {values.user==='user1' &&(
                     <>
-                     
+                    <div style={{marginRight:20}}>
                     <InputFeilds 
                       label={"Registre de commecre"} 
                       onChange={handleChange}
@@ -239,11 +236,13 @@ const AddUser = ({open,onClose}) => {
                       required={true}
                       error={errors.registre && touched.registre}
                       helperText={errors.registre && touched.registre ? errors.registre : ""}
+                     
                       
                       />
                      
-                    
+                     </div>
                     <RowBox>
+                      
                     
                     <InputFeilds 
                       label={"NIS"} 
@@ -283,7 +282,7 @@ const AddUser = ({open,onClose}) => {
                 <Button variant="contained" 
                   endIcon={<SendIcon />} 
                   size='medium' 
-                  style={{backgroundColor:'#237a57'}}
+                  style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
                   type="submit" 
                   disabled={isSubmitting}
                   sx={{marginRight:2}}

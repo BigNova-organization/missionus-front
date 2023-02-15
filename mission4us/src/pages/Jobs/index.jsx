@@ -36,8 +36,8 @@ const useButtonStyles = makeStyles((theme) => ({
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#237a57",
-    color: theme.palette.common.white,
+    backgroundColor:theme.palette.background.default,
+    color: theme.palette.primary.light
   },
   [`&.${tableCellClasses.body}`]: {
     color: theme.palette.common.black,
@@ -138,12 +138,14 @@ const Jobs = () => {
 
       }}
     >
-      <div><p>Jobs</p></div>
+     <div style={{backgroundColor:theme.palette.background.default, color: theme.palette.primary.light}}>
+        <p>Jobs</p>
+      </div>
       
       <Button variant="contained" 
       endIcon={<AddIcon />} 
       size='medium' 
-      style={{backgroundColor:'#237a57'}}
+      style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
       onClick={()=>navigate("Add Job")  }
       >
         Ajouter
@@ -219,7 +221,8 @@ const Jobs = () => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        style={{backgroundColor:'#34b782'}}
+        style={{backgroundColor:theme.palette.background.alt,
+          color: theme.palette.primary.light}}
       />
     </Paper>
        

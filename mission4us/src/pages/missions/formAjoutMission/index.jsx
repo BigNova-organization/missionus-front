@@ -14,17 +14,23 @@ import DatePickers from "../../../components/datePicker";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import { MenuItem } from "@material-ui/core";
+import SelectMenue from "../../../components/outils/SelectMenue";
 
+// const options = [
+//   { value: "client1", label: "Reda Bekka" },
+//   { value: "client2", label: "Samia Kh" },
+// ];
 const options = [
-  { value: "client1", label: "Reda Bekka" },
-  { value: "client2", label: "Samia Kh" },
+  { value: "client1", name: "Reda Bekka" },
+  { value: "client2", name: "Samia Kh" },
 ];
 
 const optionsJob = [
-  { value: "job1", label: "Plombier" },
-  { value: "job2", label: "Ingenieur en dev" },
+  { value: "job1", name: "Plombier" },
+  { value: "job2", name: "Ingenieur en dev" },
 ];
 const AddMission = ({ open, onClose }) => {
+  const theme = useTheme();
   const initialValues = {
     intitule: "",
     details: "",
@@ -61,26 +67,15 @@ const AddMission = ({ open, onClose }) => {
         height: "100%",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "20px 0 20px 20px",
-          backgroundColor: "#237a57",
-        }}
-      >
-        <Tooltip title="Fermer">
-          <IconButton
-            aria-label="close"
-            style={{ color: "white" }}
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
-        <Typography variant={"h4"} style={{ paddingLeft: 15 }}>
-          Ajouter une mission{" "}
-        </Typography>
+      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:theme.palette.background.default, color: theme.palette.primary.light,}}>
+      <Tooltip title="Fermer">
+      <IconButton aria-label="close" style={{ color: theme.palette.primary.light,}} onClick={onClose}>
+        <CloseIcon />
+      </IconButton>
+       </Tooltip>            
+      <Typography  variant={"h4"} style={{paddingLeft:15}}> Ajouter une mission {" "}</Typography>
+      
+
       </div>
 
       <Body>
@@ -104,23 +99,25 @@ const AddMission = ({ open, onClose }) => {
             handleSubmit,
             isSubmitting,
             setFieldValue,
+            setFieldTouched
             /* and other goodies */
           }) => (
             <form onSubmit={handleSubmit}>
-              <div style={{ flex: 1 }}>
+              <div style={{marginRight:20}}>
                 <InputFeilds
                   label={"Intitulé"}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.intitule}
                   id="intitule"
+                  required={true}
+                  error={errors.intitule && touched.intitule}
+                  helperText={errors.intitule && touched.intitule ? errors.intitule : ""}
                 />
-                <div style={{ color: "red", fontSize: 15 }}>
-                  {errors.intitule && touched.intitule && errors.intitule}
-                </div>
+              
               </div>
 
-              <div style={{ flex: 1 }}>
+              {/* <div style={{ flex: 1 }}>
                 <CustomSelect
                   id={"client"}
                   name={"client"}
@@ -140,61 +137,78 @@ const AddMission = ({ open, onClose }) => {
                 <div style={{ color: "red", fontSize: 15 }}>
                   {errors.client && touched.client && errors.client}
                 </div>
-              </div>
+              </div> */}
+              <SelectMenue
+                    selectionTitle="  Selectionner un client *"
+                    data={options}
+                    handleOpen={(val) => {
+                      setFieldValue("client", val);
+                    }}
+                    error={errors.client && touched.client && errors.client}
+                    helperText={
+                      errors.client && touched.client ? errors.client : ""
+                    }
+                    value={values.client}
+                    onBlur={() => {
+                      setFieldTouched("client", true);
+                    }}
+                    marginRight
+                  />
               <RowBox>
-                <div style={{ flex: 1, marginRight: 10 }}>
+                
                   <InputFeilds
                     label={"N° téléphone "}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.tel}
                     id="tel"
+                    required={true}
+                    error={errors.tel && touched.tel}
+                    helperText={errors.tel && touched.tel ? errors.tel : ""}
                   />
-                  <div style={{ color: "red", fontSize: 15 }}>
-                    {errors.tel && touched.tel && errors.tel}
-                  </div>
-                </div>
+             
 
-                <div style={{ flex: 1 }}>
+                
                   <InputFeilds
                     label={"Email"}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
                     id="email"
+                    required={true}
+                    error={errors.email && touched.email}
+                    helperText={errors.email && touched.email ? errors.email : ""}
+                   
                   />
-                  <div style={{ color: "red", fontSize: 15 }}>
-                    {errors.email && touched.email && errors.email}
-                  </div>
-                </div>
+               
               </RowBox>
               <RowBox>
-                <div style={{ flex: 1, marginRight: 10 }}>
+                
                   <InputFeilds
                     label={"Adresse"}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.adresse}
                     id="adresse"
+                    required={true}
+                    error={errors.adresse && touched.adresse}
+                    helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
                   />
-                  <div style={{ color: "red", fontSize: 15 }}>
-                    {errors.adresse && touched.adresse && errors.adresse}
-                  </div>
-                </div>
-                <div style={{ flex: 1 }}>
+                
+                
                   <InputFeilds
                     label={"Fourchette de prix"}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.prix}
                     id="prix"
+                    error={errors.adresse && touched.adresse}
+                    helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
+                   
                   />
-                  <div style={{ color: "red", fontSize: 15 }}>
-                    {errors.prix && touched.prix && errors.prix}
-                  </div>
-                </div>
+                
               </RowBox>
-
+{/* 
               <CustomSelect
                 id={"job"}
                 name={"job"}
@@ -213,38 +227,59 @@ const AddMission = ({ open, onClose }) => {
 
               <div style={{ color: "red", fontSize: 15 }}>
                 {errors.job && touched.job && errors.job}
-              </div>
+              </div> */}
+                <SelectMenue
+                    selectionTitle="  Selectionner un job *"
+                    data={optionsJob}
+                    handleOpen={(val) => {
+                      setFieldValue("job", val);
+                    }}
+                    error={errors.job && touched.job && errors.job}
+                    helperText={
+                      errors.job && touched.job ? errors.job : ""
+                    }
+                    value={values.job}
+                    onBlur={() => {
+                      setFieldTouched("job", true);
+                    }}
+                    marginRight
+                  />
 
               <Space space={20} />
 
               <RowBox>
-                {/* <div style={{flex:1}}>
-                    
-                  </div> */}
-                <div style={{ flex: 1, marginRight: 10 }}>
+  
+                
                   <DatePickers
                     id="datedeb"
-                    label={"Date Debut"}
+                    label={"Date Debut *"}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.datedeb}
+                    error={errors.datedeb && touched.datedeb && errors.datedeb}
+                    helperText={
+                      errors.datedeb && touched.datedeb ? errors.datedeb : ""
+                    }
+                   
                   />
-                  <div style={{ color: "red", fontSize: 15 }}>
-                    {errors.datedeb && touched.datedeb && errors.datedeb}
-                  </div>
-                </div>
-                <div style={{ flex: 1 }}>
+                
+                
+                <Space space={20} />
                   <DatePickers
                     id="datefin"
                     label={"Date Fin"}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.datefin}
+                    error={errors.datefin && touched.datefin && errors.datefin}
+                    helperText={
+                      errors.datefin && touched.datefin ? errors.datefin : ""}
+                      
                   />
-                </div>
+               
               </RowBox>
 
-              <InputFeilds
+              {/* <InputFeilds
                 label={"Détails"}
                 multiline={true}
                 rows={3}
@@ -252,10 +287,31 @@ const AddMission = ({ open, onClose }) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.details}
-              />
-              <div style={{ color: "red", fontSize: 15 }}>
-                {errors.details && touched.details && errors.details}
-              </div>
+                error={errors.details && touched.details}
+                helperText={errors.details && touched.details ? errors.details : ""}
+                marginRight
+              /> */}
+              <div style={{marginRight:20}}>
+              <InputFeilds
+                    label={"Détails"}
+                    multiline={true}
+                    rows={4}
+                    id="details"
+                    error={errors.details && touched.details}
+                    helperText={
+                      errors.details && touched.details ? errors.details : ""
+                    }
+                    value={values.details}
+                    onChange={handleChange}
+                    autoFocus={true}
+                  
+                    name={"details"}
+                    onBlur={() => {
+                      setFieldTouched("details", true);
+                    }}
+                    
+                  />
+           </div>
 
               <Space space={20} />
 
@@ -264,7 +320,7 @@ const AddMission = ({ open, onClose }) => {
                   variant="contained"
                   endIcon={<SendIcon />}
                   size="medium"
-                  style={{ backgroundColor: "#237a57" }}
+                  style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
                   type="submit"
                   disabled={isSubmitting}
                   sx={{ marginRight: 2 }}
@@ -281,6 +337,7 @@ const AddMission = ({ open, onClose }) => {
                   Annuler
                 </Button>
               </div>
+              <Space space={20} />
             </form>
           )}
         </Formik>

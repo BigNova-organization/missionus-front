@@ -71,26 +71,28 @@ const AddJob = () => {
          <form onSubmit={handleSubmit}>
                 <Space space={20} />
                 
-                  <InputFeilds 
-                  label={"Nom"} 
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.nom}
-                  id='nom'
+                <InputFeilds
+                    label={"Nom"}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.nom}
+                    id="nom"
+                    required={true}
+                    error={errors.nom && touched.nom}
+                    helperText={errors.nom && touched.nom ? errors.nom : ""}
                   />
-                    <div style={{color:'red',fontSize:15}}>
-                  {errors.nom && touched.nom && errors.nom}
-                  </div>
+                 
                   <InputFeilds 
                   label={"Prénom"}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.prenom} 
                   id='prenom'
+                  required={true}
+                    error={errors.prenom && touched.prenom}
+                    helperText={errors.prenom && touched.prenom ? errors.prenom : ""}
                   />
-                    <div style={{color:'red',fontSize:15}}>
-                  {errors.prenom && touched.prenom && errors.prenom}
-                  </div>
+                 
                 
                 
                   <InputFeilds 
@@ -99,10 +101,11 @@ const AddJob = () => {
                   onBlur={handleBlur}
                   value={values.secteur}
                   id='secteur'
+                  required={true}
+                    error={errors.secteur && touched.secteur}
+                    helperText={errors.secteur && touched.secteur ? errors.secteur : ""}
                   />
-                    <div style={{color:'red',fontSize:15}}>
-                  {errors.secteur && touched.secteur && errors.secteur}
-                  </div>
+                  
                 
                
                 
@@ -114,25 +117,29 @@ const AddJob = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.description}
+                    required={true}
+                    error={errors.description && touched.description}
+                    helperText={errors.description && touched.description ? errors.description : ""}
                    
                   />
-                    <div style={{color:'red',fontSize:15}}>
-                  {errors.description && touched.description && errors.description}
-                  </div>
+               
                 
                 <Space space={20} />
 
-         
-                 <Button variant="contained" 
-                  endIcon={<SendIcon />} 
-                  size='medium' 
-                  style={{backgroundColor:'#237a57'}}
-                  type="submit" 
+                <div style={{ float: "right" }}>
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  size="medium"
+                  style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
+                  type="submit"
                   disabled={isSubmitting}
-                  >
-                    Valider
-                  </Button>
-                
+                 
+                >
+                  Valider
+                </Button>
+                </div>
+                <Space space={20} />
                  </form>
            )}
        </Formik>

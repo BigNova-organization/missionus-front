@@ -28,7 +28,7 @@
   }
   
   .drawer {
-    top: 65px;
+    top: 0;
     flex: 1 0 auto;
     height: 100% !important;
     display: flex;
@@ -37,9 +37,11 @@
     position: fixed;
     overflow-y: auto;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border-top-left-radius: 10px;
     background-color: #ffffff;
-    width: 600px;
+    width: 500px;
     flex-shrink: 0;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;

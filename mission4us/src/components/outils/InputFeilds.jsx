@@ -21,7 +21,8 @@ const InputFeilds = (props) => {
     margin,
     required,
     helperText,name,
-    handleBlur
+    handleBlur,
+    marginRight
   } = props;
   const { OnSubmit, initialState, validationSchema } = UseHooks();
   const { mode } = useSelector((state) => state.global);

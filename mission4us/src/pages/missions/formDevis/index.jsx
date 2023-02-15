@@ -19,14 +19,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
 import RadionButton from '../../../components/radioButton';
 import { RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
-const options = [
-  // { value: '', label: '' },
-  { value: 'client1', label: 'Reda Bekka' },
-  { value: 'client2', label: 'Samia Kh' },
- 
 
-
-]
 const DevisMission = ({open,onClose}) => {
   const theme = useTheme();
  
@@ -59,23 +52,19 @@ const DevisMission = ({open,onClose}) => {
        
       }}
     >
-
-      {/* <Head title="Ajouter une Mission" style={{backgroundColor:'black'}}/> */}
-      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:'#237a57'}}>
+ <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:theme.palette.background.default, color: theme.palette.primary.light,}}>
       <Tooltip title="Fermer">
-      <IconButton aria-label="close" style={{color:'white'}} onClick={onClose}>
+      <IconButton aria-label="close" style={{ color: theme.palette.primary.light,}} onClick={onClose}>
         <CloseIcon />
       </IconButton>
        </Tooltip>            
-      <Typography  variant={"h4"} style={{paddingLeft:15,color:'white'}}> Devis de la mission</Typography>
-                   
+      <Typography  variant={"h4"} style={{paddingLeft:15}}> Devis de la mission {" "}</Typography>
+      
 
       </div>
       
       <Body >
-      {/* <Typography color={theme.palette.secondary[700]} variant={"h1"}>
-          Ajouter un job {" "}
-      </Typography> */}
+     
       <Formik
       
        initialValues={initialValues}
@@ -96,58 +85,62 @@ const DevisMission = ({open,onClose}) => {
          handleBlur,
          handleSubmit,
          isSubmitting,
-         setFieldValue
+         setFieldValue,
+         
          /* and other goodies */
        }) => (
          <form onSubmit={handleSubmit} >
                 
                 
                
-                <div style={{flex:1}}>
+                <div style={{marginRight:20}}>
                 <InputFeilds 
-                  label={"Fourchette de prix"} 
+                  label={"Fourchette du prix"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.prix}
                   id='prix'
+                  required={false}
+                  error={errors.prix && touched.prix}
+                  helperText={errors.prix && touched.prix ? errors.prix : ""}
                   
-                 
+               
                   />
-                  <div style={{color:'red',fontSize:15}}>
-                  {errors.prix && touched.prix && errors.prix}
-                  </div>
-                </div>
+               </div>
+                
 
                   <Space space={20} />
                
                    <RowBox>
-                  {/* <div style={{flex:1}}>
-                    
-                  </div> */}
-                   <div style={{flex:1,marginRight:10}}>
-                  <DatePickers
-                  id='datedeb'
-                  label={"Date Debut"}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.datedeb}
+                 
+                   
+                   <DatePickers
+                    id="datedeb"
+                    label={"Date Debut *"}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.datedeb}
+                    error={errors.datedeb && touched.datedeb && errors.datedeb}
+                    helperText={
+                      errors.datedeb && touched.datedeb ? errors.datedeb : ""
+                    }
+                   
                   />
-                  <div style={{color:'red',fontSize:15}}>
-                  {errors.datedeb && touched.datedeb && errors.datedeb}
-                  </div>
-                  </div>
-                  <div style={{flex:1}}>
+                
+                
+                <Space space={20} />
                   <DatePickers
-                  id='datefin'
-                  label={"Date Fin"}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.datefin}
+                    id="datefin"
+                    label={"Date Fin"}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.datefin}
+                    error={errors.datefin && touched.datefin && errors.datefin}
+                    helperText={
+                      errors.datefin && touched.datefin ? errors.datefin : ""}
+                      
                   />
-                   <div style={{color:'red',fontSize:15}}>
-                  {errors.datefin && touched.datefin && errors.datefin}
-                  </div>
-                  </div>
+                 
                   </RowBox> 
 
                   <Field name="confirmdate">
@@ -155,31 +148,32 @@ const DevisMission = ({open,onClose}) => {
                         <RadioGroup {...field}>
                         <FormControlLabel
                             value="option1"
-                            control={<Radio  style={{color:'#237a57'}}/>}
+                            control={<Radio  style={{color: theme.palette.primary.light}}/>}
                             label="Je Confirme la date de debut"
-                            style={{color:'black'}}
+                            style={{color:theme.palette.primary.contrastText}}
                         />
                     
                         </RadioGroup>
                     )}
                 </Field>
                     {touched.confirmdate && errors.confirmdate ? (
-                    <div style={{color:'red',fontSize:15}}>{errors.confirmdate}</div>
+                    <div style={{color:'red',fontSize:13}}>{errors.confirmdate}</div>
                     ) : null}
                   
                 <Space space={20} />
 
                 <div style={{float:'right'}}>
-                <Button variant="contained" 
-                  endIcon={<SendIcon />} 
-                  size='medium' 
-                  style={{backgroundColor:'#237a57'}}
-                  type="submit" 
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  size="medium"
+                  style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
+                  type="submit"
                   disabled={isSubmitting}
-                  sx={{marginRight:2}}
-                  >
-                    Valider
-                  </Button>
+                  sx={{ marginRight: 2 }}
+                >
+                  Valider
+                </Button>
                 <Button variant="contained" 
                   endIcon={<CloseIcon />} 
                   size='medium' 

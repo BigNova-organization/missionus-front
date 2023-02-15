@@ -65,27 +65,16 @@ const UpdateJob = () => {
        }) => (
          <form onSubmit={handleSubmit}>
                 <Space space={20} />
-              
-     
-                  <InputFeilds 
-                  label={"Nom"} 
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.nom}
-                  id='nom'
+                <InputFeilds
+                    label={"Nom"}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.nom}
+                    id="nom"
+                    required={true}
+                    error={errors.nom && touched.nom}
+                    helperText={errors.nom && touched.nom ? errors.nom : ""}
                   />
-                  {/* {errors.nom && touched.nom && errors.nom ? (
-                    <div style={{color:'red',fontSize:15}}>{errors.nom}</div>
-                  ) : null} */}
-                  <div style={{color:'red',fontSize:15}}>
-                  {errors.nom && touched.nom && errors.nom}
-                  </div>
-                  
-                  
-                
-                  <Space space={20} />
-               
-                
                   <InputFeilds
                     label={"Description"}
                     multiline={true}
@@ -94,25 +83,27 @@ const UpdateJob = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.description}
-                  //   helperText={touched.description ? errors.description : ""}
-                  // error={touched.description && Boolean(errors.description)}
+                    required={true}
+                    error={errors.description && touched.description}
+                    helperText={errors.description && touched.description ? errors.description : ""}
                    
                   />
-                  <div style={{color:'red',fontSize:15}}>
-                  {errors.description && touched.description && errors.description}
-                  </div>
                 
                 <Space space={20} />
-
-                <Button variant="contained" 
-                  endIcon={<SendIcon />} 
-                  size='medium' 
-                  style={{backgroundColor:'#237a57'}}
-                  type="submit" 
+                <div style={{ float: "right" }}>
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  size="medium"
+                  style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
+                  type="submit"
                   disabled={isSubmitting}
-                  >
-                    Valider
-                  </Button>
+                 
+                >
+                  Valider
+                </Button>
+                </div>
+                <Space space={20} />
                  </form>
            )}
        </Formik>

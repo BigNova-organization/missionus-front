@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useTheme } from "@mui/material";
 
 const style = {
   position: 'absolute',
@@ -19,7 +20,7 @@ const style = {
 
 export default function ModalDelete({open,onClose,title}) {
  
-
+  const theme = useTheme();
   return (
     <div>
       {/* <Button onClick={handleOuvrir}>Open modal</Button> */}
@@ -36,7 +37,7 @@ export default function ModalDelete({open,onClose,title}) {
           <div style={{paddingTop:20, float:'right'}}>
           <Button variant="contained" 
           size='medium' 
-          color='primary'
+          style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
           sx={{marginRight:3}}
           
           >
