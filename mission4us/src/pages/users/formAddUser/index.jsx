@@ -19,22 +19,14 @@ import IconButton from "@material-ui/core/IconButton";
 import {MenuItem } from "@material-ui/core"
 import SelectMenue from '../../../components/outils/SelectMenue';
 
-// const options = [
-//   // { value: '', label: '' },
-//   { value: 'user1', label: 'Fournisseur' },
-//   { value: 'user2', label: 'Client' },
-// ]
+
 const options = [
   // { value: '', label: '' },
   { value: 'user1', name: 'Fournisseur' },
   { value: 'user2', name: 'Client' },
 ]
 
-const optionsJob = [
-  // { value: '', label: '' },
-  { value: 'job1', label: 'Plombier' },
-  { value: 'job2', label: 'Ingenieur en dev' },
-]
+
 const AddUser = ({open,onClose}) => {
   const theme = useTheme();
  
@@ -50,7 +42,7 @@ const AddUser = ({open,onClose}) => {
     
   }
 
-  const validationSchema=Yup.object().shape({
+  const validationSchema1=Yup.object().shape({
     nom: Yup.string()
       .required('Nom est obligatoire'),
     user: Yup.string()
@@ -60,6 +52,25 @@ const AddUser = ({open,onClose}) => {
     adresse: Yup.string()
       .required('Adresse est obligatoire'),
     compte: Yup.string(),
+    // registre: Yup.string()
+    //     .required('Registre de commerce est obligatoire'),
+
+    // nis: Yup.string()
+    // .required('NIS est obligatoire'),
+    // nif: Yup.string()
+    // .required('NIF est obligatoire'),
+   })
+
+   const validationSchema2=Yup.object().shape({
+    // nom: Yup.string()
+    //   .required('Nom est obligatoire'),
+    // user: Yup.string()
+    //   .required('Utilisateur est obligatoire'),
+    // tel: Yup.string()
+    //   .required('Téléphone est obligatoire'),
+    // adresse: Yup.string()
+    //   .required('Adresse est obligatoire'),
+    // compte: Yup.string(),
     registre: Yup.string()
         .required('Registre de commerce est obligatoire'),
 
@@ -69,7 +80,50 @@ const AddUser = ({open,onClose}) => {
     .required('NIF est obligatoire'),
    })
 
-   const [isSelected,setIsSelected]=useState(false)
+    // const validationSchema=Yup.object().shape({
+    //   ...validationSchema1.fields,
+    //   ...validationSchema2.fields,
+    //   registre: validationSchema2.fields.registre.when('user', {
+    //     is: user => user == 'user2',
+    //     then: Yup.string().notRequired(),
+    //     otherwise: validationSchema2.fields.registre,
+    //   }),
+    //   nif: validationSchema2.fields.nif.when('user', {
+    //     is: user => user == 'user2',
+    //     then: validationSchema2.fields.nif,
+    //     otherwise: Yup.string().notRequired('nestpas requis'),
+    //   }),
+    //   nis: validationSchema2.fields.nis.when('user', {
+    //     is: user => user == 'user2',
+    //     then: validationSchema2.fields.nis,
+    //     otherwise: Yup.string().notRequired(),
+    //   }),
+      
+    // })
+    const validationSchema=Yup.object().shape({
+    nom: Yup.string().required('Nom est obligatoire'),
+    user: Yup.string().required('Utilisateur est obligatoire'),
+    tel: Yup.string().required('Téléphone est obligatoire'),
+    adresse: Yup.string().required('Adresse est obligatoire'),
+    compte: Yup.string(),
+    registre: Yup.string().when('user', {
+      is: (user) => user === 'user1',
+      then: Yup.string().required('Registre de commerce est obligatoire'),
+      otherwise:Yup.string()
+    }),
+    nis: Yup.string().when('user', {
+      is: (user) => user === 'user1',
+      then: Yup.string().required('NIS est obligatoire'),
+      otherwise:Yup.string()
+    }),
+    nif: Yup.string().when('user', {
+      is: (user) => user === 'user1',
+      then: Yup.string().required('NIF est obligatoire'),
+      otherwise:Yup.string()
+    }),
+    })
+    const [showFileds, setShowFileds] = useState(false);
+
   return (
     <Box
       sx={{
@@ -117,33 +171,14 @@ const AddUser = ({open,onClose}) => {
        }) => (
          <form onSubmit={handleSubmit} >
                    
-                {/* <div style={{flex:1}}>
-                <CustomSelect
-                  id={"user"}
-                  name={"user"}
-                  onChange={handleChange}
-                  value={values.user}
-                  
-                  >
-                  <MenuItem value="" disabled>
-                    Selectionner un utilisateur
-                  </MenuItem>
-                    {options.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </CustomSelect>
                
-                  <div style={{color:'red',fontSize:12,float:'left'}}>
-                  {errors.user && touched.user && errors.user}
-                  </div>
-               </div> */}
                      <SelectMenue
+                     name='user'
                     selectionTitle=" Selectionner un utilisateur *"
                     data={options}
                     handleOpen={(val) => {
                       setFieldValue("user", val);
+                      
                     }}
                     error={errors.user && touched.user && errors.user}
                     helperText={
@@ -153,6 +188,7 @@ const AddUser = ({open,onClose}) => {
                     onBlur={() => {
                       setFieldTouched("user", true);
                     }}
+                    onChange={handleChange}
                     marginRight
                   />
 
@@ -184,15 +220,13 @@ const AddUser = ({open,onClose}) => {
                   // error={errors.compte && touched.compte}
                   // helperText={errors.compte && touched.compte ? errors.compte : ""}
                   />
-                  {/* <div style={{color:'red',fontSize:12}}>
-                  {errors.compte && touched.compte && errors.compte}
-                  </div> */}
+             
                 
                   
                 </RowBox>
              
                 <RowBox>
-                {/* <div style={{flex:1,marginRight:10}}> */}
+             
                 <InputFeilds 
                   label={"N° téléphone "} 
                   onChange={handleChange}
@@ -204,10 +238,6 @@ const AddUser = ({open,onClose}) => {
                   helperText={errors.tel && touched.tel ? errors.tel : ""}
                
                   />
-                  {/* <div style={{color:'red',fontSize:12}}>
-                  {errors.tel && touched.tel && errors.tel}
-                  </div> */}
-                {/* </div> */}
                
               
                 <InputFeilds 
@@ -302,7 +332,7 @@ const AddUser = ({open,onClose}) => {
               
                 </div>
                  
-                
+                <Space space={20} />
                  </form>
            )}
        </Formik>
