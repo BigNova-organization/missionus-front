@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import { Box, Typography, useTheme } from "@mui/material";
 import Head from "../../../components/Head";
 import Body from '../../../components/Body';
-import { Formik } from "formik";
+import { Formik,Field , } from "formik";
+import { TextField } from '@material-ui/core';
 import InputFeilds from "../../../components/outils/InputFeilds";
 import Space from "../../../components/outils/Space";
 import SendIcon from '@mui/icons-material/Send';
@@ -11,12 +12,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import * as Yup from 'yup'
 import RowBox from '../../../components/RowBox';
-import CustomSelect from '../../../components/CustomSelect';
-import DatePickers from '../../../components/datePicker';
-// import "./styles.css";
+
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
-import {MenuItem } from "@material-ui/core"
 import SelectMenue from '../../../components/outils/SelectMenue';
 
 
@@ -27,79 +25,41 @@ const options = [
 ]
 
 
-const AddUser = ({open,onClose}) => {
+const EditUser = ({open,onClose}) => {
   const theme = useTheme();
+
  
   const initialValues={
-    nom:'',
-    user:'',
-    tel:'',
-    adresse:'',
-    compte:'',
-    registre:'',
-    nis:'',
-    nif:''
+   
+    nom:'John dev',
+    user:'user1',
+    tel:'0782305080',
+    adresse:'Bejaia',
+    compte:'dkdkkdfhs1234',
+    registre:'john12345',
+    nis:'j678',
+    nif:'h987'
     
   }
+//   const [initialValues, setInitialValues] = useState({
+//     nom:'John dev',
+//     user:'user1',
+//     tel:'0782305080',
+//     adresse:'Bejaia',
+//     compte:'dkdkkdfhs1234',
+//     registre:'john12345',
+//     nis:'j678',
+//     nif:'h987'
+//   })
 
-  const validationSchema1=Yup.object().shape({
-    nom: Yup.string()
-      .required('Nom est obligatoire'),
-    user: Yup.string()
-      .required('Utilisateur est obligatoire'),
-    tel: Yup.string()
-      .required('Téléphone est obligatoire'),
-    adresse: Yup.string()
-      .required('Adresse est obligatoire'),
-    compte: Yup.string(),
-    // registre: Yup.string()
-    //     .required('Registre de commerce est obligatoire'),
+//   const {nom,user,tel,adresse,compte,registre,nis,nif}=initialValues
+//   const handleInputChange=(e)=>{
+//     let {name,value}=e.target;
+//     setInitialValues({...initialValues,[name]:value});
+//    }
+ 
+// console.log(initialValues,'initval')
 
-    // nis: Yup.string()
-    // .required('NIS est obligatoire'),
-    // nif: Yup.string()
-    // .required('NIF est obligatoire'),
-   })
-
-   const validationSchema2=Yup.object().shape({
-    // nom: Yup.string()
-    //   .required('Nom est obligatoire'),
-    // user: Yup.string()
-    //   .required('Utilisateur est obligatoire'),
-    // tel: Yup.string()
-    //   .required('Téléphone est obligatoire'),
-    // adresse: Yup.string()
-    //   .required('Adresse est obligatoire'),
-    // compte: Yup.string(),
-    registre: Yup.string()
-        .required('Registre de commerce est obligatoire'),
-
-    nis: Yup.string()
-    .required('NIS est obligatoire'),
-    nif: Yup.string()
-    .required('NIF est obligatoire'),
-   })
-
-    // const validationSchema=Yup.object().shape({
-    //   ...validationSchema1.fields,
-    //   ...validationSchema2.fields,
-    //   registre: validationSchema2.fields.registre.when('user', {
-    //     is: user => user == 'user2',
-    //     then: Yup.string().notRequired(),
-    //     otherwise: validationSchema2.fields.registre,
-    //   }),
-    //   nif: validationSchema2.fields.nif.when('user', {
-    //     is: user => user == 'user2',
-    //     then: validationSchema2.fields.nif,
-    //     otherwise: Yup.string().notRequired('nestpas requis'),
-    //   }),
-    //   nis: validationSchema2.fields.nis.when('user', {
-    //     is: user => user == 'user2',
-    //     then: validationSchema2.fields.nis,
-    //     otherwise: Yup.string().notRequired(),
-    //   }),
-      
-    // })
     const validationSchema=Yup.object().shape({
     nom: Yup.string().required('Nom est obligatoire'),
     user: Yup.string().required('Utilisateur est obligatoire'),
@@ -138,7 +98,7 @@ const AddUser = ({open,onClose}) => {
         <CloseIcon />
       </IconButton>
        </Tooltip>            
-      <Typography  variant={"h4"} style={{paddingLeft:15}}> Ajouter un utilisateur {" "}</Typography>
+      <Typography  variant={"h4"} style={{paddingLeft:15}}> Editer un utilisateur {" "}</Typography>
       
 
       </div>
@@ -173,8 +133,8 @@ const AddUser = ({open,onClose}) => {
                    
                
                      <SelectMenue
-                     name='user'
-                    selectionTitle=" Selectionner un utilisateur *"
+                     name="user"
+                    // selectionTitle="Client"
                     data={options}
                     handleOpen={(val) => {
                       setFieldValue("user", val);
@@ -190,32 +150,36 @@ const AddUser = ({open,onClose}) => {
                     }}
                     onChange={handleChange}
                     marginRight
+                    disabled={true}
                   />
 
                   <RowBox>
                 
                 <InputFeilds 
+                    name='nom'
+                    id='nom'
                   label={"Nom complet"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.nom}
-                  id='nom'
                   required={true}
                   error={errors.nom && touched.nom}
                   helperText={errors.nom && touched.nom ? errors.nom : ""}
                   
                
                   />
+           
                 
                 
                
                
                 <InputFeilds 
+                name='compte'
                   label={"Compte bancaire"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.nom}
-                  id='nom'
+                  value={values.compte}
+                  id='compte'
                   // required={true}
                   // error={errors.compte && touched.compte}
                   // helperText={errors.compte && touched.compte ? errors.compte : ""}
@@ -228,6 +192,7 @@ const AddUser = ({open,onClose}) => {
                 <RowBox>
              
                 <InputFeilds 
+                  name='tel'
                   label={"N° téléphone "} 
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -236,11 +201,11 @@ const AddUser = ({open,onClose}) => {
                   required={true}
                   error={errors.tel && touched.tel}
                   helperText={errors.tel && touched.tel ? errors.tel : ""}
-               
                   />
                
               
                 <InputFeilds 
+                name='adresse'
                   label={"Adresse"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -258,6 +223,7 @@ const AddUser = ({open,onClose}) => {
                     <>
                     <div style={{marginRight:20}}>
                     <InputFeilds 
+                      name='registre'
                       label={"Registre de commerce"} 
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -266,7 +232,6 @@ const AddUser = ({open,onClose}) => {
                       required={true}
                       error={errors.registre && touched.registre}
                       helperText={errors.registre && touched.registre ? errors.registre : ""}
-                     
                       
                       />
                      
@@ -274,7 +239,8 @@ const AddUser = ({open,onClose}) => {
                     <RowBox>
                       
                     
-                    <InputFeilds 
+                    <InputFeilds
+                      name='nis' 
                       label={"NIS"} 
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -283,12 +249,14 @@ const AddUser = ({open,onClose}) => {
                       required={true}
                        error={errors.nis&& touched.nis}
                       helperText={errors.nis && touched.nis ? errors.nis : ""}
+                      
                       />
                   
                    
 
                     
                     <InputFeilds 
+                    name='nif'
                       label={"NIF"} 
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -297,6 +265,7 @@ const AddUser = ({open,onClose}) => {
                       required={true}
                       error={errors.nif && touched.nif}
                       helperText={errors.nif && touched.nif ? errors.nif : ""}
+                      
                       />
                    
                     </RowBox>
@@ -341,4 +310,4 @@ const AddUser = ({open,onClose}) => {
   )
 }
 
-export default AddUser
+export default EditUser

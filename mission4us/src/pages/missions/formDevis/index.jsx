@@ -25,9 +25,9 @@ const DevisMission = ({open,onClose}) => {
  
   const initialValues={
   
-    datedeb:'',
-    datefin:'',
-    prix:'',
+    datedeb: "2023-05-24",
+    datefin: "2023-06-24",
+    prix: "500000",
     confirmdate:''
     
     
@@ -147,7 +147,7 @@ const DevisMission = ({open,onClose}) => {
                     {({ field, meta }) => (
                         <RadioGroup {...field}>
                         <FormControlLabel
-                            value="option1"
+                            value="confirmdate"
                             control={<Radio  style={{color: theme.palette.primary.light}}/>}
                             label="Je Confirme la date de debut"
                             style={{color:theme.palette.primary.contrastText}}

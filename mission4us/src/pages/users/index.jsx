@@ -29,6 +29,8 @@ import ModalDelete from "../../components/modal";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import { Visibility } from "@material-ui/icons";
 import AddUser from "./formAddUser";
+import EditUser from "./formEditUser";
+import VisuUser from "./visuUser";
 // import DevisMission from "./formDevis";
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -104,10 +106,10 @@ function createData(type,nom,numtel,adresse,compte) {
 }
 
 const rows = [
-  createData('Fournisseur','Samia Kherouche','0782205066','Bejaia','dkdkkdfhs1234'),
-  createData('Fournisseur','Reda Bekka','0782205066','Bejaia','dkdkkdfhs1234'),
-  createData('Client','Mira Bekka','0782205066','Bejaia','dkdkkdfhs1234'),
-  createData('Client','Adam Bekka','0782205066','Bejaia','dkdkkdfhs1234'),
+  createData('Fournisseur','John dev','0782305080','Bejaia','dkdkkdfhs1234'),
+  createData('Fournisseur','Jack dev','0782305080','Bejaia','dkdkkdfhs1234'),
+  createData('Client','John dev','0782305080','Bejaia','dkdkkdfhs1234'),
+  createData('Client','John dev','0782305080','Bejaia','dkdkkdfhs1234'),
 
 
 ];
@@ -140,11 +142,17 @@ const Users = () => {
   const handleOuvrir = () => setOuvrir(true);
   const handleFermer = () => setOuvrir(false);
 
-  const [openDevis, setOpenDevis] = useState(false);
+  const [openVisu, setOpenVisu] = useState(false);
 
-  const handleOpenVisu = useCallback(() => setOpenDevis(true), []);
+  const handleOpenVisu = useCallback(() => setOpenVisu(true), []);
 
-  const handleCloseVisu= useCallback(() => setOpenDevis(false), []);
+  const handleCloseVisu= useCallback(() => setOpenVisu(false), []);
+
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const handleOpenEdit = useCallback(() => setOpenEdit(true), []);
+
+  const handleCloseEdit= useCallback(() => setOpenEdit(false), []);
   return (
     <Box className="dashboard">
       <Box
@@ -210,7 +218,7 @@ const Users = () => {
                         <IconButton
                           aria-label="edit"
                           color='primary'
-                          // onClick={handleOpen}
+                          onClick={handleOpenEdit}
                         >
                           <EditIcon />
                           
@@ -249,8 +257,11 @@ const Users = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Drawer anchor="right" open={openDevis} >
-        {/* <DevisMission open ={openDevis} onClose={handleCloseDevis}/> */}
+      <Drawer anchor="right" open={openVisu} >
+        <VisuUser open ={openVisu} onClose={handleCloseVisu}/>
+      </Drawer>
+      <Drawer anchor="right" open={openEdit} >
+        <EditUser open ={openEdit} onClose={handleCloseEdit}/>
       </Drawer>
       <ModalDelete
           open={ouvrir}

@@ -20,9 +20,11 @@ const InputFeilds = (props) => {
     select,
     margin,
     required,
-    helperText,name,
+    helperText,
+    name,
     handleBlur,
-    marginRight
+    marginRight,
+    defaultValue
   } = props;
   const { OnSubmit, initialState, validationSchema } = UseHooks();
   const { mode } = useSelector((state) => state.global);
@@ -32,8 +34,9 @@ const InputFeilds = (props) => {
 
   return (
     <TextField
-    name={name}
+      name={name}
       error={error}
+      value={value}
       helperText={helperText}
       className={mode == "dark" ? classes.inputStyles : classes.inputStylesDark}
       type={type}
@@ -53,7 +56,7 @@ const InputFeilds = (props) => {
       multiline={multiline}
       minRows={rows}
       // onBlur={handleBlur}
-
+      // defaultValue={defaultValue}
       onBlur={onBlur}
       fullWidth
       select={select}

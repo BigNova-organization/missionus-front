@@ -28,6 +28,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import ModalDelete from "../../components/modal";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import DevisMission from "./formDevis";
+import EditMission from "./formEditMission";
 const useButtonStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -102,15 +103,15 @@ function createData(client,intitule,job,adresse,tel) {
 }
 
 const rows = [
-  createData('Samia Kherouche','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Reda Bekka','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
-  createData('Samy Outemzabet','loremImpum','Back-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Samia Kherouche','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Reda Bekka','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
-  createData('Samy Outemzabet','loremImpum','Back-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Samia Kherouche','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Reda Bekka','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
-  createData('Samy Outemzabet','loremImpum','Back-end Engeenier' ,'Bejaia', '0782205066'),
+  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
+  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
+  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
+  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
+  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
+  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
+  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
+  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
+
 
 ];
 
@@ -147,6 +148,12 @@ const Missions = () => {
   const handleOpenDevis = useCallback(() => setOpenDevis(true), []);
 
   const handleCloseDevis = useCallback(() => setOpenDevis(false), []);
+
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const handleOpenEdit = useCallback(() => setOpenEdit(true), []);
+
+  const handleCloseEdit= useCallback(() => setOpenEdit(false), []);
   return (
     <Box className="dashboard">
       <Box
@@ -214,7 +221,7 @@ const Missions = () => {
                         <IconButton
                           aria-label="edit"
                           color='primary'
-                          // onClick={handleOpen}
+                          onClick={handleOpenEdit}
                         >
                           <EditIcon />
                           
@@ -255,6 +262,9 @@ const Missions = () => {
       </TableContainer>
       <Drawer anchor="right" open={openDevis} >
         <DevisMission open ={openDevis} onClose={handleCloseDevis}/>
+      </Drawer>
+      <Drawer anchor="right" open={openEdit} >
+        <EditMission open ={openEdit} onClose={handleCloseEdit}/>
       </Drawer>
       <ModalDelete
           open={ouvrir}

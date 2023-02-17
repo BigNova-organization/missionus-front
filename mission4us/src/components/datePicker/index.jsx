@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
   }));
 
-  export default function DatePickers({id,label,onChange,onBlur,value,error,margin,helperText}) {
+  export default function DatePickers({id,label,onChange,onBlur,value,error,margin,helperText,defaultValue}) {
     const { mode } = useSelector((state) => state.global);
     const classes = useStyles(mode);
     const theme = useTheme();
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
           label={label}
           type="date"
           variant="outlined"
-          defaultValue=""
+          defaultValue={defaultValue}
           onChange={(val) => {
             if(margin){
               onChange(val.target.value);

@@ -41,7 +41,8 @@ const SelectMenue = ({
   helperText,
   value,
   onBlur,
-  marginRight
+  marginRight,
+  disabled
 }) => {
   const theme = useTheme();
   const { mode } = useSelector((state) => state.global);
@@ -73,6 +74,7 @@ const SelectMenue = ({
         }}
         error={error}
         onBlur={onBlur}
+        disabled={disabled}
         
       >
         <MenuItem value="" disabled>

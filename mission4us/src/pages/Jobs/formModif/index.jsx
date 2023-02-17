@@ -15,8 +15,8 @@ const UpdateJob = () => {
   const theme = useTheme();
  
   const initialValues={
-    nom:'',
-    description:'',
+    nom:'Ingenieur en dev',
+    description:'loremipsum loremipsum loremipsum loremipsum loremipsum',
     
   }
   const validationSchema=Yup.object().shape({
