@@ -29,6 +29,7 @@ import AddJob from "../pages/Jobs/fomAjout";
 import UpdateJob from "../pages/Jobs/formModif";
 import AddMission from "../pages/missions/formAjoutMission";
 import VisualiserCv from "../pages/VisualiserCv";
+import Utilisateurs from "../pages/users";
 
 const MainRoutes = () => (
   <Routes>
@@ -84,15 +85,15 @@ const MainRoutes = () => (
           <Route path="PageCv" element={<PageCv />} />
           <Route path="PageCv/VisualiserCv" element={<VisualiserCv />} />
           <Route path="parametre" element={<Parametre />} />
-          <Route path="utilisateurs" element={<Users />} />
+          <Route path="utilisateurs" element={<Utilisateurs />} />
           <Route path="gestion" element={<Gestion />} />
           <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />
-          <Route path="Missions" element={<Missions />} />
+          <Route path="missions" element={<Missions />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="Jobs" element={<Jobs />} />
-          <Route path="Jobs/Add Job" element={<AddJob />} />
-          <Route path="Jobs/Update Job" element={<UpdateJob />} />
+          <Route path="jobs" element={<Jobs />} />
+          <Route path="jobs/Add Job" element={<AddJob />} />
+          <Route path="jobs/Update Job" element={<UpdateJob />} />
         </Route>
       </Route>
     </Route>

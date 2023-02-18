@@ -176,7 +176,7 @@ const EditMission = ({ open, onClose }) => {
                 <InputFeilds
                   name="email"
                   label={"Email"}
-                  defaultValue={"aubin@gmail.com"}
+                  
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}

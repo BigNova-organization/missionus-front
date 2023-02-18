@@ -171,9 +171,9 @@ const Jobs = () => {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row,index) => {
                 return (
-                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={index}>
                      <StyledTableCell >{row.intitule}</StyledTableCell>
                         <StyledTableCell >{row.description}</StyledTableCell>
                         <StyledTableCell>{row.secteur}</StyledTableCell>

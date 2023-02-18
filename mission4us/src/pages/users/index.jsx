@@ -70,33 +70,33 @@ const columns = [
     label: "Nom complet",
     minWidth: 100,
     align: "left",
-    format: (value) => value.toLocaleString("en-US")
+    // format: (value) => value.toLocaleString("en-US")
   },
   {
     id: "numtel",
     label: "N° téléphone",
     minWidth: 100,
     align: "left",
-    format: (value) => value.toLocaleString("en-US")
+    // format: (value) => value.toLocaleString("en-US")
   },
   {
     id: "adresse",
     label: "Adresse",
     minWidth: 100,
     align: "left",
-    format: (value) => value.toLocaleString("en-US")
+    // format: (value) => value.toLocaleString("en-US")
   },
   {
     id: "compte",
     label: "Compte bancaire",
     minWidth: 100,
     align: "left",
-    format: (value) => value.toLocaleString("en-US")
+    // format: (value) => value.toLocaleString("en-US")
   },
   {
     id: "actions",
     label: "Actions",
-    format: (value) => value.toLocaleString("en-US"),  
+    // format: (value) => value.toLocaleString("en-US"),  
   },
 ];
 
@@ -117,7 +117,8 @@ const rows = [
 
 
 
-const Users = () => {
+const Utilisateurs = () => {
+  
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -153,8 +154,9 @@ const Users = () => {
   const handleOpenEdit = useCallback(() => setOpenEdit(true), []);
 
   const handleCloseEdit= useCallback(() => setOpenEdit(false), []);
+  
   return (
-    <Box className="dashboard">
+    <Box>
       <Box
       sx={{
         padding: "10px",
@@ -203,9 +205,9 @@ const Users = () => {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row,index) => {
                 return (
-                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={index}>
                     <StyledTableCell >{row.type}</StyledTableCell>
                      <StyledTableCell >{row.nom}</StyledTableCell>
                         <StyledTableCell >{row.numtel}</StyledTableCell>
@@ -288,4 +290,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Utilisateurs;

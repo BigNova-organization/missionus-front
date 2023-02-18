@@ -12,6 +12,7 @@ import InputFeilds from "../../components/outils/InputFeilds";
 import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import Space from "../../components/outils/Space";
+import EditProfile from "./formEditProfile";
 
 const Profile = () => {
   const theme = useTheme();
@@ -29,7 +30,7 @@ const Profile = () => {
         }}
       >
         <AccountCircle sx={{ fontSize: 50, marginRight: 2 ,color: theme.palette.primary.light}} />
-        <p style={{color: theme.palette.primary.light}}> Reda Bekka</p>
+        <p style={{color: theme.palette.primary.light}}> John Dev</p>
       </Box>
       <Body>
         <Card
@@ -56,10 +57,10 @@ const Profile = () => {
                 md: "column",
               }}
             >
+              {!clicked ? (
+                <>
               <div style={{ paddingBottom: 15 }}>
-                <div>
-                  {!clicked ? (
-                    <>
+              
                       <Typography
                         gutterBottom
                         variant="h5"
@@ -69,18 +70,9 @@ const Profile = () => {
                         Nom
                       </Typography>
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
-                        {"BEKKA"}
+                        {"John"}
                       </Typography>
-                    </>
-                  ) : (
-                    <>
-                      <InputFeilds label={"Nom"} id="nom" />
-                    </>
-                  )}
-                </div>
-                <div>
-                  {!clicked ? (
-                    <>
+
                       <Typography
                         gutterBottom
                         variant="h5"
@@ -90,18 +82,9 @@ const Profile = () => {
                         Prenom
                       </Typography>
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
-                        {"Reda"}
+                        {"Dev"}
                       </Typography>
-                    </>
-                  ) : (
-                    <>
-                      <InputFeilds label={"Prenom"} id="prenom" />
-                    </>
-                  )}
-                </div>
-                <div>
-                  {!clicked ? (
-                    <>
+
                       <Typography
                         gutterBottom
                         variant="h5"
@@ -113,18 +96,14 @@ const Profile = () => {
                       <Typography variant="body2" >
                         {"Ingenieur en dev"}
                       </Typography>
-                    </>
-                  ) : (
-                    <>
-                      <InputFeilds label={"Profession"} id="profession" />
-                    </>
-                  )}
-                </div>
+                    
+              
+             
+             
               </div>
+
               <div >
-                <div>
-                  {!clicked ? (
-                    <>
+                
                       <Typography
                         gutterBottom
                         variant="h5"
@@ -134,18 +113,9 @@ const Profile = () => {
                         Email
                       </Typography>
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
-                        {"Reda@gmail.com"}
+                        {"john@gmail.com"}
                       </Typography>
-                    </>
-                  ) : (
-                    <>
-                      <InputFeilds label={"Email"} id="email" />
-                    </>
-                  )}
-                </div>
-                <div>
-                  {!clicked ? (
-                    <>
+
                       <Typography
                         gutterBottom
                         variant="h5"
@@ -157,16 +127,8 @@ const Profile = () => {
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
                         {"0782205066"}
                       </Typography>
-                    </>
-                  ) : (
-                    <>
-                      <InputFeilds label={"Numero de telephone"} id="numTel" />
-                    </>
-                  )}
-                </div>
-                {!clicked ? (
-                  <>
-                    <Typography
+
+                      <Typography
                       gutterBottom
                       variant="h5"
                       component="div"
@@ -177,16 +139,27 @@ const Profile = () => {
                     <Typography variant="body2" style={{ paddingBottom: 10 }}>
                       {"Bejaia"}
                     </Typography>
-                  </>
-                ) : (
-                  <>
-                    <InputFeilds label={"Adresse"} id="adresse" />
-                  </>
-                )}
+                      
+
+                    
+
+                </div>
                
-              </div>
+            
+
+              </>
+
+              )
+              :
+
+              <EditProfile style={{backgroundColor:theme.palette.background.default,
+                color: theme.palette.neutral.dark,}}/>
+
+               }
             </Stack>
+            
           </CardContent>
+          
         </Card>
         <Space space={20} />
         {!clicked ? (
@@ -233,6 +206,7 @@ const Profile = () => {
           
         )}
         <Space space={20} />
+      
       </Body>
     </Box>
   );

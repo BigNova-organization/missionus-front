@@ -40,6 +40,6 @@ const Drawer = (props) => {
 Drawer.propTypes = {
   open: PropTypes.bool.isRequired,
   anchor: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired
+  // onClose: PropTypes.func.isRequired
 };
 export default Drawer
