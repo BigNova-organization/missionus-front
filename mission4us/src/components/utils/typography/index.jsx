@@ -10,7 +10,8 @@ export const PrimaryText = ({
   text,
   lineHeight,
   mr,
-  cursor
+  cursor,
+  maxWidth
 }) => {
   const theme = useTheme();
 
@@ -18,6 +19,7 @@ export const PrimaryText = ({
     <Typography
       fontWeight={fontWeight}
       fontSize={fontSize}
+      maxWidth={maxWidth}
       lineHeight={lineHeight ? lineHeight : "30px"}
       sx={{
         color: color ? color : theme.palette.primary.dark,

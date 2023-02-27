@@ -80,7 +80,7 @@ const Presentation = () => {
         <PrimaryText
           fontWeight={"500"}
           fontSize={"25px"}
-          text={"Presentaion"}
+          text={"Presentation"}
           color={theme.palette.primary.light}
         />
         <Space />
@@ -94,7 +94,23 @@ const Presentation = () => {
           lineHeight="20px"
         />
         <Space space={15}></Space>
-        <Box component={"div"}>
+
+        <Stack 
+         sx={{
+          
+          display: "flex",
+         justifyContent:'space-around',
+       
+         
+          }}
+          direction={{
+            xs: "column",
+            sm: "column",
+            lg: "row",
+            md: "column",
+          }} 
+        >
+        <Box component={"div"} >
           <PrimaryText
             fontWeight={"500"}
             fontSize={"25px"}
@@ -109,7 +125,125 @@ const Presentation = () => {
             color={theme.palette.primary.contrastText}
             lineHeight="20px"
           />
+ 
+
         </Box>
+       
+        <Box component={"div"}>
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"25px"}
+            text={"Langue"}
+            color={theme.palette.primary.light}
+          />
+          <Space />
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"15px"}
+            text={"Anglais,Arabe,Francais"}
+            color={theme.palette.primary.contrastText}
+            lineHeight="20px"
+          />
+ 
+
+        </Box>
+
+        <Box component={"div"}>
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"25px"}
+            text={"Portable"}
+            color={theme.palette.primary.light}
+          />
+          <Space />
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"15px"}
+            text={"0782567809"}
+            color={theme.palette.primary.contrastText}
+            lineHeight="20px"
+          />
+ 
+
+        </Box>
+        </Stack>
+        <Space space={15}/>
+        <Stack 
+         sx={{
+          
+          display: "flex",
+         justifyContent:'space-around',
+         
+          }}
+          direction={{
+            xs: "column",
+            sm: "column",
+            lg: "row",
+            md: "column",
+          }} 
+        >
+        <Box component={"div"} >
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"25px"}
+            text={"Adresse"}
+            color={theme.palette.primary.light}
+          />
+          <Space />
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"15px"}
+            
+            text={"7869 Paris, France"}
+            color={theme.palette.primary.contrastText}
+            lineHeight="20px"
+            
+          />
+ 
+
+        </Box>
+       
+        <Box component={"div"}>
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"25px"}
+            text={"Permis"}
+            color={theme.palette.primary.light}
+          />
+          <Space />
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"15px"}
+            text={"B,C"}
+            color={theme.palette.primary.contrastText}
+            lineHeight="20px"
+          />
+ 
+
+        </Box>
+
+        <Box component={"div"}>
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"25px"}
+            text={"Email"}
+            color={theme.palette.primary.light}
+          />
+          <Space />
+          <PrimaryText
+            fontWeight={"500"}
+            fontSize={"15px"}
+            text={"Thomac.c@gmail.com"}
+            color={theme.palette.primary.contrastText}
+            lineHeight="20px"
+          />
+ 
+
+        </Box>
+
+     
+        </Stack>
+        
       </Box>
     </Stack>
   );

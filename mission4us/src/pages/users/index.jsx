@@ -128,8 +128,8 @@ const Utilisateurs = () => {
   const buttonStyle=useButtonStyles()
 
   let navigate=useNavigate()
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
   setPage(newPage);
@@ -139,7 +139,7 @@ const Utilisateurs = () => {
   setRowsPerPage(+event.target.value);
   setPage(0);
   };
-  const [ouvrir, setOuvrir] = React.useState(false);
+  const [ouvrir, setOuvrir] = useState(false);
   const handleOuvrir = () => setOuvrir(true);
   const handleFermer = () => setOuvrir(false);
 
