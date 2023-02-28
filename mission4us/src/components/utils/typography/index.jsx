@@ -11,7 +11,8 @@ export const PrimaryText = ({
   lineHeight,
   mr,
   cursor,
-  maxWidth
+  maxWidth,
+  backgroundColor
 }) => {
   const theme = useTheme();
 
@@ -24,7 +25,9 @@ export const PrimaryText = ({
       sx={{
         color: color ? color : theme.palette.primary.dark,
         mr: mr ? mr : 0,
-        cursor:cursor?"pointer":'default'
+        cursor:cursor?"pointer":'default',
+        backgroundColor:backgroundColor,
+
       }}
     >
       {text}
