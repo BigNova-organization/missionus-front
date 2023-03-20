@@ -8,6 +8,12 @@ const CreateCvSlice = createSlice({
     Competences: [],
     Loisirs: [],
     Rsociaux: [],
+    openExp:false,
+    openForm:false,
+    openComp:false,
+    openLois:false,
+    openResx:false,
+    TypeM:null
   },
   reducers: {
     createExperiences: (state, action) => {
@@ -25,6 +31,33 @@ const CreateCvSlice = createSlice({
     createRsociaux: (state, action) => {
       state.Rsociaux = action.payload;
     },
+    handleModelopenExp: (state, action) => {
+      state.openExp = action.payload;
+    },
+    handleModelopenForm: (state, action) => {
+      state.openForm = action.payload;
+    },
+    handleModelopenComp: (state, action) => {
+      state.openComp = action.payload;
+    },
+    handleModelopenLois: (state, action) => {
+      state.openLois = action.payload;
+    },
+    handleModeopenResx: (state, action) => {
+      state.openResx = action.payload;
+    },
+    TypeModel: (state, action) => {
+      state.TypeM = action.payload;
+    },
+    CloseModal: (state, action) => {
+      state.openExp = action.payload;
+      state.openForm = action.payload;
+      state.openComp = action.payload;
+      state.openResx = action.payload;
+      state.openLois = action.payload;
+
+    },
+    
   },
 
   extraReducers: (builder) => {
@@ -38,5 +71,12 @@ export const {
   createCompetences,
   createLoisirs,
   createRsociaux,
+  handleModelopenExp,
+  handleModelopenForm,
+  handleModelopenComp,
+  handleModelopenLois,
+  handleModeopenResx,
+  CloseModal,
+  TypeModel
 } = CreateCvSlice.actions;
 export default CreateCvSlice.reducer;

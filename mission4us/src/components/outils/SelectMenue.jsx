@@ -42,7 +42,7 @@ const SelectMenue = ({
   value,
   onBlur,
   marginRight,
-  disabled
+  disabled,
 }) => {
   const theme = useTheme();
   const { mode } = useSelector((state) => state.global);
@@ -52,7 +52,15 @@ const SelectMenue = ({
   };
   const classes = useStyles();
   return (
-    <Stack width={"100%"}>
+    <Stack
+      width={"100%"}
+      mt={{
+        xs: 2,
+        sm: 2,
+        lg: 1.5,
+        md: 2,
+      }}
+    >
       <Select
         labelId={"demo-simple-select-label"}
         id={"demo-simple-select"}
@@ -62,9 +70,11 @@ const SelectMenue = ({
         variant="outlined"
         style={{
           flexGrow: 1,
-           marginRight: marginRight ? "20px" : "0px",
+          marginRight: marginRight ? "20px" : "0px",
           color: theme.palette.secondary.light,
-          border: `.2px solid ${error ? theme.palette.error.main :theme.palette.secondary.light}`,
+          border: `.2px solid ${
+            error ? theme.palette.error.main : theme.palette.secondary.light
+          }`,
         }}
         className={classes.select}
         inputProps={{
@@ -75,7 +85,6 @@ const SelectMenue = ({
         error={error}
         onBlur={onBlur}
         disabled={disabled}
-        
       >
         <MenuItem value="" disabled>
           {selectionTitle}
@@ -92,7 +101,9 @@ const SelectMenue = ({
           );
         })}
       </Select>
-      <FormHelperText sx={{color:theme.palette.error.main , pl:3}}>{helperText}</FormHelperText>
+      <FormHelperText sx={{ color: theme.palette.error.main, pl: 3 }}>
+        {helperText}
+      </FormHelperText>
     </Stack>
   );
 };

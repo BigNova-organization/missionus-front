@@ -6,17 +6,33 @@ import useStyles from "../styles";
 
 export function UseHooks() {
   const initialState = {
-    nom: "",
-    prenom: "",
-    sexe: "",
-    situation: "",
-    phone: "",
-    email: "",
-    date: "",
-    adresse: "",
-    apropos: "",
-    langue: "",
-    permis: "",
+    // nom: "",
+    // prenom: "",
+    // sexe: "",
+    // situation: "",
+    // phone: "",
+    // email: "",
+    // date: "",
+    // adresse: "",
+    // apropos: "",
+    // langue: "",
+    // permis: "",
+    // experience: "",
+    // formation: "",
+    // competence: "",
+    // loisir: "",
+    // reseaux: "",
+    nom: "nompmz",
+    prenom: "prenom",
+    sexe: "sexe",
+    situation: "situation",
+    phone: "09390299220",
+    email: "zinou@gmail.com",
+    date: "09/09/1998",
+    adresse: "algeria",
+    apropos: "oao ppalso plsk papsk",
+    langue: "Français",
+    permis: "B",
     experience: "",
     formation: "",
     competence: "",
@@ -28,10 +44,11 @@ export function UseHooks() {
 
   const navigate = useNavigate();
   const OnSubmit = async (data) => {
-    navigate("VisualiserCv");
-
-    console.log("ddd", data);
+    // navigate("VisualiserCv",{data});
+    // console.log("ddd", data);
     // await dispatch({ type: "LOGIN", payload: data });
+    navigate("VisualiserCv", { state: data });
+    // console.log('data', data)
   };
 
   let validationSchema = Yup.object().shape({
@@ -68,7 +85,7 @@ export function UseHooks() {
     experience: Yup.string().required("l'experience est requis"),
     formation: Yup.string().required("formation est requis"),
     competence: Yup.string().required("competence est requis"),
-    loisir: Yup.string().required("loisir est requis"),
+    loisirs: Yup.string(),
     reseaux: Yup.string().required("réseaux sociaux est requis"),
   });
   const classes = useStyles();
@@ -83,11 +100,27 @@ export function UseHooks() {
     console.log("authUser", authUser);
   };
 
+  const initialStateExperience = {
+    nomEntreprise: "",
+    lieux: "",
+    experienceDate: "",
+    dateDebut: "",
+  };
+
+  let validationSchemaExperince = Yup.object().shape({
+    nomEntreprise: Yup.string().required("nom entreprise est requis"),
+    lieux: Yup.string().required("lieux est requis"),
+    experienceDate: Yup.string().required("experienced date est requis"),
+    dateDebut: Yup.string().required("date Debut sociaux est requis"),
+  });
+
   return {
     initialState,
     validationSchema,
     OnSubmit,
     classes,
     handleChangeInput,
+    validationSchemaExperince,
+    initialStateExperience,
   };
 }

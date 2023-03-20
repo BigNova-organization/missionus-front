@@ -11,12 +11,12 @@ import { PrimaryText } from "../utils/typography";
 import { Add } from "@material-ui/icons";
 import { useCallback } from "react";
 import ModalAdd from "../modal/addItemsModel";
-import { createExperiences } from "../../Redux/createCv/slice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 const ListItem = styled("li")(({ theme }) => ({
   margin: theme.spacing(0.5),
+  color: "#000",
 }));
 
 export default function ChipsArray({
@@ -25,20 +25,19 @@ export default function ChipsArray({
   sousTitre,
   addToCv,
   titleModel,
+  open,
   helperText,
   setFieldValue,
   name,
+  ModelComponent,
+  handleOpen,
+  handleClose,
 }) {
   const themes = useTheme();
   const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(false); //show model
   const [chipData, setChipData] = useState([]);
   const [valueInput, setValueInput] = useState("");
-
-  //open close
-  const handleOpen = useCallback(() => setOpen(true), []);
-  const handleClose = useCallback(() => setOpen(false), []);
 
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
@@ -54,7 +53,10 @@ export default function ChipsArray({
   }, []);
 
   const handleAdd = () => {
-    setFieldValue(name,[...chipData, { key: chipData.length + 1, label: valueInput }].toString())
+    setFieldValue(
+      name,
+      [...chipData, { key: chipData.length + 1, label: valueInput }].toString()
+    );
     setChipData([...chipData, { key: chipData.length + 1, label: valueInput }]);
     dispatch(
       addToCv([...chipData, { key: chipData.length + 1, label: valueInput }])
@@ -64,14 +66,12 @@ export default function ChipsArray({
   };
 
   useEffect(() => {
-   if(chipData.length){
-    setFieldValue(name,[...chipData].toString())
-
-   }else{
-    setFieldValue(name,'')
-  }
-  }, [chipData])
-  
+    if (chipData.length) {
+      setFieldValue(name, [...chipData].toString());
+    } else {
+      setFieldValue(name, "");
+    }
+  }, [chipData]);
 
   return (
     <Box
@@ -144,7 +144,7 @@ export default function ChipsArray({
                 }
 
                 return (
-                  <ListItem key={data.key} sx={{ color: "#000" }}>
+                  <ListItem key={data.key}>
                     <Chip
                       icon={icon}
                       label={data.label}
@@ -163,20 +163,13 @@ export default function ChipsArray({
           </Box>
         )}
       </Box>
-      <FormHelperText sx={{ color: themes.palette.error.main, pl: 0 , fontSize:"14px" }}>
+      <FormHelperText
+        sx={{ color: themes.palette.error.main, pl: 0, fontSize: "14px" }}
+      >
         {helperText}
       </FormHelperText>
 
-      <ModalAdd
-        open={open}
-        onClose={handleClose}
-        title={titleModel}
-        Ajouter={handleAdd}
-        onChange={onChange}
-        disable={valueInput.length <= 2 ? true : false}
-        value={valueInput}
-        label={title}
-      />
+      <ModalAdd onClose={handleClose} ModelComponent={ModelComponent} open={open} />
     </Box>
   );
 }

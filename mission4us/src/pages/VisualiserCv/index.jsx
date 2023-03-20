@@ -8,25 +8,29 @@ import Space from "../../components/outils/Space";
 import Formation from "./components/formations";
 import Competence from "./components/competence";
 import Hobies from "./components/hobie";
+import { useLocation, useParams } from "react-router-dom";
+
+const VisualiserCv = ( props) => {
 
 
-const VisualiserCv = () => {
+  const location = useLocation();
+  const  state  = location.state;
+
   const theme = useTheme();
   return (
     <>
-      <Head title="Visualiser Curriculum Vitae" />
+      <Head title="Visualiser Curriculum Vitae" retur/>
       <Body>
-        <Stack >
-          <Presentation />
-          <Space space={20}/>
-          <Experience/>
-          <Space space={20}/>
-          <Formation/>
-          <Space space={20}/>
-          <Competence/>
-          <Space space={20}/>
-        <Hobies/>
-          
+        <Stack>
+          <Presentation state={state} />
+          <Space space={20} />
+          <Experience />
+          <Space space={20} />
+          <Formation />
+          <Space space={20} />
+          <Competence />
+          <Space space={20} />
+          <Hobies />
         </Stack>
       </Body>
     </>
