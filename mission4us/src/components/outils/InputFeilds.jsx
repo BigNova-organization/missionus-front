@@ -24,7 +24,8 @@ const InputFeilds = (props) => {
     name,
     handleBlur,
     marginRight,
-    defaultValue
+    defaultValue,
+    shrink
   } = props;
   const { OnSubmit, initialState, validationSchema } = UseHooks();
   const { mode } = useSelector((state) => state.global);
@@ -63,11 +64,15 @@ const InputFeilds = (props) => {
       style={{ marginRight: margin ? "0px" : "20px", }}
       InputLabelProps={{
         style: { color: theme.palette.secondary.light },
+        shrink: shrink,
+
       }}
       required={required}
       InputProps={{
         style: { color: theme.palette.neutral.dark },
       }}
+ 
+
     />
   );
 };

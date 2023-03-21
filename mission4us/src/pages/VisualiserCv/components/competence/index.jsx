@@ -7,7 +7,7 @@ import { PrimaryText } from "../../../../components/utils/typography";
 const Competence = () => {
   const theme = useTheme();
 
-  const { Competences, Experience, Fomations, Loisirs, Rsociaux } = useSelector(
+  const { competences, Experience, Fomations, Loisirs, Rsociaux } = useSelector(
     (state) => state.cvs
   );
 
@@ -74,7 +74,7 @@ const Competence = () => {
           md: "column",
         }}
       >
-        {Competences.map((i, index) => {
+        {competences.map((i, index) => {
 
           let item = data[index]
           return (
@@ -103,7 +103,7 @@ const RenderItem = ({item,index,i})=>{
     <PrimaryText
       fontWeight={"500"}
       fontSize={"25px"}
-      text={item.nom}
+      text={i.label.competence}
       color={theme.palette.primary.light}
     />
 
@@ -112,7 +112,7 @@ const RenderItem = ({item,index,i})=>{
     <PrimaryText
       fontWeight={"500"}
       fontSize={"15px"}
-      text={item.details}
+      text={i.label.description}
       color={theme.palette.primary.contrastText}
     />
 

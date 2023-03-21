@@ -3,33 +3,38 @@ import { createSlice } from "@reduxjs/toolkit";
 const CreateCvSlice = createSlice({
   name: "createcv",
   initialState: {
-    Experience: [],
-    Fomations: [],
-    Competences: [],
-    Loisirs: [],
+    experience: [],
+    fomations: [],
+    competences: [],
+    loisirs: [],
     Rsociaux: [],
-    openExp:false,
-    openForm:false,
-    openComp:false,
-    openLois:false,
-    openResx:false,
-    TypeM:null
+    openExp: false,
+    openForm: false,
+    openComp: false,
+    openLois: false,
+    openResx: false,
+    TypeM: null,
   },
   reducers: {
     createExperiences: (state, action) => {
-      state.Experience = action.payload;
+      state.experience = action.payload;
+      state.openExp = false;
     },
     createFomations: (state, action) => {
-      state.Fomations = action.payload;
+      state.fomations = action.payload;
+      state.openForm = false;
     },
     createCompetences: (state, action) => {
-      state.Competences = action.payload;
+      state.competences = action.payload;
+      state.openComp = false;
     },
     createLoisirs: (state, action) => {
-      state.Loisirs = action.payload;
+      state.loisirs = action.payload;
+      state.openLois = false;
     },
     createRsociaux: (state, action) => {
       state.Rsociaux = action.payload;
+      state.openResx = false;
     },
     handleModelopenExp: (state, action) => {
       state.openExp = action.payload;
@@ -55,9 +60,7 @@ const CreateCvSlice = createSlice({
       state.openComp = action.payload;
       state.openResx = action.payload;
       state.openLois = action.payload;
-
     },
-    
   },
 
   extraReducers: (builder) => {
@@ -77,6 +80,6 @@ export const {
   handleModelopenLois,
   handleModeopenResx,
   CloseModal,
-  TypeModel
+  TypeModel,
 } = CreateCvSlice.actions;
 export default CreateCvSlice.reducer;

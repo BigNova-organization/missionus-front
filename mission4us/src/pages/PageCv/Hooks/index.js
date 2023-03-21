@@ -38,6 +38,7 @@ export function UseHooks() {
     competence: "",
     loisir: "",
     reseaux: "",
+    profile:''
   };
   const emailPhoneRegex =
     /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/;
@@ -87,6 +88,9 @@ export function UseHooks() {
     competence: Yup.string().required("competence est requis"),
     loisirs: Yup.string(),
     reseaux: Yup.string().required("réseaux sociaux est requis"),
+    profile:Yup.string().required("profile image est requis"),
+    presentation:Yup.string().required("presentation est requis"),
+    
   });
   const classes = useStyles();
 
@@ -105,13 +109,62 @@ export function UseHooks() {
     lieux: "",
     experienceDate: "",
     dateDebut: "",
+    description:''
   };
 
   let validationSchemaExperince = Yup.object().shape({
     nomEntreprise: Yup.string().required("nom entreprise est requis"),
     lieux: Yup.string().required("lieux est requis"),
     experienceDate: Yup.string().required("experienced date est requis"),
-    dateDebut: Yup.string().required("date Debut sociaux est requis"),
+    dateDebut: Yup.string().required("date debut est requis"),
+    description: Yup.string().required("description est requis"),
+  });
+
+
+  const initialStateFormation = {
+    debut: "",
+    fin: "",
+    title: "",
+    lieux: "",
+  };
+
+  let validationSchemaFormation = Yup.object().shape({
+    debut: Yup.string().required("date est requis"),
+    lieux: Yup.string().required("lieux est requis"),
+    title: Yup.string().required("formation est requis"),
+    fin: Yup.string().required("date fin est requis"),
+  });
+
+
+  const initialStateCompetence= {
+    competence: "",
+    description: "",
+ 
+  };
+
+  let validationSchemaCompetence = Yup.object().shape({
+    competence: Yup.string().required("competence est requis"),
+    description: Yup.string().required("description est requis"),
+ 
+  });
+
+
+  const initialStateHobbies = {
+    hobbies: "",
+  };
+
+  let validationSchemaHobbies = Yup.object().shape({
+    hobbies: Yup.string().required("hobbies est requis"),
+ 
+  });
+
+  const initialStateResSx = {
+    reseaux: "",
+  };
+
+  let validationSchemaResSx = Yup.object().shape({
+    reseaux: Yup.string().required("hobbies est requis"),
+ 
   });
 
   return {
@@ -122,5 +175,13 @@ export function UseHooks() {
     handleChangeInput,
     validationSchemaExperince,
     initialStateExperience,
+    initialStateFormation,
+    validationSchemaFormation,
+    initialStateCompetence,
+    validationSchemaCompetence,
+    initialStateHobbies,
+    validationSchemaHobbies,
+    initialStateResSx,
+    validationSchemaResSx
   };
 }

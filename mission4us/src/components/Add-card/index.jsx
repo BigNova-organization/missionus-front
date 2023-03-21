@@ -32,38 +32,33 @@ export default function ChipsArray({
   ModelComponent,
   handleOpen,
   handleClose,
+  chipData,
+  handleDelete
 }) {
   const themes = useTheme();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [chipData, setChipData] = useState([]);
-  const [valueInput, setValueInput] = useState("");
+  // const [chipData, setChipData] = useState([]);
+  // const [valueInput, setValueInput] = useState("");
 
-  const handleDelete = (chipToDelete) => () => {
-    setChipData((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
-    );
-    dispatch(
-      addToCv((chips) => chips.filter((chip) => chip.key !== chipToDelete.key))
-    );
-  };
 
-  const onChange = useCallback((val) => {
-    setValueInput(val);
-  }, []);
 
-  const handleAdd = () => {
-    setFieldValue(
-      name,
-      [...chipData, { key: chipData.length + 1, label: valueInput }].toString()
-    );
-    setChipData([...chipData, { key: chipData.length + 1, label: valueInput }]);
-    dispatch(
-      addToCv([...chipData, { key: chipData.length + 1, label: valueInput }])
-    );
-    setValueInput("");
-    handleClose();
-  };
+  // const onChange = useCallback((val) => {
+  //   setValueInput(val);
+  // }, []);
+
+  // const handleAdd = () => {
+  //   setFieldValue(
+  //     name,
+  //     [...chipData, { key: chipData.length + 1, label: valueInput }].toString()
+  //   );
+  //   setChipData([...chipData, { key: chipData.length + 1, label: valueInput }]);
+  //   dispatch(
+  //     addToCv([...chipData, { key: chipData.length + 1, label: valueInput }])
+  //   );
+  //   setValueInput("");
+  //   handleClose();
+  // };
 
   useEffect(() => {
     if (chipData.length) {
@@ -139,7 +134,7 @@ export default function ChipsArray({
             <>
               {chipData?.map((data) => {
                 let icon;
-                if (data.label === "React") {
+                if (data.label.title === "React") {
                   icon = <TagFacesIcon />;
                 }
 
@@ -147,9 +142,21 @@ export default function ChipsArray({
                   <ListItem key={data.key}>
                     <Chip
                       icon={icon}
-                      label={data.label}
+                      label={
+                        data.label.title
+                          ? data.label.title
+                          : data.label.nomEntreprise
+                          ? data.label.nomEntreprise
+                          : data.label.competence?
+                          data.label.competence
+                          :data.label.hobbies?
+                          data.label.hobbies
+                          :data.label.reseaux
+                      }
                       onDelete={
-                        data.label === "React" ? undefined : handleDelete(data)
+                        data.label.title === "React"
+                          ? undefined
+                          : handleDelete(data)
                       }
                       sx={{
                         bgcolor: themes.palette.secondary.light,
@@ -169,7 +176,11 @@ export default function ChipsArray({
         {helperText}
       </FormHelperText>
 
-      <ModalAdd onClose={handleClose} ModelComponent={ModelComponent} open={open} />
+      <ModalAdd
+        onClose={handleClose}
+        ModelComponent={ModelComponent}
+        open={open}
+      />
     </Box>
   );
 }

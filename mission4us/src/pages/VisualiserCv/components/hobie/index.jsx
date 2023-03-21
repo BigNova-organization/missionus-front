@@ -7,7 +7,7 @@ import { PrimaryText } from "../../../../components/utils/typography";
 const Hobies = () => {
   const theme = useTheme();
 
-  const { Competences, Experience, Fomations, Loisirs, Rsociaux } = useSelector(
+  const { Competences, Experience, Fomations, loisirs, Rsociaux } = useSelector(
     (state) => state.cvs
   );
 
@@ -58,7 +58,7 @@ const Hobies = () => {
           md: "column",
         }}
       >
-        {Loisirs.map((i, index) => {
+        {loisirs.map((i, index) => {
           let item = data[index];
           return <RenderItem item={item} i={i} index={index} />;
         })}

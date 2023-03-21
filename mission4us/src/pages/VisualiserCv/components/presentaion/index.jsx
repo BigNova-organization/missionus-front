@@ -1,6 +1,6 @@
 import { Box, Stack, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
- 
+
 import imageProfile from "../../../../assets/profile.jpeg";
 import Space from "../../../../components/outils/Space";
 import { PrimaryText } from "../../../../components/utils/typography";
@@ -10,7 +10,6 @@ const Presentation = ({ state }) => {
 
   // console.log('competence',JSON.stringify(state.competence))
   const [Age, setAge] = useState(null);
-
 
   const calculateAge = () => {
     const birthDate = new Date(state.date);
@@ -69,7 +68,7 @@ const Presentation = ({ state }) => {
       >
         <Box
           component={"img"}
-          src={imageProfile}
+          src={state.profile}
           width="220px"
           height="150px"
           sx={{
@@ -105,9 +104,7 @@ const Presentation = ({ state }) => {
         <PrimaryText
           fontWeight={"500"}
           fontSize={"15px"}
-          text={
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa perspiciatis quasi nesciunt facilis eaque, quibusdam voluptatem officia iusto ex porro soluta atque provident, dolorem laudantium, ab ea. Corporis, ea Culpa perspiciatis quasi nesciunt facilis eaque, quibusdam voluptatem officia iusto ex porro soluta atque providentCulpa perspiciatis quasi nesciunt facilis eaque, quibusdam voluptatem officia iusto ex porro soluta atque provident, dolorem laudantium, ab ea. Corporis, ea, dolorem laudantium, ab ea. Corporis, eadolore!"
-          }
+          text={state.presentation}
           color={theme.palette.primary.contrastText}
           lineHeight="20px"
         />

@@ -8,8 +8,8 @@ import { PrimaryText } from "../../../../components/utils/typography";
 const Experience = () => {
   const theme = useTheme();
 
-  const { Experience } = useSelector((state) => state.cvs);
-
+  const { experience } = useSelector((state) => state.cvs);
+  console.log("Experience", experience);
   return (
     <>
       <Stack
@@ -38,7 +38,7 @@ const Experience = () => {
       </Stack>
       <Space space={15} />
 
-      {Experience.map((i, index) => {
+      {experience.map((i, index) => {
         return <RenderItem item={i} key={index} />;
       })}
     </>
@@ -58,7 +58,7 @@ const RenderItem = ({ item }) => {
         bgcolor: theme.palette.background.default,
         border: `2px solid ${theme.palette.primary.light}`,
         borderRadius: 3,
-        mt:2
+        mt: 2,
       }}
     >
       <Box component={"div"}>
@@ -77,7 +77,7 @@ const RenderItem = ({ item }) => {
           <PrimaryText
             fontWeight={"500"}
             fontSize={"25px"}
-            text={`Nom de l'entreprise ${item.label}`}
+            text={`Nom de l'entreprise ${item.label.nomEntreprise}`}
             color={theme.palette.primary.light}
           />
 
@@ -99,14 +99,14 @@ const RenderItem = ({ item }) => {
             <PrimaryText
               fontWeight={"500"}
               fontSize={"12px"}
-              text={"Lorem ipsum"}
+              text={item.label.lieux}
               color={theme.palette.primary.contrastText}
             />
           </Stack>
           <PrimaryText
             fontWeight={"600"}
             fontSize={"18px"}
-            text={"2 ans"}
+            text={item.label.experienceDate}
             color={theme.palette.primary.light}
           />
         </Stack>
@@ -115,8 +115,7 @@ const RenderItem = ({ item }) => {
         <PrimaryText
           fontWeight={"500"}
           fontSize={"15px"}
-          text={
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa perspiciatis quasi nesciunt facilis eaque, quibusdam voluptatem officia iusto ex porro soluta atque provident, dolorem laudantium, ab ea. Corporis, ea Culpa perspiciatis quasi nesciunt facilis eaque, quibusdam voluptatem officia iusto ex porro soluta atque providentCulpa perspiciatis quasi nesciunt facilis eaque, quibusdam voluptatem officia iusto ex porro soluta atque provident, dolorem laudantium, ab ea. Corporis, ea, dolorem laudantium, ab ea. Corporis, eadolore!"
+          text={item.label.description
           }
           color={theme.palette.primary.contrastText}
           lineHeight="20px"
@@ -141,7 +140,7 @@ const RenderItem = ({ item }) => {
           <PrimaryText
             fontWeight={"500"}
             fontSize={"15px"}
-            text={"2023"}
+            text={item.label.dateDebut}
             color={theme.palette.primary.light}
           />
         </Stack>

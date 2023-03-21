@@ -17,6 +17,8 @@ const VisualiserCv = ( props) => {
   const  state  = location.state;
 
   const theme = useTheme();
+
+  console.log('state', state)
   return (
     <>
       <Head title="Visualiser Curriculum Vitae" retur/>

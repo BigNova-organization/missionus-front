@@ -7,7 +7,7 @@ import { PrimaryText } from "../../../../components/utils/typography";
 const Formation = () => {
   const theme = useTheme();
 
-  const { Competences, Experience, Fomations, Loisirs, Rsociaux } = useSelector(
+  const { Competences, Experience, fomations, Loisirs, Rsociaux } = useSelector(
     (state) => state.cvs
   );
 
@@ -73,7 +73,7 @@ const Formation = () => {
           md: "column",
         }}
       >
-        {Fomations.map((i, index) => {
+        {fomations.map((i, index) => {
 
           let item = data[index]
           return <RenderItem item={item} i={i} key={index} />
@@ -124,7 +124,7 @@ const RenderItem = ({item,index,i}) => {
       <PrimaryText
         fontWeight={"600"}
         fontSize={"18px"}
-        text={i.label}
+        text={i.label.title}
         color={theme.palette.primary.contrastText}
       />
       <Space />
