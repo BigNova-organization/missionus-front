@@ -8,14 +8,19 @@ import Keycloak from 'keycloak-js';
 let initOptions = {
     url: 'https://auth.mission4us.com/auth',
     realm: 'local_tests',
-    clientId: 'myclient',
-    onLoad: 'login-required',
+    clientId: 'm4us_tests',
+    // onLoad: 'login-required',
+    grantType: 'password',
+    
+   
+    
+
     
     // KeycloakResponseType: 'code'
 }
 const keycloak = new Keycloak(initOptions);
 
-keycloak.init({ onLoad: initOptions.onLoad, KeycloakResponseType: 'code' }).then((auth) => {
+keycloak.init({ onLoad: 'check-sso'}).then((auth) => {
     console.log(keycloak,'key')
     if (!auth) {
         window.location.reload();
