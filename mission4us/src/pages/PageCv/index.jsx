@@ -367,7 +367,7 @@ const PageCv = () => {
 
                 <RowBox>
                   <InputFeilds
-                    label={"A propos de moi"}
+                    label={"Bio"}
                     multiline={true}
                     rows={2}
                     id="standard-multiline-static"
@@ -626,7 +626,7 @@ const PageCv = () => {
                   <PrimaryText
                     fontWeight={"600"}
                     fontSize={"25px"}
-                    text={"ajouter la vedio  "}
+                    text={"ajouter la video  "}
                     color={theme.palette.secondary.light}
                     cursor
                   />
@@ -857,7 +857,7 @@ const Experiences = () => {
         setFieldValue,
         setFieldTouched,
       }) => {
-        const { nomEntreprise, description, lieux, experienceDate, dateDebut } =
+        const { nomExperience,nomEntreprise, description, lieux, experienceDate, dateDebut } =
           values;
 
         return (
@@ -873,8 +873,27 @@ const Experiences = () => {
               <Space space={"20px"} />
 
               <InputFeilds
-                value={nomEntreprise}
+                value={nomExperience}
                 label={"Ajouter un titre d'expérience"}
+                // margin
+                onChange={handleChange}
+                error={errors.nomExperience && touched.nomExperience}
+                helperText={
+                  errors.nomExperience && touched.nomExperience
+                    ? errors.nomExperience
+                    : ""
+                }
+                autoFocus={true}
+                required={true}
+                id={"outlined-controlled"}
+                name={"nomExperience"}
+                onBlur={() => {
+                  setFieldTouched("nomExperience", true);
+                }}
+              />
+              <InputFeilds
+                value={nomEntreprise}
+                label={"Ajouter le nom de l'entreprise"}
                 // margin
                 onChange={handleChange}
                 error={errors.nomEntreprise && touched.nomEntreprise}

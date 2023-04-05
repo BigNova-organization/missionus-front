@@ -111,10 +111,7 @@ const Presentation = ({ state }) => {
         <Space space={15}></Space>
 
         <Stack
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-          }}
+          spacing={10}
           direction={{
             xs: "column",
             sm: "column",
@@ -175,10 +172,7 @@ const Presentation = ({ state }) => {
         </Stack>
         <Space space={15} />
         <Stack
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-          }}
+          spacing={10}
           direction={{
             xs: "column",
             sm: "column",
