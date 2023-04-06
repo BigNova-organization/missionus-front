@@ -8,7 +8,7 @@ import Space from "../../components/outils/Space";
 import Formation from "./components/formations";
 import Competence from "./components/competence";
 import Hobies from "./components/hobie";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const VisualiserCv = ( props) => {
 
@@ -18,7 +18,9 @@ const VisualiserCv = ( props) => {
 
   const theme = useTheme();
 
-  console.log('state', state)
+ 
+
+  
   return (
     <>
       <Head title="Visualiser Curriculum Vitae" retur/>

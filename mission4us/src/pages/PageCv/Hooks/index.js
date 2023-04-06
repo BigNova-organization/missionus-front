@@ -89,7 +89,8 @@ export function UseHooks() {
     loisirs: Yup.string(),
     reseaux: Yup.string().required("réseaux sociaux est requis"),
     profile:Yup.string().required("profile image est requis"),
-    presentation:Yup.string().required("presentation est requis"),
+      
+      presentation:Yup.string().min(350, "La presentation est trop court - doit être de 150 caractères minimum.").required("presentation est requis"),
     
   });
   const classes = useStyles();

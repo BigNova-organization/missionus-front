@@ -1,6 +1,7 @@
 import { Box, Stack, useTheme } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import imageProfile from "../../../../assets/profile.jpeg";
 import Space from "../../../../components/outils/Space";
 import { PrimaryText } from "../../../../components/utils/typography";
@@ -9,7 +10,15 @@ const Experience = () => {
   const theme = useTheme();
 
   const { experience } = useSelector((state) => state.cvs);
-  console.log("Experience", experience);
+  // console.log("Experience", experience);
+  
+  // const nav =useNavigate()
+  
+    // useEffect(() => {
+    //   if(experience.length == 0){
+    //    nav('/PageCv')
+    //   }
+    //  }, [experience])
   return (
     <>
       <Stack
@@ -148,3 +157,4 @@ const RenderItem = ({ item }) => {
     </Stack>
   );
 };
+

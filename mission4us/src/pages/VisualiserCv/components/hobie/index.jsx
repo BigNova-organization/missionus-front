@@ -7,9 +7,7 @@ import { PrimaryText } from "../../../../components/utils/typography";
 const Hobies = () => {
   const theme = useTheme();
 
-  const { Competences, Experience, Fomations, loisirs, Rsociaux } = useSelector(
-    (state) => state.cvs
-  );
+  const { loisirs } = useSelector((state) => state.cvs);
 
   const data = [
     { nom: "Sport" },
@@ -17,7 +15,7 @@ const Hobies = () => {
     { nom: "Voyage" },
     { nom: "Cinema" },
   ];
-  return (
+  return loisirs?.length ? (
     <>
       <Stack
         component={"div"}
@@ -64,7 +62,7 @@ const Hobies = () => {
         })}
       </Stack>
     </>
-  );
+  ) : null;
 };
 
 export default Hobies;

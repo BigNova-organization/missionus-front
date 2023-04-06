@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 
 import CreateCvSlice from "./createCv/slice";
 import globalReducer from "./modeTheme";
+import persistStore from "redux-persist/es/persistStore";
 
 
 const reducers = combineReducers({
@@ -14,16 +15,11 @@ const reducers = combineReducers({
 
 });
 
-// const store = configureStore({
-//   reducer: {
-//     global: globalReducer,
-//   },
-// });
 
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["auth"],
+  whitelist: ["auth","cvs"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -35,3 +31,4 @@ const store = configureStore({
 });
 
 export default store;
+export const persistor = persistStore(store)
