@@ -7,36 +7,8 @@ import { PrimaryText } from "../../../../components/utils/typography";
 const Formation = () => {
   const theme = useTheme();
 
-  const { Competences, Experience, fomations, Loisirs, Rsociaux } = useSelector(
-    (state) => state.cvs
-  );
+  const {fomations} = useSelector((state) => state.cvs);
 
-  const data = [
-    {
-      date: "2017-2018",
-      diplome: "licence informatique",
-      universite: "  Université Bejaia",
-      lieux: "Bejaia",
-    },
-    {
-      date: "2018-2020",
-      diplome: " Master informatique",
-      universite: "Université  Bejaia",
-      lieux: "Bejaia",
-    },
-    {
-      date: "2020-2021",
-      diplome: "Ingenieur informatique",
-      universite: "Kepler",
-      lieux: "Bejaia",
-    },
-    {
-      date: "2021-2023",
-      diplome: "licence informatique",
-      universite: "Yassir",
-      lieux: "Alger",
-    },
-  ];
   return (
     <>
       <Stack
@@ -75,8 +47,9 @@ const Formation = () => {
       >
         {fomations.map((i, index) => {
 
-          let item = data[index]
-          return <RenderItem item={item} i={i} key={index} />
+          // let item = data[index]
+          // return <RenderItem item={item} i={i} key={index} />
+          return <RenderItem item={i} key={index} />;
         })}
       </Stack>
     </>
@@ -85,7 +58,7 @@ const Formation = () => {
 
 export default Formation;
 
-const RenderItem = ({item,index,i}) => {
+const RenderItem = ({item}) => {
   const theme = useTheme();
 
   return (
@@ -101,7 +74,7 @@ const RenderItem = ({item,index,i}) => {
         alignItems: "center",
         flex: "1 1 20%",
       }}
-      key={index}
+      
     >
       <Stack
         sx={{
@@ -116,7 +89,7 @@ const RenderItem = ({item,index,i}) => {
         <PrimaryText
           fontWeight={"500"}
           fontSize={"25px"}
-          text={item.date}
+          text={`${item.label.debut}/${item.label.fin}`}
           color={theme.palette.primary.light}
         />
       </Stack>
@@ -124,14 +97,14 @@ const RenderItem = ({item,index,i}) => {
       <PrimaryText
         fontWeight={"600"}
         fontSize={"18px"}
-        text={i.label.title}
+        text={item.label.title}
         color={theme.palette.primary.contrastText}
       />
       <Space />
       <PrimaryText
         fontWeight={"600"}
         fontSize={"18px"}
-        text={item.universite}
+        text={item.label.nomFormation}
         color={theme.palette.primary.contrastText}
       />
       <Space />
@@ -149,7 +122,7 @@ const RenderItem = ({item,index,i}) => {
       <PrimaryText
         fontWeight={"600"}
         fontSize={"18px"}
-        text={item.lieux}
+        text={item.label.lieux}
         color={theme.palette.primary.contrastText}
       />
       <Space />

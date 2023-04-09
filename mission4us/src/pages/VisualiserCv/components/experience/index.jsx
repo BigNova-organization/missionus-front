@@ -86,7 +86,7 @@ const RenderItem = ({ item }) => {
           <PrimaryText
             fontWeight={"500"}
             fontSize={"25px"}
-            text={`Nom de l'entreprise ${item.label.nomEntreprise}`}
+            text={item.label.nomExperience}
             color={theme.palette.primary.light}
           />
 
@@ -101,23 +101,18 @@ const RenderItem = ({ item }) => {
             <PrimaryText
               fontWeight={"500"}
               fontSize={"15px"}
-              text={"Lieux"}
+              text={`${item.label.nomEntreprise}/${item.label.lieux}`}
               color={theme.palette.primary.light}
-              mr={"10px"}
+              // mr={"10px"}
             />
-            <PrimaryText
-              fontWeight={"500"}
-              fontSize={"12px"}
-              text={item.label.lieux}
-              color={theme.palette.primary.contrastText}
-            />
+           
           </Stack>
-          <PrimaryText
+          {/* <PrimaryText
             fontWeight={"600"}
-            fontSize={"18px"}
-            text={item.label.experienceDate}
+            fontSize={"15px"}
+            text={`Période: ${item.label.experienceDate}/${item.label.dateDebut}`}
             color={theme.palette.primary.light}
-          />
+          /> */}
         </Stack>
         <Space />
         <Space space={15} />
@@ -132,26 +127,16 @@ const RenderItem = ({ item }) => {
         <Space space={15} />
         <Stack
           sx={{ float: "right" }}
-          direction={{
-            xs: "column",
-            sm: "column",
-            lg: "row",
-            md: "column",
-          }}
+         
         >
           <PrimaryText
             fontWeight={"500"}
             fontSize={"15px"}
-            text={"Annee"}
+            text={`Période: ${item.label.experienceDate}/${item.label.dateDebut}`}
             color={theme.palette.primary.light}
             mr={"10px"}
           />
-          <PrimaryText
-            fontWeight={"500"}
-            fontSize={"15px"}
-            text={item.label.dateDebut}
-            color={theme.palette.primary.light}
-          />
+        
         </Stack>
       </Box>
     </Stack>

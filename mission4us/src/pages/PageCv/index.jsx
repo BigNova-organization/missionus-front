@@ -22,7 +22,7 @@ import Space from "../../components/outils/Space";
 import RowBox from "../../components/RowBox";
 import SelectMenue from "../../components/outils/SelectMenue";
 import useStyles from "./styles";
-import { listLangue, listPermis } from "../../data/listLanguages";
+import { listLangue, listPermis, listSexe, listSituation } from "../../data/listLanguages";
 import ChipsArray from "../../components/Add-card";
 import {
   CloseModal,
@@ -259,7 +259,7 @@ const PageCv = () => {
                 </Stack>
 
                 <RowBox>
-                  <InputFeilds
+                  {/* <InputFeilds
                     label={"sexe"}
                     error={errors.sexe && touched.sexe}
                     helperText={errors.sexe && touched.sexe ? errors.sexe : ""}
@@ -272,8 +272,40 @@ const PageCv = () => {
                     onBlur={() => {
                       setFieldTouched("sexe", true);
                     }}
+                  /> */}
+                  <SelectMenue
+                    selectionTitle="Selectionner votre sexe*"
+                    data={listSexe}
+                    handleOpen={(val) => {
+                      setFieldValue("sexe", val);
+                    }}
+                    error={errors.sexe && touched.sexe}
+                    helperText={
+                      errors.sexe && touched.sexe ? errors.sexe : ""
+                    }
+                    value={sexe}
+                    onBlur={() => {
+                      setFieldTouched("sexe", true);
+                    }}
+                    marginRight
                   />
-                  <InputFeilds
+                   <SelectMenue
+                    selectionTitle="Selectionner votre situation*"
+                    data={listSituation}
+                    handleOpen={(val) => {
+                      setFieldValue("situation", val);
+                    }}
+                    error={errors.situation && touched.situation}
+                    helperText={
+                      errors.situation && touched.situation ? errors.situation : ""
+                    }
+                    value={situation}
+                    onBlur={() => {
+                      setFieldTouched("situation", true);
+                    }}
+                    marginRight
+                  />
+                  {/* <InputFeilds
                     label={"marié"}
                     error={errors.situation && touched.situation}
                     helperText={
@@ -290,7 +322,7 @@ const PageCv = () => {
                     onBlur={() => {
                       setFieldTouched("situation", true);
                     }}
-                  />
+                  /> */}
                 </RowBox>
 
                 <RowBox>
@@ -403,6 +435,7 @@ const PageCv = () => {
                     onBlur={() => {
                       setFieldTouched("presentation", true);
                     }}
+                   
                   />
                 </RowBox>
 
@@ -417,11 +450,11 @@ const PageCv = () => {
                     }}
                     error={errors.langue && touched.langue}
                     helperText={
-                      errors.permis && touched.langue ? errors.langue : ""
+                      errors.langue && touched.langue ? errors.langue : ""
                     }
                     value={langue}
                     onBlur={() => {
-                      setFieldTouched("permis", true);
+                      setFieldTouched("langue", true);
                     }}
                     marginRight
                   />
@@ -626,7 +659,7 @@ const PageCv = () => {
                   <PrimaryText
                     fontWeight={"600"}
                     fontSize={"25px"}
-                    text={"ajouter la video  "}
+                    text={"ajouter une video"}
                     color={theme.palette.secondary.light}
                     cursor
                   />
@@ -711,7 +744,7 @@ const Formations = () => {
           setFieldValue,
           setFieldTouched,
         }) => {
-          const { lieux, title, fin, debut } = values;
+          const { lieux, title, fin, debut,nomFormation } = values;
 
           return (
             <>
@@ -738,6 +771,21 @@ const Formations = () => {
                   name={"title"}
                   onBlur={() => {
                     setFieldTouched("title", true);
+                  }}
+                />
+                  <InputFeilds
+                  label={"Ajouter Établissement d'enseignement"}
+                  value={nomFormation}
+                  // margin
+                  onChange={handleChange}
+                  error={errors.nomFormation && touched.nomFormation}
+                  helperText={errors.nomFormation && touched.nomFormation ? errors.nomFormation : ""}
+                  autoFocus={true}
+                  required={true}
+                  id={"outlined-controlled"}
+                  name={"nomFormation"}
+                  onBlur={() => {
+                    setFieldTouched("nomFormation", true);
                   }}
                 />
                 <InputFeilds
@@ -927,8 +975,28 @@ const Experiences = () => {
               />
 
               <InputFeilds
+                label={"Ajouter une date de debut"}
+                value={dateDebut}
+                // margin
+                onChange={handleChange}
+                error={errors.dateDebut && touched.dateDebut}
+                helperText={
+                  errors.dateDebut && touched.dateDebut ? errors.dateDebut : ""
+                }
+                autoFocus={true}
+                required={true}
+                id={"outlined-controlled"}
+                name={"dateDebut"}
+                onBlur={() => {
+                  setFieldTouched("dateDebut", true);
+                }}
+                type="date"
+                shrink={true}
+              />
+
+              <InputFeilds
                 value={experienceDate}
-                 label={"Ajouter date d'experience "}
+                 label={"Ajouter date de fin "}
                 // margin
                 onChange={handleChange}
                 error={errors.experienceDate && touched.experienceDate}
@@ -947,25 +1015,6 @@ const Experiences = () => {
                 type="date"
                 shrink={true}
 
-              />
-              <InputFeilds
-                label={"Ajouter une date debut"}
-                value={dateDebut}
-                // margin
-                onChange={handleChange}
-                error={errors.dateDebut && touched.dateDebut}
-                helperText={
-                  errors.dateDebut && touched.dateDebut ? errors.dateDebut : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"dateDebut"}
-                onBlur={() => {
-                  setFieldTouched("dateDebut", true);
-                }}
-                type="date"
-                shrink={true}
               />
               <InputFeilds
                 value={description}

@@ -20,3 +20,34 @@ export const listPermis = [
       value: "B",
     },
   ];
+
+  
+export const listSexe = [
+  {
+    name: "Male",
+    value: "Male",
+  },
+  {
+    name: "Female",
+    value: "Female",
+  },
+];
+
+export const listSituation = [
+  {
+    name: "Marié",
+    value: "Marié",
+  },
+  {
+    name: "Célibataire",
+    value: "Célibataire",
+  },
+  {
+    name: "Divorcé",
+    value: "Divorcé",
+  },
+  {
+    name: "Veuf (V)",
+    value: "Veuf (V)",
+  },
+];

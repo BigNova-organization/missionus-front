@@ -69,7 +69,7 @@ const InputFeilds = (props) => {
       }}
       required={required}
       InputProps={{
-        style: { color: theme.palette.neutral.dark },
+        style: { color: theme.palette.neutral.dark ,whiteSpace: "pre-wrap",},
       }}
  
 

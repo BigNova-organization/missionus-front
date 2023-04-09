@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import Space from "../../../../components/outils/Space";
 import { PrimaryText } from "../../../../components/utils/typography";
 
-const Hobies = () => {
+const SocialMedia = () => {
   const theme = useTheme();
 
-  const { loisirs } = useSelector((state) => state.cvs);
+  const { Rsociaux } = useSelector((state) => state.cvs);
 
 
   return (
@@ -27,7 +27,7 @@ const Hobies = () => {
         <PrimaryText
           fontWeight={"600"}
           fontSize={"35px"}
-          text={"Hobbies"}
+          text={"Réseaux Sociaux"}
           color={theme.palette.primary.light}
         />
       </Stack>
@@ -51,7 +51,7 @@ const Hobies = () => {
           md: "column",
         }}
       >
-        {loisirs.map((i, index) => {
+        {Rsociaux.map((i, index) => {
           return <RenderItem item={i} key={index} />;
         })}
       </Stack>
@@ -59,7 +59,7 @@ const Hobies = () => {
   ) ;
 };
 
-export default Hobies;
+export default SocialMedia;
 
 const RenderItem = ({item }) => {
   const theme = useTheme();
@@ -74,11 +74,12 @@ const RenderItem = ({item }) => {
       
     >
       <Chip
-        label={item.label.hobbies}
+        label={item.label.reseaux}
         sx={{
-          bgcolor: theme.palette.primary.light,
-          fontSize: 18,
-          p: 3,
+        border: `1px solid ${theme.palette.primary.light}`,
+        color:theme.palette.primary.light,
+        fontSize: 18,
+        p: 3,
         }}
       />
     </Stack>

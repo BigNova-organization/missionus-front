@@ -22,10 +22,10 @@ export function UseHooks() {
     // competence: "",
     // loisir: "",
     // reseaux: "",
-    nom: "nompmz",
+    nom: "nom",
     prenom: "prenom",
-    sexe: "sexe",
-    situation: "situation",
+    sexe: "Male",
+    situation: "Marié",
     phone: "09390299220",
     email: "zinou@gmail.com",
     date: "09/09/1998",
@@ -54,12 +54,10 @@ export function UseHooks() {
 
   let validationSchema = Yup.object().shape({
     nom: Yup.string()
-      .min(6, "Le nom est trop court - doit être de 6 caractères minimum.")
-      .max(50, "Le nom est trop long - doit être de 50 caractères maximum.")
+      .max(20, "Le nom est trop long - doit être de 20 caractères maximum.")
       .required("nom est requis"),
     prenom: Yup.string()
-      .min(6, "Le prenom est trop court - doit être de 6 caractères minimum.")
-      .max(50, "Le prenom est trop long - doit être de 50 caractères maximum.")
+      .max(20, "Le prenom est trop long - doit être de 20 caractères maximum.")
       .required("prenom est requis"),
     sexe: Yup.string().required("sexe est requis"),
     situation: Yup.string().required("situation est requis"),
