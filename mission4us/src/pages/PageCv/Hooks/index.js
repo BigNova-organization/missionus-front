@@ -38,8 +38,11 @@ export function UseHooks() {
     competence: "",
     loisir: "",
     reseaux: "",
-    profile:''
+    profile: "",
+    presentation:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis eligendi ex, distinctio consequuntur asperiores iure neque modi possimus eos temporibus eum pariatur qui ducimus, illum maiores. Minus consequatur ipsa quibusdam dolorem quos? Pariatur, optio qui. Temporibus ipsa eos deleniti rerum sed quam dolores cupiditate unde ut labore quas voluptate eaque, odit doloremque magni nihil adipisci! Inventore, commodi. Quia sint voluptatibus tenetur dolores beatae fugit minima quaerat quibusdam, facere harum neque eligendi facilis, a repudiandae, quis labore obcaecati? Rem expedita corporis numquam a perspiciatis maiores libero quas sint mollitia soluta. Cupiditate quia iste unde sapiente sunt praesentium in, esse exercitationem, suscipit nobis facilis.",
   };
+
   const emailPhoneRegex =
     /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})|([0-9]{10})+$/;
 
@@ -86,10 +89,14 @@ export function UseHooks() {
     competence: Yup.string().required("competence est requis"),
     loisirs: Yup.string(),
     reseaux: Yup.string().required("réseaux sociaux est requis"),
-    profile:Yup.string().required("profile image est requis"),
-      
-      presentation:Yup.string().min(350, "La presentation est trop court - doit être de 150 caractères minimum.").required("presentation est requis"),
-    
+    profile: Yup.string().required("profile image est requis"),
+
+    presentation: Yup.string()
+      .min(
+        350,
+        "La presentation est trop court - doit être de 150 caractères minimum."
+      )
+      .required("presentation est requis"),
   });
   const classes = useStyles();
 
@@ -108,7 +115,7 @@ export function UseHooks() {
     lieux: "",
     experienceDate: "",
     dateDebut: "",
-    description:''
+    description: "",
   };
 
   let validationSchemaExperince = Yup.object().shape({
@@ -118,7 +125,6 @@ export function UseHooks() {
     dateDebut: Yup.string().required("date debut est requis"),
     description: Yup.string().required("description est requis"),
   });
-
 
   const initialStateFormation = {
     debut: "",
@@ -134,19 +140,15 @@ export function UseHooks() {
     fin: Yup.string().required("date fin est requis"),
   });
 
-
-  const initialStateCompetence= {
+  const initialStateCompetence = {
     competence: "",
     description: "",
- 
   };
 
   let validationSchemaCompetence = Yup.object().shape({
     competence: Yup.string().required("competence est requis"),
     description: Yup.string().required("description est requis"),
- 
   });
-
 
   const initialStateHobbies = {
     hobbies: "",
@@ -154,7 +156,6 @@ export function UseHooks() {
 
   let validationSchemaHobbies = Yup.object().shape({
     hobbies: Yup.string().required("hobbies est requis"),
- 
   });
 
   const initialStateResSx = {
@@ -163,7 +164,6 @@ export function UseHooks() {
 
   let validationSchemaResSx = Yup.object().shape({
     reseaux: Yup.string().required("hobbies est requis"),
- 
   });
 
   return {
@@ -181,6 +181,6 @@ export function UseHooks() {
     initialStateHobbies,
     validationSchemaHobbies,
     initialStateResSx,
-    validationSchemaResSx
+    validationSchemaResSx,
   };
 }

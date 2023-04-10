@@ -30,6 +30,7 @@ import UpdateJob from "../pages/Jobs/formModif";
 import AddMission from "../pages/missions/formAjoutMission";
 import VisualiserCv from "../pages/VisualiserCv";
 import Utilisateurs from "../pages/users";
+import Register from "../pages/Auth/Register/Register";
 
 const MainRoutes = () => (
   <Routes>
@@ -99,6 +100,10 @@ const MainRoutes = () => (
     </Route>
 
     {/** Public Routes */}
+
+    <Route path="register" element={<PublicRoutes />}>
+      <Route path="/register" element={<Register />} />
+    </Route>
     <Route path="login" element={<PublicRoutes />}>
       <Route path="/login" element={<Login />} />
     </Route>

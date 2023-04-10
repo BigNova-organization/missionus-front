@@ -168,7 +168,6 @@ const PageCv = () => {
               permis,
               presentation
             } = values;
-
             return (
               <>
                 <Space space={"20px"} />
@@ -417,7 +416,7 @@ const PageCv = () => {
                     }}
                   />
                 </RowBox>
-                <RowBox>
+                {/* <RowBox> */}
                   <InputFeilds
                     label={"Presentation"}
                     multiline={true}
@@ -425,7 +424,7 @@ const PageCv = () => {
                     id="standard-multiline-static"
                     error={errors.presentation && touched.presentation}
                     helperText={
-                      errors.presentation && touched.presentation ? errors.presentation : ""
+                      errors.presentation  && touched.presentation ? errors.presentation : ""
                     }
                     value={presentation}
                     onChange={handleChange}
@@ -433,11 +432,11 @@ const PageCv = () => {
                     required={true}
                     name={"presentation"}
                     onBlur={() => {
-                      setFieldTouched("presentation", true);
+                      setFieldTouched("presentation", presentation);
                     }}
                    
                   />
-                </RowBox>
+                {/* </RowBox> */}
 
                 <Space space={30} />
 
