@@ -81,23 +81,57 @@ export const ReusableButton = ({ bigText, smallText, onClick, Primary }) => {
   );
 };
 
-export const PrimaryNavigationButton = ({
+export const PrimaryButton = ({
   type,
   onClick,
-  bgcolor,
   text,
   textColor,
   state,
   pathname,
-}) => (
-  <Button
-    variant="contained"
-    sx={{
-      p: 1,
-      mr: 2,
-      bgcolor,
-    }}
-  >
-    {text}
-  </Button>
-);
+  primary,
+  bgcolor,
+}) => {
+  const theme = useTheme();
+  const buttonStyle = {
+    backgroundColor: primary
+      ? theme.palette.primary.dark
+      : theme.palette.primary.light,
+    borderRadius: 2,
+    // set your desired color here
+  };
+  return (
+    <Button
+      onClick={onClick}
+      style={buttonStyle}
+      variant="contained"
+      sx={{
+        backgroundColor: theme.palette.primary.light,
+        height: 40,
+        paddingY: 2,
+        my: 2,
+        width: "100%",
+
+        "&:hover": {
+          bgcolor: theme.palette.primary.light,
+        },
+      }}
+    >
+      <PrimaryText
+        fontWeight={"400"}
+        fontSize={{
+          xs: "16px",
+          sm: "12px",
+          md: "12px",
+          lg: "14px",
+        }}
+        text={text}
+        // color={theme.palette.secondary.dark}
+        color={
+          primary ? theme.palette.primary.light : theme.palette.primary.dark
+        }
+        lineHeight={"20px"}
+        mr={1}
+      />
+    </Button>
+  );
+};

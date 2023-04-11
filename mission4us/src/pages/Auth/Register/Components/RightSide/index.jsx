@@ -1,11 +1,17 @@
 import { Box, useTheme } from "@mui/material";
-import React from "react";
-import { ReusableButton } from "../../../../../components/Button/Button.component";
-import Space from "../../../../../components/outils/Space";
+import React, { useState } from "react";
 import { PrimaryText } from "../../../../../components/utils/typography";
+import MultiForm from "../Forms/MultiForm";
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const RightSide = () => {
   const theme = useTheme();
+
+  const [mode, setMode] = useState(1);
+
+  const changeMode = (mode) => {
+    setMode(mode);
+  };
 
   return (
     <Box
@@ -14,7 +20,7 @@ const RightSide = () => {
           xs: "100%",
           sm: "100%",
           md: "60%",
-          lg: "28%",
+          lg: "26%",
         },
 
         bgcolor: theme.palette.background.main,
@@ -25,7 +31,13 @@ const RightSide = () => {
       }}
       p={4}
     >
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          justifyContent: mode == 1 ? "center" : "space-between",
+        }}
+      >
         <PrimaryText
           fontWeight={"600"}
           fontSize={"22px"}
@@ -34,58 +46,11 @@ const RightSide = () => {
           lineHeight={"30px"}
           mr={1}
         />
-      </Box>
-      <Box
-        sx={{
-          width: "100%",
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <ReusableButton
-          bigText={"ACCES CLIENT"}
-          smallText={
-            "Connectez-vous pour céer vos offfres et envoyer vos colis"
-          }
-          Primary
-        />
-        <ReusableButton
-          bigText={"ACCES TRANSITAIRE"}
-          smallText={
-            "Connectez-vous pour accéder a toutes les offres de transits et gérer vos propositions"
-          }
-        />
+        {mode !== 1 ? <Box onClick={() => setMode(1)}><CancelIcon/></Box> : null}
       </Box>
 
-      <Box sx={{ display: "flex" }}>
-        <PrimaryText
-          fontWeight={"400"}
-          fontSize={{
-            xs: "16px",
-            sm: "12px",
-            md: "12px",
-            lg: "14px",
-          }}
-          text={"Tu as un compte ?"}
-          color={theme.palette.secondary.dark}
-          lineHeight={"20px"}
-          mr={1}
-        />
+      <MultiForm mode={mode} changeMode={changeMode} />
 
-        <PrimaryText
-          fontWeight={"400"}
-          fontSize={"12px"}
-          text={"s'identifier "}
-          color={theme.palette.secondary.dark}
-          lineHeight={"20px"}
-          cursor
-          textDecoration
-          link
-          to={"/login"}
-        />
-      </Box>
-      <Space />
       <Box>
         Qui sommes-nous Conditions Générales d'Utilisation Politique de
         confidentialité Politique en matière de cookies Contactez nous Blog
