@@ -5,6 +5,8 @@ import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 
 import CreateCvSlice from "./createCv/slice";
+import clientSlice from "./clients/slice";
+import logoutSlice from "./clients/slice";
 import globalReducer from "./modeTheme";
 import persistStore from "redux-persist/es/persistStore";
 
@@ -12,6 +14,8 @@ import persistStore from "redux-persist/es/persistStore";
 const reducers = combineReducers({
   cvs:CreateCvSlice,
   global: globalReducer,
+  clients:clientSlice,
+  logout:logoutSlice,
 
 });
 

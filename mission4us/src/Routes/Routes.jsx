@@ -31,6 +31,7 @@ import AddMission from "../pages/missions/formAjoutMission";
 import VisualiserCv from "../pages/VisualiserCv";
 import Utilisateurs from "../pages/users";
 import Register from "../pages/Auth/Register/Register";
+import Clients from "../pages/clients";
 
 const MainRoutes = () => (
   <Routes>
@@ -87,6 +88,7 @@ const MainRoutes = () => (
           <Route path="PageCv/VisualiserCv" element={<VisualiserCv />} />
           <Route path="parametre" element={<Parametre />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />
+          <Route path="clients" element={<Clients />} />
           <Route path="gestion" element={<Gestion />} />
           <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />

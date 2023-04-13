@@ -51,10 +51,10 @@ const RightSide = () => {
 
       <MultiForm mode={mode} changeMode={changeMode} />
 
-      <Box>
+      {/* <Box>
         Qui sommes-nous Conditions Générales d'Utilisation Politique de
         confidentialité Politique en matière de cookies Contactez nous Blog
-      </Box>
+      </Box> */}
     </Box>
   );
 };

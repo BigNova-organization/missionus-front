@@ -43,7 +43,7 @@ const Form0 = ({ changeMode }) => {
             md: "12px",
             lg: "14px",
           }}
-          text={"Tu as un compte ?"}
+          text={"Vous avez un compte ?"}
           color={theme.palette.secondary.dark}
           lineHeight={"20px"}
           mr={1}
@@ -52,7 +52,7 @@ const Form0 = ({ changeMode }) => {
         <PrimaryText
           fontWeight={"400"}
           fontSize={"12px"}
-          text={"s'identifier "}
+          text={"S'identifier "}
           color={theme.palette.secondary.dark}
           lineHeight={"20px"}
           cursor

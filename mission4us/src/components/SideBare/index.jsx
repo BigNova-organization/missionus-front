@@ -23,6 +23,7 @@ import {
   GestureOutlined,
   Work,
   PersonOutlined,
+  PeopleOutline
 } from "@mui/icons-material";
 // import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
@@ -41,6 +42,10 @@ const navItems = [
   {
     text: "Utilisateurs",
     icon: <PersonOutlined />,
+  },
+  {
+    text: "Clients",
+    icon: <PeopleOutline />,
   },
   // {
   //   text: "Admins",

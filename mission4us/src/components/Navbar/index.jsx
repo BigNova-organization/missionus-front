@@ -25,6 +25,8 @@ import FlexBetween from "../FlexBetween";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "../../Redux/modeTheme";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../Redux/logout/slice";
+import Keycloak from "keycloak-js";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -33,6 +35,27 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+  let initOptions = {
+    url: "https://auth.mission4us.com/auth",
+    realm: "local_tests",
+    clientId: "m4us_tests",
+    
+    
+    // KeycloakResponseType: 'code'
+    };
+  const keycloak = new Keycloak(initOptions);
+  // const handleClose = () => {
+  //   // localStorage.removeItem('bearer-token'),
+  //   // localStorage.removeItem('refresh-token'),
+  //   // localStorage.removeItem('user'),
+  //   // localStorage.clear()
+  //   // dispatch(logout)
+    
+  //   // navigate('register')
+
+  //   keycloak.logout()
+  //   keycloak.logout()
+  // }
 
   const navigate = useNavigate();
 
@@ -144,7 +167,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               >
                 My profile
               </MenuItem>
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+             
+              <MenuItem onClick={()=>keycloak.logout()}>Log Out</MenuItem>
+              
             </Menu>
           </FlexBetween>
         </FlexBetween>
