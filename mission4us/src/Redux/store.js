@@ -6,7 +6,8 @@ import storage from "redux-persist/lib/storage";
 
 import CreateCvSlice from "./createCv/slice";
 import clientSlice from "./clients/slice";
-import logoutSlice from "./clients/slice";
+import logoutSlice from "./logout/slice";
+import infoAccountSlice from "./infoAccount/slice";
 import globalReducer from "./modeTheme";
 import persistStore from "redux-persist/es/persistStore";
 
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   global: globalReducer,
   clients:clientSlice,
   logout:logoutSlice,
+  infoAccount:infoAccountSlice,
 
 });
 

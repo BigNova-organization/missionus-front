@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { getxsrfToken } from '../../infoAccount/slice';
+import { useSelector, useDispatch } from "react-redux";
 
 const initialState = {
   clients: [],
@@ -10,19 +12,22 @@ const initialState = {
 
 export const fetchClients = createAsyncThunk(
   'clients/fetchClients',
-  async (body) => {
+  async () => {
+   
+
     const token = localStorage.getItem("bearer-token");
     const url='https://api.mission4us.com/api/clients';
     const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        'X-XSRF-TOKEN': getxsrfToken,
         
         
       },
-      body:JSON.stringify(body)
     });
-    console.log(response,'resp')
+   
+    console.log(response,'clients response')
     return response.data;
     
   }

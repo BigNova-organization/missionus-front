@@ -42,6 +42,7 @@ import TableRow from '@mui/material/TableRow';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchClients } from "../../Redux/clients/slice";
+import { fetchAccountInfo } from "../../Redux/infoAccount/slice";
 
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -150,6 +151,7 @@ const Clients = () => {
   
 
   useEffect(() => {
+    dispatch(fetchAccountInfo())
     dispatch(fetchClients());
   }, [dispatch]);
   return (
