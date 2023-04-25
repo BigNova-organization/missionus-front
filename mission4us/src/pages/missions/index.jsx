@@ -29,6 +29,12 @@ import ModalDelete from "../../components/modal";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import DevisMission from "./formDevis";
 import EditMission from "./formEditMission";
+
+
+import { CircularProgress } from "@material-ui/core";
+import { useSelector,useDispatch } from "react-redux";
+import { fetchMissions } from "../../Redux/mission/slice";
+
 const useButtonStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -121,6 +127,10 @@ const rows = [
 const Missions = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const missions = useSelector((state) => state.missions.missions);
+  const status = useSelector((state) => state.missions.status);
+  const error = useSelector((state) => state.missions.error);
+  console.log(missions,'missions')
 
   const handleOpen = useCallback(() => setOpen(true), []);
 
@@ -154,6 +164,12 @@ const Missions = () => {
   const handleOpenEdit = useCallback(() => setOpenEdit(true), []);
 
   const handleCloseEdit= useCallback(() => setOpenEdit(false), []);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    
+    dispatch(fetchMissions());
+
+  }, [dispatch]);
   return (
     <Box className="dashboard">
       <Box
@@ -204,16 +220,16 @@ const Missions = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {missions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row,index) => {
+              .map((mission) => {
                 return (
-                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    <StyledTableCell >{row.client}</StyledTableCell>
-                     <StyledTableCell >{row.intitule}</StyledTableCell>
-                        <StyledTableCell >{row.job}</StyledTableCell>
-                        <StyledTableCell >{row.adresse}</StyledTableCell>
-                        <StyledTableCell>{row.tel}</StyledTableCell>
+                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={mission.id}>
+                    <StyledTableCell >{mission.name}</StyledTableCell>
+                     {/* <StyledTableCell >{row.intitule}</StyledTableCell> */}
+                        <StyledTableCell >{mission.type}</StyledTableCell>
+                        {/* <StyledTableCell >{row.adresse}</StyledTableCell>
+                        <StyledTableCell>{row.tel}</StyledTableCell> */}
                         
                         <StyledTableCell align="left">
                         <div className={buttonStyle.root}>

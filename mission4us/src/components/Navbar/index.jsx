@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
@@ -27,6 +27,7 @@ import { setMode } from "../../Redux/modeTheme";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../Redux/logout/slice";
 import Keycloak from "keycloak-js";
+import { fetchAccount } from "../../Redux/account/slice";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -58,8 +59,17 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   // }
 
   const navigate = useNavigate();
+  const account = useSelector((state) => state.account.user);
+  const status = useSelector((state) => state.account.status);
+  const error = useSelector((state) => state.account.error);
+  console.log(account,'account')
 
   const mode = useSelector((state) => state.global.mode);
+  useEffect(() => {
+    
+    dispatch(fetchAccount());
+
+  }, [dispatch]);
 
   return (
     <AppBar
@@ -134,7 +144,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                   fontSize="0.9rem"
                   sx={{ color:  theme.palette.secondary.light}}
                 >
-                  {"John Dev"}
+                  {account?.firstName}
                 </Typography>
                 <Typography
                   fontSize=".8rem"

@@ -4,19 +4,19 @@ import { getxsrfToken } from '../../infoAccount/slice';
 import { useSelector, useDispatch } from "react-redux";
 
 const initialState = {
-  clients: [],
+    missions: [],
   status: 'idle',
   error: null,
   
 };
 
-export const fetchClients = createAsyncThunk(
-  'clients/fetchClients',
+export const fetchMissions = createAsyncThunk(
+  'missions/fetchMissions',
   async () => {
    
 
     const token = localStorage.getItem("bearer-token");
-    const url='https://api.mission4us.com/api/clients';
+    const url='https://api.mission4us.com/api/missions';
     const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -27,30 +27,30 @@ export const fetchClients = createAsyncThunk(
       },
     });
    
-    console.log(response,'clients response')
+    console.log(response,'missions response')
     return response.data;
     
   }
 );
 
-const clientSlice = createSlice({
-  name: 'clients',
+const missionSlice = createSlice({
+  name: 'missions',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchClients.pending, (state) => {
+      .addCase(fetchMissions.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchClients.fulfilled, (state, action) => {
+      .addCase(fetchMissions.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.clients = action.payload;
+        state.missions = action.payload;
       })
-      .addCase(fetchClients.rejected, (state, action) => {
+      .addCase(fetchMissions.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
   },
 });
 
-export default clientSlice.reducer;
+export default missionSlice.reducer;

@@ -43,15 +43,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchClients } from "../../Redux/clients/slice";
 import { fetchAccountInfo } from "../../Redux/infoAccount/slice";
+import { CircularProgress } from "@material-ui/core";
 
-const useButtonStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    
-    
-  },
-}));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -113,18 +106,7 @@ function createData(nom,prenom,pays,email,tel) {
   return { nom,prenom,pays,email,tel};
 }
 
-const rows = [
-  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
-  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
-  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
-  createData('John Dev','loremImpum','Front-end Engeenier' ,'Bejaia', '0782205066'),
-  createData('Jack BK','loremImpum','Full stack Engeenier' ,'Bejaia', '0782205066'),
 
-
-];
 
 
 
@@ -133,6 +115,8 @@ const Clients = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const clients = useSelector((state) => state.clients.clients);
+  const status = useSelector((state) => state.clients.status);
+  const error = useSelector((state) => state.clients.error);
   console.log(clients,'clients')
  
 
@@ -151,9 +135,29 @@ const Clients = () => {
   
 
   useEffect(() => {
-    dispatch(fetchAccountInfo())
+    
     dispatch(fetchClients());
+
   }, [dispatch]);
+
+  // if (status === 'loading') {
+  //   return <CircularProgress />;
+  // }
+
+  // if (status === 'failed') {
+  //   return <div style={{color:'red',fontSize:15,textAlign:'center'}}>Error: {error}</div>;
+  // }
+
+  // useEffect(() => {
+  //   localStorage.setItem('clients', JSON.stringify(clients));
+  // }, [clients]);
+
+  // useEffect(() => {
+  //   const storedClients = JSON.parse(localStorage.getItem('clients'));
+  //   if (storedClients && storedClients.length > 0) {
+  //     dispatch({ type: 'clients/fetchClients/fulfilled', payload: storedClients });
+  //   }
+  // }, [dispatch]);
   return (
     <Box >
       <Head title='Clients' />
@@ -175,16 +179,18 @@ const Clients = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows
+          {(status==='loading')? <CircularProgress />:(status === 'failed')?<div style={{color:'red',fontSize:15,textAlign:'center'}}>Error: {error}</div>:null}
+            {clients
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row,index) => {
+              .map((client) => {
                 return (
-                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={index}>
-                    <StyledTableCell >{row.nom}</StyledTableCell>
-                     <StyledTableCell >{row.prenom}</StyledTableCell>
-                        <StyledTableCell >{row.pays}</StyledTableCell>
-                        <StyledTableCell >{row.email}</StyledTableCell>
-                        <StyledTableCell>{row.tel}</StyledTableCell>
+                 
+                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={client.id}>
+                    <StyledTableCell >{client.firstName}</StyledTableCell>
+                     <StyledTableCell >{client.lastName}</StyledTableCell>
+                        <StyledTableCell >{client.country}</StyledTableCell>
+                        <StyledTableCell >{client.email}</StyledTableCell>
+                        <StyledTableCell>{client.phoneNumber}</StyledTableCell>
                   </StyledTableRow>
                 );
               })}
@@ -195,7 +201,7 @@ const Clients = () => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={clients.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
