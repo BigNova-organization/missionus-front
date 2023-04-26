@@ -6,12 +6,16 @@ import InputFeilds from "../../../../../components/outils/InputFeilds";
 import { UseFournisseur } from "../../Hooks/UseFournisseur";
 import { PrimaryButton } from "../../../../../components/Button/Button.component";
 import Space from "../../../../../components/outils/Space";
+import { signUpUser } from "../../../../../Redux/register/slice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Form2 = ({ changeMode }) => {
   const theme = useTheme();
 
-  const { IdentityState, validationSchema } = UseClient();
-
+  const { IdentityState, validationSchema } = UseFournisseur();
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
   return (
     <>
       <Formik
@@ -19,7 +23,8 @@ const Form2 = ({ changeMode }) => {
         initialValues={{ ...IdentityState }}
         validationSchema={validationSchema}
         onSubmit={(values, formikAction) => {
-          // dispatch(register(object, navigation));
+          dispatch(signUpUser(values))
+          navigate('/login')
           console.log("values", values);
         }}
       >
@@ -63,7 +68,7 @@ const RenderInputs = ({
   setFieldTouched,
   handleSubmit,
 }) => {
-  const { firstName, lastName, pseudo, email, password, confirmPassword } =
+  const { firstName, lastName, login, email, password, confirmPassword } =
     values;
   const theme = useTheme();
 
@@ -81,16 +86,16 @@ const RenderInputs = ({
       >
         <InputFeilds
           label={"pseudo"}
-          error={errors.pseudo && touched.pseudo}
-          helperText={errors.pseudo && touched.pseudo ? errors.pseudo : ""}
-          value={pseudo}
+          error={errors.login && touched.login}
+          helperText={errors.login && touched.login ? errors.login : ""}
+          value={login}
           onChange={handleChange}
           autoFocus={true}
           required={true}
           id={"outlined-controlled"}
-          name={"pseudo"}
+          name={"login"}
           onBlur={() => {
-            setFieldTouched("pseudo", true);
+            setFieldTouched("login", true);
           }}
           primary
 
@@ -200,6 +205,7 @@ const RenderInputs = ({
         <PrimaryButton
           text="Creer mon compte"
           onClick={handleSubmit}
+          type="submit"
           primary
         />
       </Box>

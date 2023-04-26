@@ -70,6 +70,7 @@ const Login = () => {
 
 	// isRun.current=true;
 const keycloak = new Keycloak(initOptions);
+
 useEffect(() => {
 	if(isRun.current) return;
 
@@ -77,7 +78,7 @@ useEffect(() => {
   keycloak
 	.init({ onLoad: initOptions.onLoad, KeycloakResponseType: "code" })
 	.then((auth) => {
-	  console.log(keycloak, "key");
+	  console.log(auth, "auth");
 	  if (!auth) {
 		window.location.reload();
 	  } else {
@@ -87,7 +88,10 @@ useEffect(() => {
 	  }
 	  localStorage.setItem("bearer-token", keycloak.token);
 	  localStorage.setItem("refresh-token", keycloak.refreshToken);
-	  console.log(keycloak.token);
+	  const expires_in=Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew -
+		new Date().getTime() / 1000)
+		localStorage.setItem("expires_in", expires_in);
+	  
 	  setTimeout(() => {
 		keycloak
 		  .updateToken(70)
@@ -104,6 +108,9 @@ useEffect(() => {
 				  ) +
 				  " seconds",
 			  );
+			  dispatch(logout());
+				window.location.href = '/login';
+			 
 			}
 		  })
 		  .catch((error) => {

@@ -2,7 +2,7 @@ import {createSlice ,createAsyncThunk} from '@reduxjs/toolkit'
 
 
 const initialState={
-    initialState: { isAuthenticated: false }
+    initialState: { isAuthenticated: true }
 }
 
 
@@ -16,6 +16,7 @@ const logoutSlice=createSlice({
             state.isAuthenticated = false;
             localStorage.removeItem('bearer-token')
             localStorage.removeItem('refresh-token')
+            localStorage.removeItem('expires_in')
             localStorage.removeItem('user')
         }
 

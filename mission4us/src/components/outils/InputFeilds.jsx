@@ -35,6 +35,7 @@ const InputFeilds = (props) => {
     HandlehidePass,
     password,
     primary,
+    disabled
   } = props;
   const { OnSubmit, initialState, validationSchema } = UseHooks();
   const { mode } = useSelector((state) => state.global);
@@ -80,6 +81,7 @@ const InputFeilds = (props) => {
         shrink: shrink,
       }}
       required={required}
+      disabled={disabled}
       InputProps={
         password
           ? {

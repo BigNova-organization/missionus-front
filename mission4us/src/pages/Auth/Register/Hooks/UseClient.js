@@ -28,7 +28,7 @@ export function UseClient() {
   const IdentityState = {
     firstName: "",
     lastName: "",
-    pseudo: "",
+    login: "",
     email: "",
     userRole: "CLIENT",
     password: "",
@@ -38,7 +38,7 @@ export function UseClient() {
   let validationSchema = Yup.object().shape({
     firstName: Yup.string().required("first name is required"),
     lastName: Yup.string().required("last name is required"),
-    pseudo: Yup.string().required("pseudo is required"),
+    login: Yup.string().required("pseudo is required"),
     email: Yup.string()
       .required("Email is required")
       .min(8, "Email is too short - must be at least 4 characters.")

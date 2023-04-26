@@ -59,17 +59,32 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   // }
 
   const navigate = useNavigate();
-  const account = useSelector((state) => state.account.user);
-  const status = useSelector((state) => state.account.status);
-  const error = useSelector((state) => state.account.error);
-  console.log(account,'account')
+  const account = useSelector((state) => state.account?.user);
+  const status = useSelector((state) => state.account?.status);
+  const error = useSelector((state) => state.account?.error);
+  const token = localStorage.getItem("bearer-token");
+ 
+  
+  const isTokenExpired=(token)=> {
+    // Vérifier si le jeton est expiré
+    const expirationDate = new Date(token.expiration);
+    return expirationDate < new Date();
+  }
+ 
+  
 
   const mode = useSelector((state) => state.global.mode);
   useEffect(() => {
-    
-    dispatch(fetchAccount());
-
-  }, [dispatch]);
+    // Vérifier si le jeton est expiré ou n'est pas présent
+    if (!token || isTokenExpired(token)) {
+      // Déconnecter l'utilisateur et le rediriger vers la page de connexion
+      dispatch(logout());
+      window.location.href = '/login';
+    } else {
+      // Récupérer la liste des clients
+      dispatch(fetchAccount());
+    }
+  }, [dispatch, token]);
 
   return (
     <AppBar

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, useTheme ,Stack,} from "@mui/material";
 import "./styles.css";
 import { AccountCircle } from "@mui/icons-material";
@@ -13,10 +13,20 @@ import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import Space from "../../components/outils/Space";
 import EditProfile from "./formEditProfile";
-
+import { fetchAccount } from "../../Redux/account/slice";
+import { useDispatch, useSelector } from "react-redux";
 const Profile = () => {
   const theme = useTheme();
   const [clicked, setclicked] = useState(false);
+  const dispatch = useDispatch();
+  const account = useSelector((state) => state.account?.user);
+  const status = useSelector((state) => state.account?.status);
+  const error = useSelector((state) => state.account?.error);
+  useEffect(() => {
+   
+      dispatch(fetchAccount());
+   
+  }, [dispatch]);
   return (
     <Box className="dashboard">
       <Box
@@ -30,7 +40,7 @@ const Profile = () => {
         }}
       >
         <AccountCircle sx={{ fontSize: 50, marginRight: 2 ,color: theme.palette.primary.light}} />
-        <p style={{color: theme.palette.primary.light}}> John Dev</p>
+        <p style={{color: theme.palette.primary.light}}> {account.firstName}</p>
       </Box>
       <Body>
         <Card
@@ -70,7 +80,7 @@ const Profile = () => {
                         Nom
                       </Typography>
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
-                        {"John"}
+                        {account.firstName}
                       </Typography>
 
                       <Typography
@@ -82,7 +92,7 @@ const Profile = () => {
                         Prenom
                       </Typography>
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
-                        {"Dev"}
+                      {account.lastName}
                       </Typography>
 
                       <Typography
@@ -91,10 +101,10 @@ const Profile = () => {
                         component="div"
                         fontWeight={600}
                       >
-                        Profession
+                        Pseudo
                       </Typography>
                       <Typography variant="body2" >
-                        {"Ingenieur en dev"}
+                        {account.login}
                       </Typography>
                     
               
@@ -113,7 +123,7 @@ const Profile = () => {
                         Email
                       </Typography>
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
-                        {"john@gmail.com"}
+                      {account.email}
                       </Typography>
 
                       <Typography
@@ -122,13 +132,13 @@ const Profile = () => {
                         component="div"
                         fontWeight={600}
                       >
-                        Numero de telephone
+                        Role
                       </Typography>
                       <Typography variant="body2" style={{ paddingBottom: 10 }}>
-                        {"0782205066"}
+                        {account.authorities}
                       </Typography>
 
-                      <Typography
+                      {/* <Typography
                       gutterBottom
                       variant="h5"
                       component="div"
@@ -138,7 +148,7 @@ const Profile = () => {
                     </Typography>
                     <Typography variant="body2" style={{ paddingBottom: 10 }}>
                       {"Bejaia"}
-                    </Typography>
+                    </Typography> */}
                       
 
                     

@@ -28,11 +28,11 @@ const EditProfile = () => {
   const initialValues = {
    
     nom: "John",
-    tel: "0782205066",
+    login: "dev",
     email: "john@gmail.com",
     adresse: "Bejaia",
     prenom: "Dev",
-    profession: "Ingenieur en dev",
+    authorities: "Provider",
    
   };
 
@@ -40,10 +40,10 @@ const EditProfile = () => {
     intitule: Yup.string().required("Intitulé est obligatoire"),
     nom: Yup.string().required("Nom est obligatoire"),
     prenom: Yup.string().required("Prenom est obligatoire"),
-    tel: Yup.string().required("Téléphone est obligatoire"),
+    login: Yup.string().required("Pseudo est obligatoire"),
     email: Yup.mixed().required("Email est obligatoire"),
     adresse: Yup.string().required("Adresse est obligatoire"),
-    profession: Yup.string(),
+    authorities: Yup.string(),
     
   });
   return (
@@ -131,32 +131,33 @@ const EditProfile = () => {
                 />
               
                 <InputFeilds
-                  name="tel"
-                  label={"N° téléphone "}
+                  name="login"
+                  label={"Pseudo"}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.tel}
-                  id="tel"
+                  value={values.login}
+                  id="login"
                   required={true}
-                  error={errors.tel && touched.tel}
-                  helperText={errors.tel && touched.tel ? errors.tel : ""}
+                  error={errors.login && touched.login}
+                  helperText={errors.login && touched.login ? errors.login : ""}
                 />
              
             </RowBox>
             <RowBox>
             <InputFeilds
-                  name="profession"
-                  label={"Profession"}
+                  name="authorities"
+                  label={"Role"}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.profession}
-                  id="profession"
+                  value={values.authorities}
+                  id="authorities"
+                  disabled={true}
                 //   error={errors.adresse && touched.adresse}
                 //   helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
                  
                 />
               
-                <InputFeilds
+                {/* <InputFeilds
                   name="adresse"
                   label={"Adresse"}
                   onChange={handleChange}
@@ -166,7 +167,7 @@ const EditProfile = () => {
                   required={true}
                   error={errors.adresse && touched.adresse}
                   helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
-                />
+                /> */}
               
             </RowBox>
 

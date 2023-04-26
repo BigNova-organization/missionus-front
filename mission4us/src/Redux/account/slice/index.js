@@ -14,9 +14,14 @@ export const fetchAccount = createAsyncThunk(
   async () => {
    
 
-    
+    const token = localStorage.getItem("bearer-token");
     const url='http://api.mission4us.com:80/api/account';
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",   
+      },
+    });
    
     console.log(response,'account response')
     return response.data;

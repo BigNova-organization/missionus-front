@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useDispatch } from "react-redux"
 
 import {Navigate, Outlet} from "react-router-dom"
+import { logout } from "../../Redux/logout/slice"
 
 const useAuth = () => {
 	//get item from localstorage
@@ -32,6 +34,26 @@ const useAuth = () => {
 // }
 
 const ProtectedRoutes = (props) => {
+	// const token = localStorage.getItem("bearer-token");
+	// const expire_token = localStorage.getItem("expires_in");
+ 
+  
+	// const isTokenExpired=(token)=> {
+	//   // Vérifier si le jeton est expiré
+	//   const expirationDate = new Date(token.expiration);
+	//   console.log(expirationDate,'expir date')
+	//   console.log(token,'token expir')
+	//   return expirationDate < new Date();
+	// }
+	// const dispatch = useDispatch();
+	// useEffect(() => {
+	//   // Vérifier si le jeton est expiré ou n'est pas présent
+	//   if (!token || expire_token>300) {
+	// 	// Déconnecter l'utilisateur et le rediriger vers la page de connexion
+	// 	dispatch(logout());
+	// 	window.location.href = '/register';
+	//   }
+	// }, [token,expire_token]);
 	const {auth, role} = useAuth()
 
 	//if the role required is there or not

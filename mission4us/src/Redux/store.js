@@ -9,6 +9,7 @@ import clientSlice from "./clients/slice";
 import missionSlice from "./mission/slice";
 import accountSlice from './account/slice'
 import logoutSlice from "./logout/slice";
+import authSlice from "./register/slice";
 import infoAccountSlice from "./infoAccount/slice";
 import globalReducer from "./modeTheme";
 import persistStore from "redux-persist/es/persistStore";
@@ -21,6 +22,7 @@ const reducers = combineReducers({
   logout:logoutSlice,
   account:accountSlice,
   missions:missionSlice,
+  user:authSlice,
 
 });
 

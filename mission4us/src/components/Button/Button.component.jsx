@@ -102,6 +102,7 @@ export const PrimaryButton = ({
   return (
     <Button
       onClick={onClick}
+      type={type}
       style={buttonStyle}
       variant="contained"
       sx={{
