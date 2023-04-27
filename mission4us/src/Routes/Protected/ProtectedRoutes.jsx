@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
-
-import {Navigate, Outlet} from "react-router-dom"
+import jwtDecode from 'jwt-decode';
+import {Navigate, Outlet, useNavigate} from "react-router-dom"
 import { logout } from "../../Redux/logout/slice"
 
 const useAuth = () => {
@@ -34,26 +34,28 @@ const useAuth = () => {
 // }
 
 const ProtectedRoutes = (props) => {
-	// const token = localStorage.getItem("bearer-token");
+	const token = localStorage.getItem("bearer-token");
 	// const expire_token = localStorage.getItem("expires_in");
- 
-  
-	// const isTokenExpired=(token)=> {
-	//   // Vérifier si le jeton est expiré
-	//   const expirationDate = new Date(token.expiration);
-	//   console.log(expirationDate,'expir date')
-	//   console.log(token,'token expir')
-	//   return expirationDate < new Date();
-	// }
-	// const dispatch = useDispatch();
-	// useEffect(() => {
-	//   // Vérifier si le jeton est expiré ou n'est pas présent
-	//   if (!token || expire_token>300) {
-	// 	// Déconnecter l'utilisateur et le rediriger vers la page de connexion
-	// 	dispatch(logout());
-	// 	window.location.href = '/register';
-	//   }
-	// }, [token,expire_token]);
+	const dispatch = useDispatch();
+	const navigate=useNavigate();
+	
+	const isTokenExpired = (token) => {
+		const decodedToken = jwtDecode(token);
+		const currentTime = Date.now() / 1000; // convertit le temps en secondes
+	  console.log(currentTime,'currenttime')
+	  console.log(currentTime,'decodedToken')
+	  console.log(decodedToken.exp,'exptoken')
+		return decodedToken.exp < currentTime;
+	  };
+
+	  useEffect(() => {
+		if (token && isTokenExpired(token)) {
+		  // si le token est expiré, déconnectez l'utilisateur
+		  dispatch(logout());
+		  navigate('/login')
+		}
+	  }, [dispatch, token]);
+
 	const {auth, role} = useAuth()
 
 	//if the role required is there or not
@@ -70,6 +72,7 @@ const ProtectedRoutes = (props) => {
 	} else {
 		return auth ? <Outlet /> : <Navigate to="/register" />
 	}
+
 }
 
 export default ProtectedRoutes

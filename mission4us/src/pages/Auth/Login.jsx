@@ -2,56 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef } from "react";
 // import { Box } from "@mui/system";
 import Keycloak from "keycloak-js";
-// import axios from 'axios';
 
-// let initOptions = {
-//   url: "https://auth.mission4us.com/auth",
-//   realm: "local_tests",
-//   clientId: "m4us_tests",
-//   onLoad: "login-required",
-
-//   // KeycloakResponseType: 'code'
-// };
-// const keycloak = new Keycloak(initOptions);
-
-// keycloak
-//   .init({ onLoad: initOptions.onLoad, KeycloakResponseType: "code" })
-//   .then((auth) => {
-//     console.log(keycloak, "key");
-//     if (!auth) {
-//       window.location.reload();
-//     } else {
-//       console.info("Authenticated");
-//     }
-//     localStorage.setItem("bearer-token", keycloak.token);
-//     localStorage.setItem("refresh-token", keycloak.refreshToken);
-//     console.log(keycloak.token);
-//     setTimeout(() => {
-//       keycloak
-//         .updateToken(70)
-//         .then((refreshed) => {
-//           if (refreshed) {
-//             console.debug("Token refreshed" + refreshed);
-//           } else {
-//             console.warn(
-//               "Token not refreshed, valid for " +
-//                 Math.round(
-//                   keycloak.tokenParsed.exp +
-//                     keycloak.timeSkew -
-//                     new Date().getTime() / 1000,
-//                 ) +
-//                 " seconds",
-//             );
-//           }
-//         })
-//         .catch((error) => {
-//           console.error(error, "Failed to refresh token");
-//         });
-//     }, 60000);
-//   })
-//   .catch((error) => {
-//     console.error(error, "Authenticated Failed");
-//   });
 const Login = () => {
   const navigate = useNavigate()
   let initOptions = {
@@ -88,9 +39,9 @@ useEffect(() => {
 	  }
 	  localStorage.setItem("bearer-token", keycloak.token);
 	  localStorage.setItem("refresh-token", keycloak.refreshToken);
-	  const expires_in=Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew -
-		new Date().getTime() / 1000)
-		localStorage.setItem("expires_in", expires_in);
+	//   const expires_in=Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew -
+	// 	new Date().getTime() / 1000)
+	// 	localStorage.setItem("expires_in", expires_in);
 	  
 	  setTimeout(() => {
 		keycloak
@@ -108,8 +59,8 @@ useEffect(() => {
 				  ) +
 				  " seconds",
 			  );
-			  dispatch(logout());
-				window.location.href = '/login';
+			//   dispatch(logout());
+			// 	window.location.href = '/login';
 			 
 			}
 		  })

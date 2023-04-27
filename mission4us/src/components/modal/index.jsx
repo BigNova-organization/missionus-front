@@ -18,7 +18,7 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ModalDelete({open,onClose,title}) {
+export default function ModalDelete({open,onClose,title,onDelete}) {
  
   const theme = useTheme();
   return (
@@ -39,6 +39,7 @@ export default function ModalDelete({open,onClose,title}) {
           size='medium' 
           style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
           sx={{marginRight:3}}
+          onClick={onDelete}
           
           >
               Oui

@@ -10,30 +10,30 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
 import * as Yup from 'yup'
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addJob } from "../../../Redux/jobs/slice";
 const AddJob = () => {
   const theme = useTheme();
  
   const initialValues={
-    nom:'',
-    prenom:'',
+    name:'',
+    // secteur:'',
     description:'',
-    secteur:''
     
   }
 
   const validationSchema=Yup.object().shape({
-    nom: Yup.string()
-      .required('Le nom est obligatoire'),
-    prenom: Yup.string()
-      .required('Le prenom est obligatoire'),
-    secteur: Yup.string()
-      .required('Le secteur est obligatoire'),
+    name: Yup.string()
+      .required('Le nom du job est obligatoire'),
     description: Yup.string()
     .min(10, 'Description doit contenir au min 10 caracteres')
       .max(150, 'Description doit contenir au max 150 caracteres')
       .required('la description est obligatoire'),
    
   })
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
   return (
     <Box
       sx={{
@@ -50,13 +50,15 @@ const AddJob = () => {
       <Formik
        initialValues={initialValues}
        validationSchema={validationSchema}
-       onSubmit={(values,{setSubmitting}) => {
-        console.log(values,'myvalues')
-        setTimeout(() => {
-          console.log(values,'myvalues')
-          setSubmitting(false);
-        }, 4000);
+       onSubmit={(values) => {
+        console.log(values,'job values')
+        dispatch(addJob(values))
+        // setTimeout(() => {
+        //   setSubmitting(false);
+        // }, 4000);
+        navigate(-1)
        }}
+      
       >
        {({
          values,
@@ -72,17 +74,17 @@ const AddJob = () => {
                 <Space space={20} />
                 
                 <InputFeilds
-                    label={"Nom"}
+                    label={"Intitule"}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.nom}
-                    id="nom"
+                    value={values.name}
+                    id="name"
                     required={true}
-                    error={errors.nom && touched.nom}
-                    helperText={errors.nom && touched.nom ? errors.nom : ""}
+                    error={errors.name && touched.name}
+                    helperText={errors.name && touched.name ? errors.name : ""}
                   />
                  
-                  <InputFeilds 
+                  {/* <InputFeilds 
                   label={"Prénom"}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -91,11 +93,11 @@ const AddJob = () => {
                   required={true}
                     error={errors.prenom && touched.prenom}
                     helperText={errors.prenom && touched.prenom ? errors.prenom : ""}
-                  />
+                  /> */}
                  
                 
                 
-                  <InputFeilds 
+                  {/* <InputFeilds 
                   label={"Secteur"} 
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -104,7 +106,7 @@ const AddJob = () => {
                   required={true}
                     error={errors.secteur && touched.secteur}
                     helperText={errors.secteur && touched.secteur ? errors.secteur : ""}
-                  />
+                  /> */}
                   
                 
                
@@ -133,7 +135,7 @@ const AddJob = () => {
                   size="medium"
                   style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
                   type="submit"
-                  disabled={isSubmitting}
+                  onClick={handleSubmit}
                  
                 >
                   Valider

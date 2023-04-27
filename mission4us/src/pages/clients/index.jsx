@@ -1,22 +1,4 @@
-// import React, { useEffect } from "react";
-// import { Box, useTheme } from "@mui/material";
 
-// import Head from "../../components/Head";
-
-
-
-
-
-// const Clients = () => {
-//   const theme = useTheme();
-//   return (
-//     <Box >
-//       <Head title='Clients' />
-//     </Box>
-//   );
-// };
-
-// export default Clients;
 
 import React, { useEffect,useState,useCallback } from "react";
 import { Box, useTheme } from "@mui/material";
@@ -44,6 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchClients } from "../../Redux/clients/slice";
 import { fetchAccountInfo } from "../../Redux/infoAccount/slice";
 import { CircularProgress } from "@material-ui/core";
+import { Stack } from "@mui/system";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -179,7 +162,7 @@ const Clients = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-          {(status==='loading')? <CircularProgress />:(status === 'failed')?<div style={{color:'red',fontSize:15,textAlign:'center'}}>Error: {error}</div>:null}
+          {(status==='loading')&& <CircularProgress />}
             {clients
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((client) => {

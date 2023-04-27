@@ -1,5 +1,5 @@
 import "./styles.css";
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, TextField, Typography, useTheme } from "@mui/material";
 import Head from "../../../components/Head";
 import Body from '../../../components/Body';
@@ -10,25 +10,32 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
 import * as Yup from 'yup'
+import { useParams } from "react-router-dom";
+import { fetchJob } from "../../../Redux/jobs/slice";
+import { useDispatch } from "react-redux";
 
 const UpdateJob = () => {
   const theme = useTheme();
- 
+ const id=useParams()
+ console.log(id,'id')
   const initialValues={
-    nom:'Ingenieur en dev',
-    description:'loremipsum loremipsum loremipsum loremipsum loremipsum',
+    name:'',
+    description:'',
     
   }
   const validationSchema=Yup.object().shape({
-    nom: Yup.string()
-      .required('Le nom est obligatoire'),
+    name: Yup.string()
+      .required('Le nom du job est obligatoire'),
     description: Yup.string()
     .min(10, 'Description doit contenir au min 10 caracteres')
       .max(150, 'Description doit contenir au max 150 caracteres')
       .required('La description est obligatoire'),
    
   })
-
+const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch(fetchJob(id))
+ }, [dispatch])
   return (
     <Box
       sx={{
@@ -45,12 +52,12 @@ const UpdateJob = () => {
       <Formik
        initialValues={initialValues}
        validationSchema={validationSchema}
-       onSubmit={(values,{setSubmitting}) => {
-        console.log(values,'myvalues')
-        setTimeout(() => {
-          console.log(values,'myvalues')
-          setSubmitting(false);
-        }, 4000);
+       onSubmit={(values) => {
+        console.log(values,'edit job values')
+        // setTimeout(() => {
+        //   console.log(values,'myvalues')
+        //   setSubmitting(false);
+        // }, 4000);
        }}
       >
        {({
@@ -66,14 +73,14 @@ const UpdateJob = () => {
          <form onSubmit={handleSubmit}>
                 <Space space={20} />
                 <InputFeilds
-                    label={"Nom"}
+                    label={"Intitule"}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.nom}
-                    id="nom"
+                    value={values.name}
+                    id="name"
                     required={true}
-                    error={errors.nom && touched.nom}
-                    helperText={errors.nom && touched.nom ? errors.nom : ""}
+                    error={errors.name && touched.name}
+                    helperText={errors.name && touched.name ? errors.name : ""}
                   />
                   <InputFeilds
                     label={"Description"}
@@ -97,7 +104,7 @@ const UpdateJob = () => {
                   size="medium"
                   style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
                   type="submit"
-                  disabled={isSubmitting}
+                  onClick={handleSubmit}
                  
                 >
                   Valider

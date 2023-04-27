@@ -33,6 +33,27 @@ export const fetchMissions = createAsyncThunk(
   }
 );
 
+export const deleteMission = createAsyncThunk(
+  'missions/deleteMission',
+  async (id) => {
+   
+
+    const token = localStorage.getItem("bearer-token");
+    const url=`https://api.mission4us.com/api/missions/${id}`;
+    console.log(url,'url')
+    axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",   
+      },
+    });
+   
+    console.log(id,'delete mission')
+    return id;
+    
+  }
+);
+
 const missionSlice = createSlice({
   name: 'missions',
   initialState,
@@ -49,6 +70,10 @@ const missionSlice = createSlice({
       .addCase(fetchMissions.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+
+      .addCase(deleteMission.fulfilled, (state, action) => {
+        state.missions = state.missions.filter(mission => mission.id !== action.payload);
       });
   },
 });

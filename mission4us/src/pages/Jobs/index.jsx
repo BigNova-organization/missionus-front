@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme } from "@mui/material";
 
 import "./styles.css";
@@ -24,6 +24,10 @@ import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import ModalDelete from "../../components/modal";
+import { useSelector,useDispatch } from "react-redux";
+import { deleteJob, fetchJobs } from "../../Redux/jobs/slice";
+
+import { CircularProgress } from "@material-ui/core";
 
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -58,20 +62,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const columns = [
   { id: "intitule", label: "Intitule", minWidth: 100},
-  {
-    id: "description",
-    label: "Description",
-    minWidth: 100,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US")
-  },
-  {
-    id: "secteur",
-    label: "Secteur",
-    minWidth: 100,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US")
-  },
+  // {
+  //   id: "description",
+  //   label: "Description",
+  //   minWidth: 100,
+  //   align: "left",
+  //   format: (value) => value.toLocaleString("en-US")
+  // },
+  // {
+  //   id: "secteur",
+  //   label: "Secteur",
+  //   minWidth: 100,
+  //   align: "left",
+  //   format: (value) => value.toLocaleString("en-US")
+  // },
   {
     id: "actions",
     label: "Actions",
@@ -85,27 +89,15 @@ function createData(intitule, description, secteur) {
   return { intitule, description, secteur };
 }
 
-const rows = [
-  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
-  createData('Enseignant','loremImpum' , 'Prive'),
-  createData('Plombier','loremImpum' , 'Prive'),
-  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
-  createData('Enseignant','loremImpum' , 'Prive'),
-  createData('Plombier','loremImpum' , 'Prive'),
-  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
-  createData('Enseignant','loremImpum' , 'Prive'),
-  createData('Plombier','loremImpum' , 'Prive'),
-  createData('Ingenieur Informatique','loremImpum' , 'Prive'),
-  createData('Enseignant','loremImpum' , 'Prive'),
-  createData('Plombier','loremImpum' , 'Prive'),
-
-
-];
 
 
 
 const Jobs = () => {
   const theme = useTheme();
+  const jobs = useSelector((state) => state.jobs.jobs);
+  const status = useSelector((state) => state.jobs.status);
+  const error = useSelector((state) => state.jobs.error);
+  console.log(jobs,'missions')
   // const classes = useStyles();
     const buttonStyle=useButtonStyles()
 
@@ -121,9 +113,33 @@ const Jobs = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const [ouvrir, setOuvrir] = React.useState(false);
+  const [ouvrir, setOuvrir] = useState(false);
   const handleOuvrir = () => setOuvrir(true);
   const handleFermer = () => setOuvrir(false);
+  const dispatch=useDispatch()
+
+  useEffect(() => {
+    
+    dispatch(fetchJobs());
+
+  }, [dispatch]);
+
+  const [selectedRow, setSelectedRow] = useState(null);
+  const handleDelete = (id) => {
+   handleOuvrir()
+    setSelectedRow(id);
+  };
+
+  const handleModalClose = () => {
+    handleFermer();
+    setSelectedRow(null);
+  };
+
+  const handleConfirmDelete = () => {
+    dispatch(deleteJob(selectedRow));
+    handleModalClose();
+  }
+
   return (
     <Box className="dashboard">
       <Box
@@ -169,22 +185,23 @@ const Jobs = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows
+          {(status==='loading')&& <CircularProgress />}
+            {jobs
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row,index) => {
+              .map((job,index) => {
                 return (
-                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={index}>
-                     <StyledTableCell >{row.intitule}</StyledTableCell>
-                        <StyledTableCell >{row.description}</StyledTableCell>
-                        <StyledTableCell>{row.secteur}</StyledTableCell>
+                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={job.id}>
+                     <StyledTableCell >{job.name}</StyledTableCell>
+                        {/* <StyledTableCell >{job.name}</StyledTableCell> */}
+                        {/* <StyledTableCell>{row.secteur}</StyledTableCell> */}
                         
                         <StyledTableCell align="left">
-                        <div className={buttonStyle.root}>
+                        
                         <Tooltip title="Modifier">
                         <IconButton
                           aria-label="edit"
                           color='primary'
-                          onClick={()=>navigate("Update Job")  }
+                          onClick={()=>navigate(`Update Job/${job.id}`)  }
                         >
                           <EditIcon />
                           
@@ -194,12 +211,12 @@ const Jobs = () => {
                         <IconButton 
                         aria-label="delete" 
                         color='secondary'
-                        onClick={handleOuvrir}
+                        onClick={() => handleDelete(job.id)}
                         >
                           <DeleteIcon />
                         </IconButton>
                         </Tooltip>
-                          </div>
+                         
                           </StyledTableCell>
                   </StyledTableRow>
                 );
@@ -209,14 +226,15 @@ const Jobs = () => {
       </TableContainer>
       <ModalDelete
           open={ouvrir}
-          onClose={handleFermer}
+          onClose={handleModalClose}
           title={"Voulez vous supprimer ce job?"}
+          onDelete={handleConfirmDelete}
           
       />
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={jobs.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

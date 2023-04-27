@@ -96,7 +96,7 @@ const MainRoutes = () => (
           <Route path="profile" element={<Profile />} />
           <Route path="jobs" element={<Jobs />} />
           <Route path="jobs/Add Job" element={<AddJob />} />
-          <Route path="jobs/Update Job" element={<UpdateJob />} />
+          <Route path="jobs/Update Job/:id" element={<UpdateJob />} />
         </Route>
       </Route>
     </Route>

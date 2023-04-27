@@ -33,7 +33,7 @@ import EditMission from "./formEditMission";
 
 import { CircularProgress } from "@material-ui/core";
 import { useSelector,useDispatch } from "react-redux";
-import { fetchMissions } from "../../Redux/mission/slice";
+import { deleteMission, fetchMissions } from "../../Redux/mission/slice";
 
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -89,13 +89,13 @@ const columns = [
     align: "left",
     format: (value) => value.toLocaleString("en-US")
   },
-  {
-    id: "tel",
-    label: "N° téléphone",
-    minWidth: 100,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US")
-  },
+  // {
+  //   id: "tel",
+  //   label: "N° téléphone",
+  //   minWidth: 100,
+  //   align: "left",
+  //   format: (value) => value.toLocaleString("en-US")
+  // },
   {
     id: "actions",
     label: "Actions",
@@ -170,8 +170,25 @@ const Missions = () => {
     dispatch(fetchMissions());
 
   }, [dispatch]);
+
+  const [selectedRow, setSelectedRow] = useState(null);
+  const handleDelete = (id) => {
+   handleOuvrir()
+    setSelectedRow(id);
+  };
+
+  const handleModalClose = () => {
+    handleFermer();
+    setSelectedRow(null);
+  };
+
+  const handleConfirmDelete = () => {
+    dispatch(deleteMission(selectedRow));
+    handleModalClose();
+  }
+
   return (
-    <Box className="dashboard">
+    <Box >
       <Box
       sx={{
         padding: "10px",
@@ -220,16 +237,20 @@ const Missions = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
+          {(status==='loading')&& <CircularProgress />}
             {missions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((mission) => {
                 return (
+                  <>
+         
                   <StyledTableRow hover role="checkbox" tabIndex={-1} key={mission.id}>
+                    
                     <StyledTableCell >{mission.name}</StyledTableCell>
-                     {/* <StyledTableCell >{row.intitule}</StyledTableCell> */}
+                     <StyledTableCell >{mission.details}</StyledTableCell>
                         <StyledTableCell >{mission.type}</StyledTableCell>
-                        {/* <StyledTableCell >{row.adresse}</StyledTableCell>
-                        <StyledTableCell>{row.tel}</StyledTableCell> */}
+                        <StyledTableCell >{`${mission.street},${mission.city},${mission.country}`}</StyledTableCell>
+                         {/*<StyledTableCell>{row.tel}</StyledTableCell> */}
                         
                         <StyledTableCell align="left">
                         <div className={buttonStyle.root}>
@@ -243,16 +264,18 @@ const Missions = () => {
                           
                         </IconButton>
                         </Tooltip>
+                        
 
                         <Tooltip title="Supprimer">
                         <IconButton 
                         aria-label="delete" 
                         color='secondary'
-                        onClick={handleOuvrir}
+                        onClick={() => handleDelete(mission.id)}
                         >
                           <DeleteIcon />
                         </IconButton>
                         </Tooltip>
+        
 
                         <Tooltip title="Devis">
                         <IconButton 
@@ -268,9 +291,14 @@ const Missions = () => {
                         
                        
                           </div>
+                          
                        
                           </StyledTableCell>
+               
                   </StyledTableRow>
+
+                
+                  </>
                 );
               })}
           </TableBody>
@@ -282,16 +310,20 @@ const Missions = () => {
       <Drawer anchor="right" open={openEdit} >
         <EditMission open ={openEdit} onClose={handleCloseEdit}/>
       </Drawer>
+
+    
       <ModalDelete
-          open={ouvrir}
-          onClose={handleFermer}
-          title={"Voulez vous supprimer cette mission?"}
-          
+        open={ouvrir}
+        onClose={handleModalClose}
+        title={"Voulez vous supprimer cette mission?"}
+        onDelete={handleConfirmDelete}
       />
+      
+    
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={missions.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -303,6 +335,7 @@ const Missions = () => {
     </Paper>
        
       </Body> 
+      
     </Box>
   );
 };
