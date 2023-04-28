@@ -97,7 +97,7 @@ const Jobs = () => {
   const jobs = useSelector((state) => state.jobs.jobs);
   const status = useSelector((state) => state.jobs.status);
   const error = useSelector((state) => state.jobs.error);
-  console.log(jobs,'missions')
+  console.log(jobs,'jobs')
   // const classes = useStyles();
     const buttonStyle=useButtonStyles()
 
@@ -188,7 +188,7 @@ const Jobs = () => {
           {(status==='loading')&& <CircularProgress />}
             {jobs
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((job,index) => {
+              .map((job) => {
                 return (
                   <StyledTableRow hover role="checkbox" tabIndex={-1} key={job.id}>
                      <StyledTableCell >{job.name}</StyledTableCell>

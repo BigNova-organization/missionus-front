@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Box, InputLabel, Select, Typography, useTheme } from "@mui/material";
 import Body from "../../../components/Body";
 import { Formik } from "formik";
 import InputFeilds from "../../../components/outils/InputFeilds";
@@ -15,7 +15,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import { MenuItem } from "@material-ui/core";
 import SelectMenue from "../../../components/outils/SelectMenue";
-
+import Flags from 'react-flags-select';
+import ReactFlagsSelect from "react-flags-select";
 // const options = [
 //   { value: "client1", label: "Reda Bekka" },
 //   { value: "client2", label: "Samia Kh" },
@@ -28,6 +29,15 @@ const options = [
 const optionsJob = [
   { value: "job1", name: "Plombier" },
   { value: "job2", name: "Ingenieur en dev" },
+];
+
+const langues = [
+  { value: "fr", name: "Francais" },
+  { value: "en", name: "Anglais" },
+  { value: "es", name: "Espagnol" },
+  { value: "de", name: "Allemagne" },
+  { value: "it", name: "Italy" },
+
 ];
 const AddMission = ({ open, onClose }) => {
   const theme = useTheme();
@@ -42,8 +52,9 @@ const AddMission = ({ open, onClose }) => {
     datedeb: "",
     datefin: "",
     prix: "",
-    langues: "",
+    langues: [],
   };
+  const [selected, setSelected] = useState("");
 
   const validationSchema = Yup.object().shape({
     intitule: Yup.string().required("Intitulé est obligatoire"),
@@ -55,7 +66,7 @@ const AddMission = ({ open, onClose }) => {
     datedeb: Yup.date().required("Date début est obligatoire"),
     datefin: Yup.date(),
     prix: Yup.number("Prix"),
-    langues: Yup.string(),
+    langues: Yup.string().required("Langues est obligatoire").min("Selectionez au minimum une langue"),
     details: Yup.string()
       .min(10, "Détails doit contenir au min 10 caracteres")
       .max(150, "Détails doit contenir au max 150 caracteres"),
@@ -154,6 +165,55 @@ const AddMission = ({ open, onClose }) => {
                     }}
                     marginRight
                   />
+                    {/* <SelectMenue
+                    selectionTitle="  Selectionner les langues *"
+                    data={langues}
+                    handleOpen={(val) => {
+                      setFieldValue("langues", val);
+                    }}
+                    error={errors.langues && touched.langues && errors.langues}
+                    helperText={
+                      errors.langues && touched.langues ? errors.langues : ""
+                    }
+                    value={values.langues}
+                    onBlur={() => {
+                      setFieldTouched("langues", true);
+                    }}
+                    multiple={true}
+                    marginRight
+                  /> */}
+
+                {/* <InputLabel id="languages-label">Languages</InputLabel>
+                <Select
+                  labelId="languages-label"
+                  id="languages-select"
+                  multiple
+                  fullWidth
+                  value={values.langues}
+                  onChange={(event) => setFieldValue('languages', event.target.value)}
+                  renderValue={(selected) => (
+                    <div>
+                      {selected.map((langues) => (
+                        <Flags key={langues} className="flag" countryCode={langues} />
+                      ))}
+                    </div>
+                  )}
+                >
+                  <MenuItem value="fr">French</MenuItem>
+                  <MenuItem value="en">English</MenuItem>
+                  <MenuItem value="es">Spanish</MenuItem>
+                  <MenuItem value="de">German</MenuItem>
+                  <MenuItem value="it">Italian</MenuItem>
+                </Select>
+
+
+                <ReactFlagsSelect
+                countries={["US", "GB", "FR", "DE", "IT"]}
+                customLabels={{ US: "EN-US", GB: "EN-GB", FR: "FR", DE: "DE", IT: "IT" }}
+                placeholder="Select Language"
+                selected={selected}
+                  onSelect={(code) => setSelected(code)}
+              /> */}
               <RowBox>
                 
                   <InputFeilds

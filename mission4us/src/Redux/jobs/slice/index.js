@@ -1,5 +1,7 @@
+import { ConstructionOutlined } from '@mui/icons-material';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 const initialState = {
@@ -72,7 +74,8 @@ export const addJob = createAsyncThunk(
     'jobs/updateJob',
     async (id,values) => {
      
-  
+  console.log(id,'idslice')
+  console.log(values,'valuesslice')
       const token = localStorage.getItem("bearer-token");
       const url=`https://api.mission4us.com/api/jobs/${id}`;
       const response = await axios.put(url,values, {

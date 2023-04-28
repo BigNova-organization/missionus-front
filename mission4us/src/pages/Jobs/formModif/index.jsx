@@ -10,32 +10,33 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
 import * as Yup from 'yup'
-import { useParams } from "react-router-dom";
-import { fetchJob } from "../../../Redux/jobs/slice";
-import { useDispatch } from "react-redux";
+import { useParams} from "react-router-dom";
+import { fetchJob, updateJob } from "../../../Redux/jobs/slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const UpdateJob = () => {
   const theme = useTheme();
- const id=useParams()
+ const {id}=useParams()
+
+ const jobs = useSelector((state) => state.jobs?.jobs);
+ const job=jobs.find((j) => j.id === parseInt(id))
+// const job = useSelector((state) => state.jobs.find((j) => j.id === parseInt(id)));
  console.log(id,'id')
+ console.log(job,'job')
   const initialValues={
-    name:'',
-    description:'',
+    id:job?.id,
+    name:job?.name,
     
   }
   const validationSchema=Yup.object().shape({
     name: Yup.string()
       .required('Le nom du job est obligatoire'),
-    description: Yup.string()
-    .min(10, 'Description doit contenir au min 10 caracteres')
-      .max(150, 'Description doit contenir au max 150 caracteres')
-      .required('La description est obligatoire'),
    
   })
 const dispatch=useDispatch()
-  useEffect(() => {
-    dispatch(fetchJob(id))
- }, [dispatch])
+//   useEffect(() => {
+//     dispatch(fetchJob(id))
+//  }, [])
   return (
     <Box
       sx={{
@@ -58,6 +59,8 @@ const dispatch=useDispatch()
         //   console.log(values,'myvalues')
         //   setSubmitting(false);
         // }, 4000);
+        dispatch(updateJob(id,{values}));
+       
        }}
       >
        {({
@@ -83,18 +86,18 @@ const dispatch=useDispatch()
                     helperText={errors.name && touched.name ? errors.name : ""}
                   />
                   <InputFeilds
-                    label={"Description"}
-                    multiline={true}
-                    rows={4}
-                    id="description"
+                    label={"id"}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.description}
+                    value={values.id}
+                    id="id"
                     required={true}
-                    error={errors.description && touched.description}
-                    helperText={errors.description && touched.description ? errors.description : ""}
-                   
+                    error={errors.id && touched.id}
+                    helperText={errors.id && touched.id ? errors.id : ""}
+                    disabled={true}
                   />
+               
+                 
                 
                 <Space space={20} />
                 <div style={{ float: "right" }}>
