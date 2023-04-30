@@ -15,7 +15,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import { MenuItem } from "@material-ui/core";
 import SelectMenue from "../../../components/outils/SelectMenue";
-import Flags from 'react-flags-select';
+import Flags from "react-flags-select";
 import ReactFlagsSelect from "react-flags-select";
 // const options = [
 //   { value: "client1", label: "Reda Bekka" },
@@ -37,7 +37,6 @@ const langues = [
   { value: "es", name: "Espagnol" },
   { value: "de", name: "Allemagne" },
   { value: "it", name: "Italy" },
-
 ];
 const AddMission = ({ open, onClose }) => {
   const theme = useTheme();
@@ -66,7 +65,9 @@ const AddMission = ({ open, onClose }) => {
     datedeb: Yup.date().required("Date début est obligatoire"),
     datefin: Yup.date(),
     prix: Yup.number("Prix"),
-    langues: Yup.string().required("Langues est obligatoire").min("Selectionez au minimum une langue"),
+    langues: Yup.string()
+      .required("Langues est obligatoire")
+      .min("Selectionez au minimum une langue"),
     details: Yup.string()
       .min(10, "Détails doit contenir au min 10 caracteres")
       .max(150, "Détails doit contenir au max 150 caracteres"),
@@ -78,15 +79,28 @@ const AddMission = ({ open, onClose }) => {
         height: "100%",
       }}
     >
-      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:theme.palette.background.default, color: theme.palette.primary.light,}}>
-      <Tooltip title="Fermer">
-      <IconButton aria-label="close" style={{ color: theme.palette.primary.light,}} onClick={onClose}>
-        <CloseIcon />
-      </IconButton>
-       </Tooltip>            
-      <Typography  variant={"h4"} style={{paddingLeft:15}}> Ajouter une mission {" "}</Typography>
-      
-
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          padding: "20px 0 20px 20px",
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.primary.light,
+        }}
+      >
+        <Tooltip title="Fermer">
+          <IconButton
+            aria-label="close"
+            style={{ color: theme.palette.primary.light }}
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
+        <Typography variant={"h4"} style={{ paddingLeft: 15 }}>
+          {" "}
+          Ajouter une mission{" "}
+        </Typography>
       </div>
 
       <Body>
@@ -98,7 +112,7 @@ const AddMission = ({ open, onClose }) => {
             setTimeout(() => {
               console.log(values, "myvalues");
               setSubmitting(false);
-            }, 4000);
+            }, 1000);
           }}
         >
           {({
@@ -110,11 +124,11 @@ const AddMission = ({ open, onClose }) => {
             handleSubmit,
             isSubmitting,
             setFieldValue,
-            setFieldTouched
+            setFieldTouched,
             /* and other goodies */
           }) => (
             <form onSubmit={handleSubmit}>
-              <div style={{marginRight:20}}>
+              <div style={{ marginRight: 20 }}>
                 <InputFeilds
                   label={"Intitulé"}
                   onChange={handleChange}
@@ -123,9 +137,10 @@ const AddMission = ({ open, onClose }) => {
                   id="intitule"
                   required={true}
                   error={errors.intitule && touched.intitule}
-                  helperText={errors.intitule && touched.intitule ? errors.intitule : ""}
+                  helperText={
+                    errors.intitule && touched.intitule ? errors.intitule : ""
+                  }
                 />
-              
               </div>
 
               {/* <div style={{ flex: 1 }}>
@@ -150,22 +165,22 @@ const AddMission = ({ open, onClose }) => {
                 </div>
               </div> */}
               <SelectMenue
-                    selectionTitle="  Selectionner un client *"
-                    data={options}
-                    handleOpen={(val) => {
-                      setFieldValue("client", val);
-                    }}
-                    error={errors.client && touched.client && errors.client}
-                    helperText={
-                      errors.client && touched.client ? errors.client : ""
-                    }
-                    value={values.client}
-                    onBlur={() => {
-                      setFieldTouched("client", true);
-                    }}
-                    marginRight
-                  />
-                    {/* <SelectMenue
+                selectionTitle="  Selectionner un client *"
+                data={options}
+                handleOpen={(val) => {
+                  setFieldValue("client", val);
+                }}
+                error={errors.client && touched.client && errors.client}
+                helperText={
+                  errors.client && touched.client ? errors.client : ""
+                }
+                value={values.client}
+                onBlur={() => {
+                  setFieldTouched("client", true);
+                }}
+                marginRight
+              />
+              {/* <SelectMenue
                     selectionTitle="  Selectionner les langues *"
                     data={langues}
                     handleOpen={(val) => {
@@ -183,7 +198,7 @@ const AddMission = ({ open, onClose }) => {
                     marginRight
                   /> */}
 
-                {/* <InputLabel id="languages-label">Languages</InputLabel>
+              {/* <InputLabel id="languages-label">Languages</InputLabel>
                 <Select
                   labelId="languages-label"
                   id="languages-select"
@@ -215,60 +230,55 @@ const AddMission = ({ open, onClose }) => {
                   onSelect={(code) => setSelected(code)}
               /> */}
               <RowBox>
-                
-                  <InputFeilds
-                    label={"N° téléphone "}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.tel}
-                    id="tel"
-                    required={true}
-                    error={errors.tel && touched.tel}
-                    helperText={errors.tel && touched.tel ? errors.tel : ""}
-                  />
-             
+                <InputFeilds
+                  label={"N° téléphone "}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.tel}
+                  id="tel"
+                  required={true}
+                  error={errors.tel && touched.tel}
+                  helperText={errors.tel && touched.tel ? errors.tel : ""}
+                />
 
-                
-                  <InputFeilds
-                    label={"Email"}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                    id="email"
-                    required={true}
-                    error={errors.email && touched.email}
-                    helperText={errors.email && touched.email ? errors.email : ""}
-                   
-                  />
-               
+                <InputFeilds
+                  label={"Email"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  id="email"
+                  required={true}
+                  error={errors.email && touched.email}
+                  helperText={errors.email && touched.email ? errors.email : ""}
+                />
               </RowBox>
               <RowBox>
-                
-                  <InputFeilds
-                    label={"Adresse"}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.adresse}
-                    id="adresse"
-                    required={true}
-                    error={errors.adresse && touched.adresse}
-                    helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
-                  />
-                
-                
-                  <InputFeilds
-                    label={"Fourchette de prix"}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.prix}
-                    id="prix"
-                    error={errors.adresse && touched.adresse}
-                    helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
-                   
-                  />
-                
+                <InputFeilds
+                  label={"Adresse"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.adresse}
+                  id="adresse"
+                  required={true}
+                  error={errors.adresse && touched.adresse}
+                  helperText={
+                    errors.adresse && touched.adresse ? errors.adresse : ""
+                  }
+                />
+
+                <InputFeilds
+                  label={"Fourchette de prix"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.prix}
+                  id="prix"
+                  error={errors.adresse && touched.adresse}
+                  helperText={
+                    errors.adresse && touched.adresse ? errors.adresse : ""
+                  }
+                />
               </RowBox>
-{/* 
+              {/* 
               <CustomSelect
                 id={"job"}
                 name={"job"}
@@ -288,55 +298,48 @@ const AddMission = ({ open, onClose }) => {
               <div style={{ color: "red", fontSize: 15 }}>
                 {errors.job && touched.job && errors.job}
               </div> */}
-                <SelectMenue
-                    selectionTitle="  Selectionner un job *"
-                    data={optionsJob}
-                    handleOpen={(val) => {
-                      setFieldValue("job", val);
-                    }}
-                    error={errors.job && touched.job && errors.job}
-                    helperText={
-                      errors.job && touched.job ? errors.job : ""
-                    }
-                    value={values.job}
-                    onBlur={() => {
-                      setFieldTouched("job", true);
-                    }}
-                    marginRight
-                  />
+              <SelectMenue
+                selectionTitle="  Selectionner un job *"
+                data={optionsJob}
+                handleOpen={(val) => {
+                  setFieldValue("job", val);
+                }}
+                error={errors.job && touched.job && errors.job}
+                helperText={errors.job && touched.job ? errors.job : ""}
+                value={values.job}
+                onBlur={() => {
+                  setFieldTouched("job", true);
+                }}
+                marginRight
+              />
 
               <Space space={20} />
 
               <RowBox>
-  
-                
-                  <DatePickers
-                    id="datedeb"
-                    label={"Date Debut *"}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.datedeb}
-                    error={errors.datedeb && touched.datedeb && errors.datedeb}
-                    helperText={
-                      errors.datedeb && touched.datedeb ? errors.datedeb : ""
-                    }
-                   
-                  />
-                
-                
+                <DatePickers
+                  id="datedeb"
+                  label={"Date Debut *"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.datedeb}
+                  error={errors.datedeb && touched.datedeb && errors.datedeb}
+                  helperText={
+                    errors.datedeb && touched.datedeb ? errors.datedeb : ""
+                  }
+                />
+
                 <Space space={20} />
-                  <DatePickers
-                    id="datefin"
-                    label={"Date Fin"}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.datefin}
-                    error={errors.datefin && touched.datefin && errors.datefin}
-                    helperText={
-                      errors.datefin && touched.datefin ? errors.datefin : ""}
-                      
-                  />
-               
+                <DatePickers
+                  id="datefin"
+                  label={"Date Fin"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.datefin}
+                  error={errors.datefin && touched.datefin && errors.datefin}
+                  helperText={
+                    errors.datefin && touched.datefin ? errors.datefin : ""
+                  }
+                />
               </RowBox>
 
               {/* <InputFeilds
@@ -351,27 +354,25 @@ const AddMission = ({ open, onClose }) => {
                 helperText={errors.details && touched.details ? errors.details : ""}
                 marginRight
               /> */}
-              <div style={{marginRight:20}}>
-              <InputFeilds
-                    label={"Détails"}
-                    multiline={true}
-                    rows={4}
-                    id="details"
-                    error={errors.details && touched.details}
-                    helperText={
-                      errors.details && touched.details ? errors.details : ""
-                    }
-                    value={values.details}
-                    onChange={handleChange}
-                    autoFocus={true}
-                  
-                    name={"details"}
-                    onBlur={() => {
-                      setFieldTouched("details", true);
-                    }}
-                    
-                  />
-           </div>
+              <div style={{ marginRight: 20 }}>
+                <InputFeilds
+                  label={"Détails"}
+                  multiline={true}
+                  rows={4}
+                  id="details"
+                  error={errors.details && touched.details}
+                  helperText={
+                    errors.details && touched.details ? errors.details : ""
+                  }
+                  value={values.details}
+                  onChange={handleChange}
+                  autoFocus={true}
+                  name={"details"}
+                  onBlur={() => {
+                    setFieldTouched("details", true);
+                  }}
+                />
+              </div>
 
               <Space space={20} />
 
@@ -380,7 +381,10 @@ const AddMission = ({ open, onClose }) => {
                   variant="contained"
                   endIcon={<SendIcon />}
                   size="medium"
-                  style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
+                  style={{
+                    backgroundColor: theme.palette.primary.light,
+                    color: theme.palette.background.default,
+                  }}
                   type="submit"
                   disabled={isSubmitting}
                   sx={{ marginRight: 2 }}

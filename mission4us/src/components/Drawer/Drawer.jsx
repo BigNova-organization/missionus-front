@@ -12,7 +12,7 @@ const Drawer = (props) => {
     overlay,
     overlayOpen,
     overlayHidden,
-    header
+    header,
   } = styles;
 
   return (
@@ -28,10 +28,9 @@ const Drawer = (props) => {
         tabIndex="-1"
         className={`${drawer} ${open && animate} ${
           !open && hidden
-        } ${changeAnchor(anchor,styles)}`}
+        } ${changeAnchor(anchor, styles)}`}
       >
         {props.children}
-        {/* <div className={header} /> */}
       </div>
     </>
   );
@@ -42,4 +41,4 @@ Drawer.propTypes = {
   anchor: PropTypes.string.isRequired,
   // onClose: PropTypes.func.isRequired
 };
-export default Drawer
+export default Drawer;

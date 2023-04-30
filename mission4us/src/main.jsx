@@ -10,17 +10,12 @@ const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-      </PersistGate>
-
-    </Provider>
-
-
-  </React.StrictMode>,
+    </PersistGate>
+  </Provider>,
   // document.getElementById("root")
 );
