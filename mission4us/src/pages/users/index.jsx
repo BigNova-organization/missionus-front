@@ -1,5 +1,5 @@
 import React, { useEffect,useState,useCallback } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 
 import "./styles.css";
 import Head from "../../components/Head";
@@ -31,6 +31,7 @@ import { Visibility } from "@material-ui/icons";
 import AddUser from "./formAddUser";
 import EditUser from "./formEditUser";
 import VisuUser from "./visuUser";
+import DrawerInfo from "../../components/Drawer/Drawer.jsx";
 // import DevisMission from "./formDevis";
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -96,6 +97,7 @@ const columns = [
   {
     id: "actions",
     label: "Actions",
+    align: "left",
     // format: (value) => value.toLocaleString("en-US"),  
   },
 ];
@@ -180,9 +182,9 @@ const Utilisateurs = () => {
       >
         Ajouter
       </Button>
-      <Drawer anchor="right" open={open}  >
+      <DrawerInfo anchor="right" open={open}  >
         <AddUser open={open} onClose={handleClose}/>
-      </Drawer>
+      </DrawerInfo>
       </div>
     </Box>
     <Body>
@@ -214,30 +216,60 @@ const Utilisateurs = () => {
                         <StyledTableCell >{row.adresse}</StyledTableCell>
                         <StyledTableCell>{row.compte}</StyledTableCell>
                         
-                        <StyledTableCell align="left">
-                        <div className={buttonStyle.root}>
-                        <Tooltip title="Modifier">
-                        <IconButton
+                        <StyledTableCell >
+                        
+                        
+                        {/* <IconButton
                           aria-label="edit"
                           color='primary'
                           onClick={handleOpenEdit}
                         >
                           <EditIcon />
                           
-                        </IconButton>
-                        </Tooltip>
+                        </IconButton> */}
+                         
+                      {/* <Button variant="contained" 
+                      endIcon={<EditIcon />} 
+                      size='medium' 
+                      color="success"
+                      onClick={handleOpenEdit}
+                      sx={{marginRight:1}}
+                      >
+                        Modifier
+                      </Button> */}
+                      <Stack direction="row">
+                      <Tooltip title="Modifier">
+                      <Box onClick={handleOpenEdit} sx={{color:'green'}}><EditIcon/></Box>
+                      </Tooltip>
+                      <Tooltip title="Supprimer">
+                      <Box onClick={handleOuvrir} sx={{color:'red'}}><DeleteIcon/></Box>
+                      </Tooltip>
+                      <Tooltip title="Visualiser">
+                      <Box  onClick={handleOpenVisu} ><Visibility/></Box>
+                      </Tooltip>
+                      </Stack>
+                       
 
-                        <Tooltip title="Supprimer">
-                        <IconButton 
+                       
+                        {/* <IconButton 
                         aria-label="delete" 
                         color='secondary'
                         onClick={handleOuvrir}
                         >
                           <DeleteIcon />
-                        </IconButton>
-                        </Tooltip>
+                        </IconButton> */}
+                        {/* <Button variant="contained" 
+                      endIcon={<DeleteIcon />} 
+                      size='medium' 
+                      color="error"
+                      onClick={handleOuvrir}
+                      sx={{marginRight:1}}
+                      >
+                        Supprimer
+                      </Button> */}
+                        
 
-                        <Tooltip title="Visualiser">
+                        {/* <Tooltip title="Visualiser">
                         <IconButton 
                         aria-label="visualiser" 
                         // color='secondary'
@@ -245,12 +277,20 @@ const Utilisateurs = () => {
                         >
                           <Visibility />
                         </IconButton>
-                        </Tooltip>
+                        </Tooltip> */}
+                           {/* <Button variant="contained" 
+                      endIcon={<Visibility />} 
+                      size='medium' 
+                      
+                      onClick={handleOpenVisu}
+                      >
+                        Visualiser
+                      </Button> */}
                         
                        
                         
                        
-                          </div>
+                         
                        
                           </StyledTableCell>
                   </StyledTableRow>
@@ -259,12 +299,12 @@ const Utilisateurs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Drawer anchor="right" open={openVisu} >
+      <DrawerInfo anchor="right" open={openVisu} >
         <VisuUser open ={openVisu} onClose={handleCloseVisu}/>
-      </Drawer>
-      <Drawer anchor="right" open={openEdit} >
+      </DrawerInfo>
+      <DrawerInfo anchor="right" open={openEdit} >
         <EditUser open ={openEdit} onClose={handleCloseEdit}/>
-      </Drawer>
+      </DrawerInfo>
       <ModalDelete
           open={ouvrir}
           onClose={handleFermer}

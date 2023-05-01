@@ -80,26 +80,6 @@ const AddUser = ({open,onClose}) => {
     .required('NIF est obligatoire'),
    })
 
-    // const validationSchema=Yup.object().shape({
-    //   ...validationSchema1.fields,
-    //   ...validationSchema2.fields,
-    //   registre: validationSchema2.fields.registre.when('user', {
-    //     is: user => user == 'user2',
-    //     then: Yup.string().notRequired(),
-    //     otherwise: validationSchema2.fields.registre,
-    //   }),
-    //   nif: validationSchema2.fields.nif.when('user', {
-    //     is: user => user == 'user2',
-    //     then: validationSchema2.fields.nif,
-    //     otherwise: Yup.string().notRequired('nestpas requis'),
-    //   }),
-    //   nis: validationSchema2.fields.nis.when('user', {
-    //     is: user => user == 'user2',
-    //     then: validationSchema2.fields.nis,
-    //     otherwise: Yup.string().notRequired(),
-    //   }),
-      
-    // })
     const validationSchema=Yup.object().shape({
     nom: Yup.string().required('Nom est obligatoire'),
     user: Yup.string().required('Utilisateur est obligatoire'),
@@ -134,10 +114,13 @@ const AddUser = ({open,onClose}) => {
     >
       <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:theme.palette.background.default, color: theme.palette.primary.light,}}>
       <Tooltip title="Fermer">
-      <IconButton aria-label="close" style={{ color: theme.palette.primary.light,}} onClick={onClose}>
-        <CloseIcon />
-      </IconButton>
-       </Tooltip>            
+      <Box onClick={onClose}><CloseIcon/></Box>
+       </Tooltip>  
+                 
+
+
+
+
       <Typography  variant={"h4"} style={{paddingLeft:15}}> Ajouter un utilisateur {" "}</Typography>
       
 
