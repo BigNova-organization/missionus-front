@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import Body from "../../../components/Body";
 import { Formik } from "formik";
@@ -9,31 +9,28 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import * as Yup from "yup";
 import RowBox from "../../../components/RowBox";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    function handleGoBack() {
-        navigate(-1);
-    }
-    const [deny, setDeny] = useState(false);
-    function handleFormClose() {
-        // Fermez le formulaire sans réinitialiser les valeurs
-        setDeny(false);
-      }
-    
+  function handleGoBack() {
+    navigate(-1);
+  }
+  const [deny, setDeny] = useState(false);
+  function handleFormClose() {
+    // Fermez le formulaire sans réinitialiser les valeurs
+    setDeny(false);
+  }
+
   const theme = useTheme();
   const initialValues = {
-   
     nom: "John",
     login: "dev",
     email: "john@gmail.com",
     adresse: "Bejaia",
     prenom: "Dev",
     authorities: "Provider",
-   
   };
 
   const validationSchema = Yup.object().shape({
@@ -44,80 +41,70 @@ const EditProfile = () => {
     email: Yup.mixed().required("Email est obligatoire"),
     adresse: Yup.string().required("Adresse est obligatoire"),
     authorities: Yup.string(),
-    
   });
   return (
     <Box
       sx={{
         width: "100%",
         height: "100%",
-        backgroundColor:theme.palette.background.default,
-        color: theme.palette.neutral.dark
-        
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.neutral.dark,
       }}
     >
-
-
-      
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => {
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          console.log(values, "myvalues");
+          setTimeout(() => {
             console.log(values, "myvalues");
-            setTimeout(() => {
-              console.log(values, "myvalues");
-              setSubmitting(false);
-            }, 4000);
-          }}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-            setFieldValue,
-            setFieldTouched
-            /* and other goodies */
-          }) => {console.log('valus',values)
-          return(
+            setSubmitting(false);
+          }, 1000);
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          setFieldValue,
+          setFieldTouched,
+          /* and other goodies */
+        }) => {
+          console.log("valus", values);
+          return (
             <form onSubmit={handleSubmit}>
-     
-            <RowBox>
-              
-              <InputFeilds
-                name="nom"
-                label={"Nom"}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.nom}
-                id="nom"
-                required={true}
-                error={errors.nom && touched.nom}
-                helperText={errors.nom && touched.nom ? errors.nom : ""}
-              />
-         
+              <RowBox>
+                <InputFeilds
+                  name="nom"
+                  label={"Nom"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.nom}
+                  id="nom"
+                  required={true}
+                  error={errors.nom && touched.nom}
+                  helperText={errors.nom && touched.nom ? errors.nom : ""}
+                />
 
-            
-              <InputFeilds
-                name="email"
-                label={"Email"}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-                id="email"
-                required={true}
-                error={errors.email && touched.email}
-                helperText={errors.email && touched.email ? errors.email : ""}
-               
-              />
-           
-          </RowBox>
-           
-            <RowBox>
-            <InputFeilds
+                <InputFeilds
+                  name="email"
+                  label={"Email"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  id="email"
+                  required={true}
+                  error={errors.email && touched.email}
+                  helperText={errors.email && touched.email ? errors.email : ""}
+                />
+              </RowBox>
+
+              <RowBox>
+                <InputFeilds
                   name="prenom"
                   label={"Prenom"}
                   onChange={handleChange}
@@ -126,10 +113,11 @@ const EditProfile = () => {
                   id="prenom"
                   required={true}
                   error={errors.prenom && touched.prenom}
-                  helperText={errors.prenom && touched.prenom ? errors.prenom : ""}
-                 
+                  helperText={
+                    errors.prenom && touched.prenom ? errors.prenom : ""
+                  }
                 />
-              
+
                 <InputFeilds
                   name="login"
                   label={"Pseudo"}
@@ -141,10 +129,9 @@ const EditProfile = () => {
                   error={errors.login && touched.login}
                   helperText={errors.login && touched.login ? errors.login : ""}
                 />
-             
-            </RowBox>
-            <RowBox>
-            <InputFeilds
+              </RowBox>
+              <RowBox>
+                <InputFeilds
                   name="authorities"
                   label={"Role"}
                   onChange={handleChange}
@@ -152,11 +139,10 @@ const EditProfile = () => {
                   value={values.authorities}
                   id="authorities"
                   disabled={true}
-                //   error={errors.adresse && touched.adresse}
-                //   helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
-                 
+                  //   error={errors.adresse && touched.adresse}
+                  //   helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
                 />
-              
+
                 {/* <InputFeilds
                   name="adresse"
                   label={"Adresse"}
@@ -168,14 +154,11 @@ const EditProfile = () => {
                   error={errors.adresse && touched.adresse}
                   helperText={errors.adresse && touched.adresse ? errors.adresse : ""}
                 /> */}
-              
-            </RowBox>
+              </RowBox>
 
-    
+              {/* <Space space={20} /> */}
 
-            {/* <Space space={20} /> */}
-
-            {/* <div style={{ float: "right" }}>
+              {/* <div style={{ float: "right" }}>
               <Button
                 variant="contained"
                 endIcon={<SendIcon />}
@@ -200,13 +183,10 @@ const EditProfile = () => {
               </Button>
             </div>
             <Space space={20} /> */}
-          </form>
-          )
-        }
-           
-          }
-        </Formik>
-      
+            </form>
+          );
+        }}
+      </Formik>
     </Box>
   );
 };

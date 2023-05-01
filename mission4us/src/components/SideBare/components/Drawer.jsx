@@ -78,5 +78,3 @@ const CustDrawer = ({
 };
 
 export default CustDrawer;
-
-

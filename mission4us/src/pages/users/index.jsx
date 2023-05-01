@@ -1,30 +1,28 @@
 import React, { useEffect,useState,useCallback } from "react";
 import { Box, Stack, useTheme } from "@mui/material";
-
-import "./styles.css";
 import Head from "../../components/Head";
 import Body from "../../components/Body";
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
+import AddIcon from "@mui/icons-material/Add";
+import Button from "@mui/material/Button";
 import Drawer from "../../components/Drawer/Drawer.jsx";
 // import AddMission from "./formAjoutMission";
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { styled } from '@mui/material/styles';
-import Paper from '@material-ui/core/Paper';
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
+import Paper from "@material-ui/core/Paper";
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell,{ tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 import ModalDelete from "../../components/modal";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import { Visibility } from "@material-ui/icons";
@@ -35,37 +33,34 @@ import DrawerInfo from "../../components/Drawer/Drawer.jsx";
 // import DevisMission from "./formDevis";
 const useButtonStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'row',
-    
-    
+    display: "flex",
+    flexDirection: "row",
   },
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor:theme.palette.background.default,
-    color: theme.palette.primary.light
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.primary.light,
   },
   [`&.${tableCellClasses.body}`]: {
     color: theme.palette.common.black,
     fontSize: 14,
-    
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
 
 const columns = [
-  { id: "type", label: "Type", minWidth: 100},
+  { id: "type", label: "Type", minWidth: 100 },
   {
     id: "nom",
     label: "Nom complet",
@@ -102,44 +97,49 @@ const columns = [
   },
 ];
 
-function createData(type,nom,numtel,adresse,compte) {
-  
-  return {type,nom,numtel,adresse,compte};
+function createData(type, nom, numtel, adresse, compte) {
+  return { type, nom, numtel, adresse, compte };
 }
 
 const rows = [
-  createData('Fournisseur','John dev','0782305080','Bejaia','dkdkkdfhs1234'),
-  createData('Fournisseur','Jack dev','0782305080','Bejaia','dkdkkdfhs1234'),
-  createData('Client','John dev','0782305080','Bejaia','dkdkkdfhs1234'),
-  createData('Client','John dev','0782305080','Bejaia','dkdkkdfhs1234'),
-
-
+  createData(
+    "Fournisseur",
+    "John dev",
+    "0782305080",
+    "Bejaia",
+    "dkdkkdfhs1234",
+  ),
+  createData(
+    "Fournisseur",
+    "Jack dev",
+    "0782305080",
+    "Bejaia",
+    "dkdkkdfhs1234",
+  ),
+  createData("Client", "John dev", "0782305080", "Bejaia", "dkdkkdfhs1234"),
+  createData("Client", "John dev", "0782305080", "Bejaia", "dkdkkdfhs1234"),
 ];
 
-
-
-
 const Utilisateurs = () => {
-  
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleOpen = useCallback(() => setOpen(true), []);
 
   const handleClose = useCallback(() => setOpen(false), []);
-  const buttonStyle=useButtonStyles()
+  const buttonStyle = useButtonStyles();
 
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
-  setPage(newPage);
+    setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-  setRowsPerPage(+event.target.value);
-  setPage(0);
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
   const [ouvrir, setOuvrir] = useState(false);
   const handleOuvrir = () => setOuvrir(true);
@@ -149,32 +149,32 @@ const Utilisateurs = () => {
 
   const handleOpenVisu = useCallback(() => setOpenVisu(true), []);
 
-  const handleCloseVisu= useCallback(() => setOpenVisu(false), []);
+  const handleCloseVisu = useCallback(() => setOpenVisu(false), []);
 
   const [openEdit, setOpenEdit] = useState(false);
 
   const handleOpenEdit = useCallback(() => setOpenEdit(true), []);
 
-  const handleCloseEdit= useCallback(() => setOpenEdit(false), []);
-  
+  const handleCloseEdit = useCallback(() => setOpenEdit(false), []);
+
   return (
     <Box>
       <Box
-      sx={{
-        padding: "10px",
-        color: theme.palette.grey[100],
-        fontSize: "22px",
-        backgroundColor: theme.palette.background.default ,
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'space-between'
-
-      }}
-    >
-      <div style={{backgroundColor:theme.palette.background.default, color: theme.palette.primary.light}}><p>Utilisateurs</p></div>
-      <div>
-      
-      <Button variant="contained" 
+        sx={{
+          padding: "10px",
+          color: theme.palette.grey[100],
+          fontSize: "22px",
+          backgroundColor: theme.palette.background.default,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{backgroundColor:theme.palette.background.default, color: theme.palette.primary.light}}>
+        <p>Missions</p>
+        </div>
+        <div>
+       <Button variant="contained" 
       endIcon={<AddIcon />} 
       size='medium' 
       style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
@@ -292,7 +292,7 @@ const Utilisateurs = () => {
                        
                          
                        
-                          </StyledTableCell>
+                        </StyledTableCell>
                   </StyledTableRow>
                 );
               })}
@@ -325,7 +325,7 @@ const Utilisateurs = () => {
         
     </Paper>
        
-      </Body> 
+    </Body> 
     </Box>
   );
 };

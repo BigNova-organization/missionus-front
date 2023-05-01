@@ -23,7 +23,7 @@ import {
   GestureOutlined,
   Work,
   PersonOutline,
-  PeopleOutline
+  PeopleOutline,
 } from "@mui/icons-material";
 // import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
@@ -103,6 +103,7 @@ const Sidebar = ({
 
   useEffect(() => {
     setActive(pathname.substring(1));
+    console.log(active, " active");
   }, [pathname]);
 
   return (
@@ -207,77 +208,76 @@ const ListItems = ({
               }}
               sx={{
                 backgroundColor:
-                  active === lcText
-                    ? theme.palette.primary.light
-                    : theme,
+                  active === lcText ? theme.palette.primary.light : theme,
                 color:
                   active === lcText
                     ? theme.palette.background.default
                     : theme.palette.primary.light,
-                    "&:hover": {
-                      //you want this to be the same as the backgroundColor above
-                      backgroundColor:theme.palette.primary.light,
-                      color:theme.palette.background.default
-                  }
+                "&:hover": {
+                  //you want this to be the same as the backgroundColor above
+                  backgroundColor: theme.palette.primary.light,
+                  color: theme.palette.background.default,
+                },
               }}
             >
               <ListItemIcon
                 sx={{
                   ml: !isSidebarOpen ? ".6rem" : "2rem",
-                //   color: active === lcText ?  theme.palette.background.default: theme.palette.primary.light,
-                //   backgroundColor:
-                //   active === lcText
-                //     ? theme.palette.primary.light
-                //     : theme,
-                //   "&:hover": {
-                //     //you want this to be the same as the backgroundColor above
-                //     backgroundColor:theme.palette.primary.light,
-                //     color:theme.palette.background.default
-                // }
-                // backgroundColor:
-                // active === lcText
-                //   ? theme.palette.primary.light
-                //   : theme,
-              color:
-                active === lcText
-                  ? theme.palette.background.default
-                  : theme.palette.primary.light,
-                   "&:hover": {
+                  //   color: active === lcText ?  theme.palette.background.default: theme.palette.primary.light,
+                  //   backgroundColor:
+                  //   active === lcText
+                  //     ? theme.palette.primary.light
+                  //     : theme,
+                  //   "&:hover": {
+                  //     //you want this to be the same as the backgroundColor above
+                  //     backgroundColor:theme.palette.primary.light,
+                  //     color:theme.palette.background.default
+                  // }
+                  // backgroundColor:
+                  // active === lcText
+                  //   ? theme.palette.primary.light
+                  //   : theme,
+                  color:
+                    active === lcText
+                      ? theme.palette.background.default
+                      : theme.palette.primary.light,
+                  "&:hover": {
                     //  you want this to be the same as the backgroundColor above
-                     backgroundColor:theme.palette.primary.light,
-                     color:theme.palette.background.default
-                 }
+                    backgroundColor: theme.palette.primary.light,
+                    color: theme.palette.background.default,
+                  },
                 }}
               >
                 {icon}
               </ListItemIcon>
-              
-              
+
               <ListItemText primary={text} />
 
               {active === lcText && (
-                <ChevronRightOutlined sx={{ ml: "auto",
-                // color: active === lcText ?  "#FFF": theme.palette.primary.light,
-              //   "&:hover": {
-              //     //you want this to be the same as the backgroundColor above
-              //     backgroundColor:theme.palette.primary.light,
-              //     color:theme.palette.primary.light
-              // }
-              // backgroundColor:
-              // active === lcText
-              //   ? theme.palette.primary.light
-              //   : theme,
-            // color:
-            //   active === lcText
-            //     ? theme.palette.background.default
-            //     : theme.palette.primary.light,
-                // "&:hover": {
-                  //you want this to be the same as the backgroundColor above
-                  // backgroundColor:theme.palette.primary.light,
-                  // color:theme.palette.background.default
-              // }
-              
-              }} />
+                <ChevronRightOutlined
+                  sx={{
+                    ml: "auto",
+                    // color: active === lcText ?  "#FFF": theme.palette.primary.light,
+                    //   "&:hover": {
+                    //     //you want this to be the same as the backgroundColor above
+                    //     backgroundColor:theme.palette.primary.light,
+                    //     color:theme.palette.primary.light
+                    // }
+                    // backgroundColor:
+                    // active === lcText
+                    //   ? theme.palette.primary.light
+                    //   : theme,
+                    // color:
+                    //   active === lcText
+                    //     ? theme.palette.background.default
+                    //     : theme.palette.primary.light,
+                    // "&:hover": {
+                    //you want this to be the same as the backgroundColor above
+                    // backgroundColor:theme.palette.primary.light,
+                    // color:theme.palette.background.default
+                    // }
+                  }}
+                />
               )}
             </ListItemButton>
           </ListItem>
