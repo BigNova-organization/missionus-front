@@ -33,61 +33,13 @@ import FlexBetween from "../FlexBetween";
 import profileImage from "../../assets/user.png";
 import logo from "../../assets/logo.png";
 import CustDrawer from "./components/Drawer";
+import { PrimaryText } from "../utils/typography";
+import { fetchAccount } from "../../Redux/account/slice";
+import { useDispatch, useSelector } from "react-redux";
 
-const navItems = [
-  {
-    text: "Dashboard",
-    icon: <HomeOutlined />,
-  },
-  {
-    text: "Utilisateurs",
-    icon: <PersonOutline />,
-  },
-  {
-    text: "Clients",
-    icon: <PeopleOutline />,
-  },
-  // {
-  //   text: "Admins",
-  //   icon: null,
-  // },
-  // {
-  //   text: "Profile",
-  //   icon: <Groups2Outlined />,
-  // },
-  {
-    text: "Missions",
-    icon: <CalendarMonthOutlined />,
-  },
-  {
-    text: "PageCv",
-    icon: <FileCopyOutlined />,
-  },
-  {
-    text: "Jobs",
-    icon: <Work />,
-  },
-  {
-    text: "Recruitment",
-    icon: <GestureOutlined />,
-  },
-  // {
-  //   text: "Gestion",
-  //   icon: null,
-  // },
-  {
-    text: "Abonnement",
-    icon: <BookOutlined />,
-  },
-  // {
-  //   text: "Manage",
-  //   icon: null,
-  // },
-  {
-    text: "Parametre",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-];
+// const userRole = localStorage.getItem("userRole")
+// console.log(userRole,'user role sidebar')
+
 
 const Sidebar = ({
   user,
@@ -100,6 +52,73 @@ const Sidebar = ({
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  const dispatch=useDispatch()
+  const role = useSelector((state) => state.account?.user.authorities);
+console.log(role,'account sidebar')
+  useEffect(() => {
+    dispatch(fetchAccount());
+  
+   
+  }, [dispatch])
+  const navItems = [
+    {
+      text: "Dashboard",
+      icon: <HomeOutlined />,
+    },
+    // {
+    //   text: userRole === "client" ? "Utilisateurs" : "",
+    //   icon: userRole === "client" ? <PersonOutline /> : null,
+    // },
+    {
+      text: role == "ROLE_CLIENT" ? "": "Utilisateurs",
+      icon: role == "ROLE_CLIENT"? null: <PersonOutline />,
+    },
+    
+    {
+      text: "Clients",
+      icon: <PeopleOutline />,
+    },
+    // {
+    //   text: "Admins",
+    //   icon: null,
+    // },
+    // {
+    //   text: "Profile",
+    //   icon: <Groups2Outlined />,
+    // },
+    {
+      text: "Missions",
+      icon: <CalendarMonthOutlined />,
+    },
+    {
+      text: "PageCv",
+      icon: <FileCopyOutlined />,
+    },
+    {
+      text: "Jobs",
+      icon: <Work />,
+    },
+    {
+      text: "Recruitment",
+      icon: <GestureOutlined />,
+    },
+    // {
+    //   text: "Gestion",
+    //   icon: null,
+    // },
+    {
+      text: "Abonnement",
+      icon: <BookOutlined />,
+    },
+    // {
+    //   text: "Manage",
+    //   icon: null,
+    // },
+    {
+      text: "Parametre",
+      icon: <AdminPanelSettingsOutlined />,
+    },
+  ];
 
   useEffect(() => {
     setActive(pathname.substring(1));

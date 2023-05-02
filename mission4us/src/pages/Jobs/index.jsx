@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, useTheme } from "@mui/material";
-
-import "./styles.css";
+import { Box, Stack, useTheme } from "@mui/material";
 import Head from "../../components/Head";
 import Body from "../../components/Body";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import Paper from "@material-ui/core/Paper";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -198,8 +195,8 @@ const Jobs = () => {
                         {/* <StyledTableCell >{job.name}</StyledTableCell> */}
                         {/* <StyledTableCell>{row.secteur}</StyledTableCell> */}
 
-                        {/* <StyledTableCell align="left">
-                          <Tooltip title="Modifier">
+                        <StyledTableCell align="left">
+                          {/* <Tooltip title="Modifier">
                             <IconButton
                               aria-label="edit"
                               color="primary"
@@ -216,8 +213,22 @@ const Jobs = () => {
                             >
                               <DeleteIcon />
                             </IconButton>
-                          </Tooltip>
-                        </StyledTableCell> */}
+                          </Tooltip> */}
+
+                      <Stack direction="row">
+                      <Tooltip title="Modifier">
+                      <Box 
+                      // onClick={() => navigate(`Update Job/${job.id}`)} 
+                      sx={{color:'green'}}>
+                        <EditIcon/>
+                        </Box>
+                      </Tooltip>
+                      <Tooltip title="Supprimer">
+                      <Box onClick={() => handleDelete(job.id)} sx={{color:'red'}}><DeleteIcon/></Box>
+                      </Tooltip>
+                     
+                      </Stack>
+                        </StyledTableCell>
                       </StyledTableRow>
                     );
                   })}

@@ -12,7 +12,6 @@ import * as Yup from "yup";
 import RowBox from "../../../components/RowBox";
 import CustomSelect from "../../../components/CustomSelect";
 import DatePickers from "../../../components/datePicker";
-// import "./styles.css";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import { MenuItem } from "@material-ui/core";
@@ -38,36 +37,7 @@ const AddUser = ({ open, onClose }) => {
     nif: "",
   };
 
-  const validationSchema1 = Yup.object().shape({
-    nom: Yup.string().required("Nom est obligatoire"),
-    user: Yup.string().required("Utilisateur est obligatoire"),
-    tel: Yup.string().required("Téléphone est obligatoire"),
-    adresse: Yup.string().required("Adresse est obligatoire"),
-    compte: Yup.string(),
-    // registre: Yup.string()
-    //     .required('Registre de commerce est obligatoire'),
-
-    // nis: Yup.string()
-    // .required('NIS est obligatoire'),
-    // nif: Yup.string()
-    // .required('NIF est obligatoire'),
-  });
-
-  const validationSchema2 = Yup.object().shape({
-    // nom: Yup.string()
-    //   .required('Nom est obligatoire'),
-    // user: Yup.string()
-    //   .required('Utilisateur est obligatoire'),
-    // tel: Yup.string()
-    //   .required('Téléphone est obligatoire'),
-    // adresse: Yup.string()
-    //   .required('Adresse est obligatoire'),
-    // compte: Yup.string(),
-    registre: Yup.string().required("Registre de commerce est obligatoire"),
-
-    nis: Yup.string().required("NIS est obligatoire"),
-    nif: Yup.string().required("NIF est obligatoire"),
-  });
+ 
 
     const validationSchema=Yup.object().shape({
     nom: Yup.string().required('Nom est obligatoire'),

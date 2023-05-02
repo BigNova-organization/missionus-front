@@ -41,6 +41,7 @@ const accountSlice = createSlice({
       .addCase(fetchAccount.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.user = action.payload;
+        // state.user.authorities=localStorage.setItem("userRole",state.user.authorities)
       })
       .addCase(fetchAccount.rejected, (state, action) => {
         state.status = 'failed';

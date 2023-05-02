@@ -1,17 +1,13 @@
 import React, { useEffect,useState,useCallback } from "react";
-import { Box, useTheme } from "@mui/material";
-
-import "./styles.css";
+import { Box, Stack, useTheme } from "@mui/material";
 import Head from "../../components/Head";
 import Body from "../../components/Body";
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import Drawer from "../../components/Drawer/Drawer.jsx";
 import AddMission from "./formAjoutMission";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { styled } from '@mui/material/styles';
 import Paper from '@material-ui/core/Paper';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell,{ tableCellClasses } from '@mui/material/TableCell';
@@ -29,11 +25,10 @@ import ModalDelete from "../../components/modal";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import DevisMission from "./formDevis";
 import EditMission from "./formEditMission";
-
-
 import { CircularProgress } from "@material-ui/core";
 import { useSelector,useDispatch } from "react-redux";
 import { deleteMission, fetchMissions } from "../../Redux/mission/slice";
+import DrawerInfo from "../../components/Drawer/Drawer.jsx";
 
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -214,9 +209,9 @@ const Missions = () => {
       >
         Ajouter
       </Button>
-      <Drawer anchor="right" open={open}  >
+      <DrawerInfo anchor="right" open={open}  >
         <AddMission open={open} onClose={handleClose}/>
-      </Drawer>
+      </DrawerInfo>
       </div>
     </Box>
     <Body>
@@ -253,47 +248,21 @@ const Missions = () => {
                          {/*<StyledTableCell>{row.tel}</StyledTableCell> */}
                         
                         <StyledTableCell align="left">
-                        <div className={buttonStyle.root}>
-                        <Tooltip title="Modifier">
-                        <IconButton
-                          aria-label="edit"
-                          color='primary'
-                          onClick={handleOpenEdit}
-                        >
-                          <EditIcon />
-                          
-                        </IconButton>
-                        </Tooltip>
-                        
-
-                        <Tooltip title="Supprimer">
-                        <IconButton 
-                        aria-label="delete" 
-                        color='secondary'
-                        onClick={() => handleDelete(mission.id)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                        </Tooltip>
-        
-
-                        <Tooltip title="Devis">
-                        <IconButton 
-                        aria-label="devis" 
-                        // color='secondary'
-                        onClick={handleOpenDevis}
-                        >
-                          <FormatQuoteIcon />
-                        </IconButton>
-                        </Tooltip>
-                        
-                          {/* <AddMission open={open} onClose={handleClose}/> */}
-                        
-                       
-                          </div>
+                      
+                      <Stack direction="row">
+                      <Tooltip title="Modifier">
+                      <Box onClick={handleOpenEdit} sx={{color:'green'}}><EditIcon/></Box>
+                      </Tooltip>
+                      <Tooltip title="Supprimer">
+                      <Box onClick={() => handleDelete(mission.id)} sx={{color:'red'}}><DeleteIcon/></Box>
+                      </Tooltip>
+                      <Tooltip title="Devis">
+                      <Box  onClick={handleOpenDevis} ><FormatQuoteIcon/></Box>
+                      </Tooltip>
+                      </Stack>
                           
                        
-                          </StyledTableCell>
+                      </StyledTableCell>
                
                   </StyledTableRow>
 
@@ -304,12 +273,12 @@ const Missions = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Drawer anchor="right" open={openDevis} >
+      <DrawerInfo anchor="right" open={openDevis} >
         <DevisMission open ={openDevis} onClose={handleCloseDevis}/>
-      </Drawer>
-      <Drawer anchor="right" open={openEdit} >
+      </DrawerInfo>
+      <DrawerInfo anchor="right" open={openEdit} >
         <EditMission open ={openEdit} onClose={handleCloseEdit}/>
-      </Drawer>
+      </DrawerInfo>
 
     
       <ModalDelete
