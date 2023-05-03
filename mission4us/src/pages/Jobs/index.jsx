@@ -180,11 +180,13 @@ const Jobs = () => {
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                {status === "loading" && <CircularProgress />}
+                
                 {jobs
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((job) => {
+                  .map((job,index) => {
                     return (
+                      <>
+                      {status === "loading" && <CircularProgress />}
                       <StyledTableRow
                         hover
                         role="checkbox"
@@ -230,6 +232,7 @@ const Jobs = () => {
                       </Stack>
                         </StyledTableCell>
                       </StyledTableRow>
+                      </>
                     );
                   })}
               </TableBody>

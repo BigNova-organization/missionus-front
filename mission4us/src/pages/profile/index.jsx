@@ -40,7 +40,7 @@ const Profile = () => {
         }}
       >
         <AccountCircle sx={{ fontSize: 50, marginRight: 2 ,color: theme.palette.primary.light}} />
-        <p style={{color: theme.palette.primary.light}}> {account.firstName}</p>
+        <p style={{color: theme.palette.primary.light}}> {account.login}</p>
       </Box>
       <Body>
         <Card

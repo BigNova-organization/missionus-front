@@ -24,6 +24,9 @@ import {
   Work,
   PersonOutline,
   PeopleOutline,
+  FormatQuote,
+  FormatQuoteOutlined,
+  Person3Outlined,
 } from "@mui/icons-material";
 // import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
@@ -36,6 +39,7 @@ import CustDrawer from "./components/Drawer";
 import { PrimaryText } from "../utils/typography";
 import { fetchAccount } from "../../Redux/account/slice";
 import { useDispatch, useSelector } from "react-redux";
+import { WorkOutline } from "@material-ui/icons";
 
 // const userRole = localStorage.getItem("userRole")
 // console.log(userRole,'user role sidebar')
@@ -52,14 +56,10 @@ const Sidebar = ({
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
-  const dispatch=useDispatch()
+ 
   const role = useSelector((state) => state.account?.user.authorities);
-console.log(role,'account sidebar')
-  useEffect(() => {
-    dispatch(fetchAccount());
-  
-   
-  }, [dispatch])
+  console.log(role,'account sidebar')
+ 
   const navItems = [
     {
       text: "Dashboard",
@@ -70,13 +70,21 @@ console.log(role,'account sidebar')
     //   icon: userRole === "client" ? <PersonOutline /> : null,
     // },
     {
-      text: role == "ROLE_CLIENT" ? "": "Utilisateurs",
-      icon: role == "ROLE_CLIENT"? null: <PersonOutline />,
+      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER")) ? "": "Utilisateurs",
+      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER"))? null: <PersonOutline />,
     },
     
     {
-      text: "Clients",
-      icon: <PeopleOutline />,
+      text: role == "ROLE_CLIENT" ? "":"Clients",
+      icon: role == "ROLE_CLIENT" ? null:<PeopleOutline />,
+    },
+    {
+      text: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN") ) ? "Fournisseurs": "",
+      icon: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN")) ? <Person3Outlined />:null,
+    },
+    {
+      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "Devis":"",
+      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? <FormatQuoteOutlined />:null,
     },
     // {
     //   text: "Admins",
@@ -91,12 +99,12 @@ console.log(role,'account sidebar')
       icon: <CalendarMonthOutlined />,
     },
     {
-      text: "PageCv",
-      icon: <FileCopyOutlined />,
+      text: role == "ROLE_CLIENT" ? "": "PageCv",
+      icon: role == "ROLE_CLIENT" ? null:<FileCopyOutlined />,
     },
     {
       text: "Jobs",
-      icon: <Work />,
+      icon: <WorkOutline />,
     },
     {
       text: "Recruitment",

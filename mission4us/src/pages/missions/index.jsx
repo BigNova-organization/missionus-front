@@ -181,7 +181,7 @@ const Missions = () => {
     dispatch(deleteMission(selectedRow));
     handleModalClose();
   }
-
+  const role = useSelector((state) => state.account?.user.authorities);
   return (
     <Box >
       <Box
@@ -216,7 +216,9 @@ const Missions = () => {
     </Box>
     <Body>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
+     
       <TableContainer sx={{ maxHeight: 440 }}>
+      
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <StyledTableRow>
@@ -231,14 +233,15 @@ const Missions = () => {
               ))}
             </StyledTableRow>
           </TableHead>
+          
           <TableBody>
-          {(status==='loading')&& <CircularProgress />}
+          
             {missions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((mission) => {
+              .map((mission,index) => {
                 return (
                   <>
-         
+                  {(status==='loading')&& <CircularProgress />}
                   <StyledTableRow hover role="checkbox" tabIndex={-1} key={mission.id}>
                     
                     <StyledTableCell >{mission.name}</StyledTableCell>
@@ -256,9 +259,15 @@ const Missions = () => {
                       <Tooltip title="Supprimer">
                       <Box onClick={() => handleDelete(mission.id)} sx={{color:'red'}}><DeleteIcon/></Box>
                       </Tooltip>
-                      <Tooltip title="Devis">
-                      <Box  onClick={handleOpenDevis} ><FormatQuoteIcon/></Box>
+                      {((role == "ROLE_PROVIDER")|| (role == "ROLE_ADMIN"))?
+                      
+                       <Tooltip title="Creer devis">
+                          <Box  onClick={handleOpenDevis} ><FormatQuoteIcon/></Box>
                       </Tooltip>
+                      
+                      :null
+                      }
+                     
                       </Stack>
                           
                        
