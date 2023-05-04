@@ -62,7 +62,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const columns = [
-  { id: "client", label: "Client", minWidth: 100},
+  { id: "name", label: "Nom mission", minWidth: 100},
   {
     id: "intitule",
     label: "Intitulé de la mission",

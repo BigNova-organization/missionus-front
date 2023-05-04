@@ -15,6 +15,7 @@ import infoAccountSlice from "./infoAccount/slice";
 import globalReducer from "./modeTheme";
 import persistStore from "redux-persist/es/persistStore";
 import providerSlice from "./fournisseurs/slice"
+import deviSlice from "./devis/slice"
 
 const reducers = combineReducers({
   cvs:CreateCvSlice,
@@ -26,6 +27,7 @@ const reducers = combineReducers({
   user:authSlice,
   jobs:jobSlice,
   providers:providerSlice,
+  devis:deviSlice,
 
 });
 

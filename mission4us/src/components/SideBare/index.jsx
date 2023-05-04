@@ -99,8 +99,8 @@ const Sidebar = ({
       icon: <CalendarMonthOutlined />,
     },
     {
-      text: role == "ROLE_CLIENT" ? "": "PageCv",
-      icon: role == "ROLE_CLIENT" ? null:<FileCopyOutlined />,
+      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "": "PageCv",
+      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? null:<FileCopyOutlined />,
     },
     {
       text: "Jobs",
