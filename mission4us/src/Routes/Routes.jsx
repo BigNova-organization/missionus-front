@@ -32,6 +32,8 @@ import VisualiserCv from "../pages/VisualiserCv";
 import Utilisateurs from "../pages/users";
 import Register from "../pages/Auth/Register/Register";
 import Clients from "../pages/clients";
+import Fournisseurs from "../pages/fournisseurs";
+import Devis from "../pages/devis";
 
 const MainRoutes = () => (
   <Routes>
@@ -89,11 +91,13 @@ const MainRoutes = () => (
           <Route path="parametre" element={<Parametre />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />
           <Route path="clients" element={<Clients />} />
+          <Route path="fournisseurs" element={<Fournisseurs/>} />
           <Route path="gestion" element={<Gestion />} />
           <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />
           <Route path="missions" element={<Missions />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="devis" element={<Devis />} />
           <Route path="jobs" element={<Jobs />} />
           <Route path="jobs/Add Job" element={<AddJob />} />
           <Route path="jobs/Update Job/:id" element={<UpdateJob />} />

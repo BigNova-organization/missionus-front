@@ -85,29 +85,16 @@ const EditUser = ({ open, onClose }) => {
         height: "100%",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "20px 0 20px 20px",
-          backgroundColor: theme.palette.background.default,
-          color: theme.palette.primary.light,
-        }}
-      >
-        <Tooltip title="Fermer">
-          <IconButton
-            aria-label="close"
-            style={{ color: theme.palette.primary.light }}
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
-        <Typography variant={"h4"} style={{ paddingLeft: 15 }}>
-          {" "}
-          Editer un utilisateur{" "}
-        </Typography>
+      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:theme.palette.background.default, color: theme.palette.primary.light,}}>
+      <Tooltip title="Fermer">
+      <Box onClick={onClose}><CloseIcon/></Box>
+       </Tooltip>            
+      <Typography  variant={"h4"} style={{paddingLeft:15}}> Editer un utilisateur {" "}</Typography>
+      
+
       </div>
+      
+      
 
       <Body>
         <Formik

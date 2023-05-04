@@ -12,7 +12,6 @@ import * as Yup from "yup";
 import RowBox from "../../../components/RowBox";
 import CustomSelect from "../../../components/CustomSelect";
 import DatePickers from "../../../components/datePicker";
-// import "./styles.css";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import { MenuItem } from "@material-ui/core";
@@ -38,62 +37,13 @@ const AddUser = ({ open, onClose }) => {
     nif: "",
   };
 
-  const validationSchema1 = Yup.object().shape({
-    nom: Yup.string().required("Nom est obligatoire"),
-    user: Yup.string().required("Utilisateur est obligatoire"),
-    tel: Yup.string().required("Téléphone est obligatoire"),
-    adresse: Yup.string().required("Adresse est obligatoire"),
-    compte: Yup.string(),
-    // registre: Yup.string()
-    //     .required('Registre de commerce est obligatoire'),
+ 
 
-    // nis: Yup.string()
-    // .required('NIS est obligatoire'),
-    // nif: Yup.string()
-    // .required('NIF est obligatoire'),
-  });
-
-  const validationSchema2 = Yup.object().shape({
-    // nom: Yup.string()
-    //   .required('Nom est obligatoire'),
-    // user: Yup.string()
-    //   .required('Utilisateur est obligatoire'),
-    // tel: Yup.string()
-    //   .required('Téléphone est obligatoire'),
-    // adresse: Yup.string()
-    //   .required('Adresse est obligatoire'),
-    // compte: Yup.string(),
-    registre: Yup.string().required("Registre de commerce est obligatoire"),
-
-    nis: Yup.string().required("NIS est obligatoire"),
-    nif: Yup.string().required("NIF est obligatoire"),
-  });
-
-  // const validationSchema=Yup.object().shape({
-  //   ...validationSchema1.fields,
-  //   ...validationSchema2.fields,
-  //   registre: validationSchema2.fields.registre.when('user', {
-  //     is: user => user == 'user2',
-  //     then: Yup.string().notRequired(),
-  //     otherwise: validationSchema2.fields.registre,
-  //   }),
-  //   nif: validationSchema2.fields.nif.when('user', {
-  //     is: user => user == 'user2',
-  //     then: validationSchema2.fields.nif,
-  //     otherwise: Yup.string().notRequired('nestpas requis'),
-  //   }),
-  //   nis: validationSchema2.fields.nis.when('user', {
-  //     is: user => user == 'user2',
-  //     then: validationSchema2.fields.nis,
-  //     otherwise: Yup.string().notRequired(),
-  //   }),
-
-  // })
-  const validationSchema = Yup.object().shape({
-    nom: Yup.string().required("Nom est obligatoire"),
-    user: Yup.string().required("Utilisateur est obligatoire"),
-    tel: Yup.string().required("Téléphone est obligatoire"),
-    adresse: Yup.string().required("Adresse est obligatoire"),
+    const validationSchema=Yup.object().shape({
+    nom: Yup.string().required('Nom est obligatoire'),
+    user: Yup.string().required('Utilisateur est obligatoire'),
+    tel: Yup.string().required('Téléphone est obligatoire'),
+    adresse: Yup.string().required('Adresse est obligatoire'),
     compte: Yup.string(),
     registre: Yup.string().when("user", {
       is: (user) => user === "user1",
@@ -120,30 +70,21 @@ const AddUser = ({ open, onClose }) => {
         height: "100%",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "20px 0 20px 20px",
-          backgroundColor: theme.palette.background.default,
-          color: theme.palette.primary.light,
-        }}
-      >
-        <Tooltip title="Fermer">
-          <IconButton
-            aria-label="close"
-            style={{ color: theme.palette.primary.light }}
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
-        <Typography variant={"h4"} style={{ paddingLeft: 15 }}>
-          {" "}
-          Ajouter un utilisateur{" "}
-        </Typography>
-      </div>
+      <div style={{display:'flex', alignItems:'center', padding:'20px 0 20px 20px',backgroundColor:theme.palette.background.default, color: theme.palette.primary.light,}}>
+      <Tooltip title="Fermer">
+      <Box onClick={onClose}><CloseIcon/></Box>
+       </Tooltip>  
+                 
 
+
+
+
+      <Typography  variant={"h4"} style={{paddingLeft:15}}> Ajouter un utilisateur {" "}</Typography>
+      
+
+      </div>
+    
+      
       <Body>
         <Formik
           initialValues={initialValues}

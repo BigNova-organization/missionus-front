@@ -24,6 +24,9 @@ import {
   Work,
   PersonOutline,
   PeopleOutline,
+  FormatQuote,
+  FormatQuoteOutlined,
+  Person3Outlined,
 } from "@mui/icons-material";
 // import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
@@ -33,61 +36,14 @@ import FlexBetween from "../FlexBetween";
 import profileImage from "../../assets/user.png";
 import logo from "../../assets/logo.png";
 import CustDrawer from "./components/Drawer";
+import { PrimaryText } from "../utils/typography";
+import { fetchAccount } from "../../Redux/account/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { WorkOutline } from "@material-ui/icons";
 
-const navItems = [
-  {
-    text: "Dashboard",
-    icon: <HomeOutlined />,
-  },
-  // {
-  //   text: "Utilisateurs",
-  //   icon: <PersonOutline />,
-  // },
-  {
-    text: "Clients",
-    icon: <PeopleOutline />,
-  },
-  // {
-  //   text: "Admins",
-  //   icon: null,
-  // },
-  // {
-  //   text: "Profile",
-  //   icon: <Groups2Outlined />,
-  // },
-  {
-    text: "Missions",
-    icon: <CalendarMonthOutlined />,
-  },
-  {
-    text: "PageCv",
-    icon: <FileCopyOutlined />,
-  },
-  {
-    text: "Jobs",
-    icon: <Work />,
-  },
-  {
-    text: "Recruitment",
-    icon: <GestureOutlined />,
-  },
-  // {
-  //   text: "Gestion",
-  //   icon: null,
-  // },
-  {
-    text: "Abonnement",
-    icon: <BookOutlined />,
-  },
-  // {
-  //   text: "Manage",
-  //   icon: null,
-  // },
-  {
-    text: "Parametre",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-];
+// const userRole = localStorage.getItem("userRole")
+// console.log(userRole,'user role sidebar')
+
 
 const Sidebar = ({
   user,
@@ -100,6 +56,77 @@ const Sidebar = ({
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+ 
+  const role = useSelector((state) => state.account?.user.authorities);
+  console.log(role,'account sidebar')
+ 
+  const navItems = [
+    {
+      text: "Dashboard",
+      icon: <HomeOutlined />,
+    },
+    // {
+    //   text: userRole === "client" ? "Utilisateurs" : "",
+    //   icon: userRole === "client" ? <PersonOutline /> : null,
+    // },
+    {
+      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER")) ? "": "Utilisateurs",
+      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER"))? null: <PersonOutline />,
+    },
+    
+    {
+      text: role == "ROLE_CLIENT" ? "":"Clients",
+      icon: role == "ROLE_CLIENT" ? null:<PeopleOutline />,
+    },
+    {
+      text: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN") ) ? "Fournisseurs": "",
+      icon: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN")) ? <Person3Outlined />:null,
+    },
+    {
+      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "Devis":"",
+      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? <FormatQuoteOutlined />:null,
+    },
+    // {
+    //   text: "Admins",
+    //   icon: null,
+    // },
+    // {
+    //   text: "Profile",
+    //   icon: <Groups2Outlined />,
+    // },
+    {
+      text: "Missions",
+      icon: <CalendarMonthOutlined />,
+    },
+    {
+      text: role == "ROLE_CLIENT" ? "": "PageCv",
+      icon: role == "ROLE_CLIENT" ? null:<FileCopyOutlined />,
+    },
+    {
+      text: "Jobs",
+      icon: <WorkOutline />,
+    },
+    {
+      text: "Recruitment",
+      icon: <GestureOutlined />,
+    },
+    // {
+    //   text: "Gestion",
+    //   icon: null,
+    // },
+    {
+      text: "Abonnement",
+      icon: <BookOutlined />,
+    },
+    // {
+    //   text: "Manage",
+    //   icon: null,
+    // },
+    {
+      text: "Parametre",
+      icon: <AdminPanelSettingsOutlined />,
+    },
+  ];
 
   useEffect(() => {
     setActive(pathname.substring(1));

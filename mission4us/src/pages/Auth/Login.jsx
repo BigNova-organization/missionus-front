@@ -35,7 +35,9 @@ useEffect(() => {
 	  } else {
 		console.info("Authenticated");
 		navigate("/dashboard");
+		// const userRole = localStorage.getItem("userRole")
 		localStorage.setItem("user", JSON.stringify({role: "ADMIN"}))
+		// localStorage.getItem("userRole")
 	  }
 	  localStorage.setItem("bearer-token", keycloak.token);
 	  localStorage.setItem("refresh-token", keycloak.refreshToken);

@@ -88,15 +88,9 @@ const AddMission = ({ open, onClose }) => {
           color: theme.palette.primary.light,
         }}
       >
-        <Tooltip title="Fermer">
-          <IconButton
-            aria-label="close"
-            style={{ color: theme.palette.primary.light }}
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
+         <Tooltip title="Fermer">
+          <Box onClick={onClose}><CloseIcon/></Box>
+        </Tooltip> 
         <Typography variant={"h4"} style={{ paddingLeft: 15 }}>
           {" "}
           Ajouter une mission{" "}
