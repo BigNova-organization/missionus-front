@@ -170,9 +170,7 @@ const Jobs = () => {
                 <StyledTableRow>
                   {columns.map((column) => (
                     <StyledTableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
+                     
                     >
                       {column.label}
                     </StyledTableCell>
@@ -183,14 +181,14 @@ const Jobs = () => {
                 
                 {jobs
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((job,index) => {
+                  .map((job) => {
                     return (
                       <>
                       {status === "loading" && <CircularProgress />}
                       <StyledTableRow
                         hover
-                        role="checkbox"
-                        tabIndex={-1}
+                        // role="checkbox"
+                        // tabIndex={-1}
                         key={job.id}
                       >
                         <StyledTableCell>{job.name}</StyledTableCell>

@@ -182,6 +182,11 @@ const Missions = () => {
     handleModalClose();
   }
   const role = useSelector((state) => state.account?.user.authorities);
+
+  const handleRowClick = (id) => {
+    setSelectedRow(id);
+  };
+  
   return (
     <Box >
       <Box
@@ -200,7 +205,7 @@ const Missions = () => {
         <p>Missions</p>
         </div>
       <div>
-      
+      {((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN"))?
       <Button variant="contained" 
       endIcon={<AddIcon />} 
       size='medium' 
@@ -209,6 +214,7 @@ const Missions = () => {
       >
         Ajouter
       </Button>
+      :null}
       <DrawerInfo anchor="right" open={open}  >
         <AddMission open={open} onClose={handleClose}/>
       </DrawerInfo>
@@ -238,11 +244,13 @@ const Missions = () => {
           
             {missions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((mission,index) => {
+              .map((mission) => {
                 return (
                   <>
                   {(status==='loading')&& <CircularProgress />}
-                  <StyledTableRow hover role="checkbox" tabIndex={-1} key={mission.id}>
+                  <StyledTableRow hover  
+                  // role="checkbox" tabIndex={-1} 
+                  key={mission.id} onClick={() => handleRowClick(mission.id)}>
                     
                     <StyledTableCell >{mission.name}</StyledTableCell>
                      <StyledTableCell >{mission.details}</StyledTableCell>
@@ -253,13 +261,17 @@ const Missions = () => {
                         <StyledTableCell align="left">
                       
                       <Stack direction="row">
-                      <Tooltip title="Modifier">
-                      <Box onClick={handleOpenEdit} sx={{color:'green'}}><EditIcon/></Box>
-                      </Tooltip>
-                      <Tooltip title="Supprimer">
-                      <Box onClick={() => handleDelete(mission.id)} sx={{color:'red'}}><DeleteIcon/></Box>
-                      </Tooltip>
-                      {((role == "ROLE_PROVIDER")|| (role == "ROLE_ADMIN"))?
+                      {((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN"))?
+                      <>
+                        <Tooltip title="Modifier">
+                          <Box onClick={handleOpenEdit} sx={{color:'green'}}><EditIcon/></Box>
+                        </Tooltip>
+                        <Tooltip title="Supprimer">
+                          <Box onClick={() => handleDelete(mission.id)} sx={{color:'red'}}><DeleteIcon/></Box>
+                        </Tooltip>
+                      </>
+                      :null}
+                      {(role == "ROLE_PROVIDER")?
                       
                        <Tooltip title="Creer devis">
                           <Box  onClick={handleOpenDevis} ><FormatQuoteIcon/></Box>
@@ -283,7 +295,7 @@ const Missions = () => {
         </Table>
       </TableContainer>
       <DrawerInfo anchor="right" open={openDevis} >
-        <DevisMission open ={openDevis} onClose={handleCloseDevis}/>
+        <DevisMission open ={openDevis} onClose={handleCloseDevis} missionId={selectedRow}/>
       </DrawerInfo>
       <DrawerInfo anchor="right" open={openEdit} >
         <EditMission open ={openEdit} onClose={handleCloseEdit}/>
