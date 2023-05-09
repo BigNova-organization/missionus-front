@@ -17,7 +17,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import RadionButton from "../../../components/radioButton";
 import { RadioGroup, FormControlLabel, Radio,FormControl,FormLabel } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addDevis } from "../../../Redux/devis/slice";
 
 const DevisMission = ({ open, onClose,missionId }) => {
 const theme = useTheme();
@@ -28,7 +29,6 @@ const initialValues = {
 // datedeb: "2023-05-24",
 // datefin: "2023-06-24",
 missionId,
-providerId:account.id,
 amount: "",
 // confirmdate: false,
 };
@@ -40,6 +40,7 @@ const validationSchema = Yup.object().shape({
   // datedeb: Yup.date().required("Date début est obligatoire"),
   // datefin: Yup.date().required("Date de fin est obligatoire"),
 });
+const dispatch=useDispatch()
 return (
 <Box
   sx={{
@@ -70,6 +71,7 @@ return (
       validationSchema={validationSchema}
       onSubmit={(values) => {
         console.log(values, "myvalues devismission");
+        dispatch(addDevis(values))
      }
     }
     >
@@ -101,7 +103,7 @@ return (
             />
           </div>
 
-          <Space space={20} />
+          {/* <Space space={20} /> */}
 
           {/* <RowBox>
             <DatePickers

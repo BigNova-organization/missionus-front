@@ -51,6 +51,7 @@ const ProtectedRoutes = (props) => {
 	  useEffect(() => {
 		if (token && isTokenExpired(token)) {
 		  // si le token est expiré, déconnectez l'utilisateur
+		  window.location.reload()
 		  dispatch(logout());
 		  navigate('/login')
 		}

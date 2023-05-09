@@ -29,6 +29,26 @@ export const fetchDevis = createAsyncThunk(
   }
 );
 
+export const addDevis = createAsyncThunk(
+  'devis/addDevis',
+  async (values) => {
+   
+
+    const token = localStorage.getItem("bearer-token");
+    const url='https://api.mission4us.com/api/quotes';
+    const response = await axios.post(url,values ,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+   
+    console.log(response,'create devis response')
+    return response.data;
+    
+  }
+);
+
 const deviSlice = createSlice({
   name: 'devis',
   initialState,
@@ -45,7 +65,11 @@ const deviSlice = createSlice({
       .addCase(fetchDevis.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      });
+      })
+      .addCase(addDevis.fulfilled, (state, action) => {
+        state.devis.push(action.payload);
+      })
+
   },
 });
 

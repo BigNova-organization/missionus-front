@@ -54,6 +54,26 @@ export const deleteMission = createAsyncThunk(
   }
 );
 
+export const addMission = createAsyncThunk(
+  'devis/addMission',
+  async (values) => {
+   
+
+    const token = localStorage.getItem("bearer-token");
+    const url='https://api.mission4us.com/api/missions';
+    const response = await axios.post(url,values ,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+   
+    console.log(response,'create mission response')
+    return response.data;
+    
+  }
+);
+
 const missionSlice = createSlice({
   name: 'missions',
   initialState,
@@ -74,7 +94,11 @@ const missionSlice = createSlice({
 
       .addCase(deleteMission.fulfilled, (state, action) => {
         state.missions = state.missions.filter(mission => mission.id !== action.payload);
-      });
+      })
+      .addCase(addMission.fulfilled, (state, action) => {
+        state.missions.push(action.payload);
+      })
+      ;
   },
 });
 
