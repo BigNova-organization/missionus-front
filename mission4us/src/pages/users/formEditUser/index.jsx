@@ -103,7 +103,6 @@ const EditUser = ({ open, onClose }) => {
           onSubmit={(values, { setSubmitting }) => {
             console.log(values, "myvalues");
             setTimeout(() => {
-              console.log(values, "myvalues");
               setSubmitting(false);
             }, 4000);
           }}

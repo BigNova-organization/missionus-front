@@ -29,11 +29,9 @@ useEffect(() => {
   keycloak
 	.init({ onLoad: initOptions.onLoad, KeycloakResponseType: "code" })
 	.then((auth) => {
-	  console.log(auth, "auth");
 	  if (!auth) {
 		window.location.reload();
 	  } else {
-		console.info("Authenticated");
 		navigate("/dashboard");
 		// const userRole = localStorage.getItem("userRole")
 		localStorage.setItem("user", JSON.stringify({role: "ADMIN"}))

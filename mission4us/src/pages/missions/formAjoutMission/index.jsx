@@ -19,6 +19,8 @@ import Select from 'react-select'
 import { useDispatch, useSelector } from "react-redux";
 import { addMission } from "../../../Redux/mission/slice";
 import { fetchJobs } from "../../../Redux/jobs/slice";
+import { Snackbar } from '@material-ui/core';
+
 // const options = [
 //   { value: "client1", label: "Reda Bekka" },
 //   { value: "client2", label: "Samia Kh" },
@@ -53,7 +55,7 @@ const AddMission = ({ open, onClose }) => {
   const jobs = useSelector((state) => state.jobs.jobs);
   const jobOptions = jobs.map((job) => ({
     value: job.id,
-    label: job.name,
+    name: job.name,
   }));
 
   const validationSchema = Yup.object().shape({
@@ -79,6 +81,10 @@ const dispatch=useDispatch()
 useEffect(() => {
   dispatch(fetchJobs());
 }, [dispatch]);
+const status = useSelector((state) => state.missions.status);
+
+const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -135,8 +141,9 @@ useEffect(() => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            console.log(values, "myvalues ajout mission");
+            
             dispatch(addMission(values))
+            setOpenSnackbar(true);
           
           }}
         >
@@ -251,9 +258,10 @@ useEffect(() => {
                     errors.type && touched.type ? errors.type : ""
                   }
                   required={true}
+                  disabled={true}
                 />
                 </div>
-               <div>
+                {/*<div>
                 <Select
               placeholder={"Selectionner un job *"}
               options={jobOptions}
@@ -263,19 +271,20 @@ useEffect(() => {
   
               
               styles={customStyles}
+              
             />
             {touched.jobId && errors.jobId && (
               <div style={{borderColor:theme.palette.error.main}}>{errors.jobId}</div>
             )}
-          </div>
+          </div> */}
 
        
                 
-              {/* <SelectMenue
-                selectionTitle="  Selectionner un job *"
-                data={jobs}
-                handleOpen={(val) => {
-                  setFieldValue("jobId", val);
+              <SelectMenue
+                selectionTitle="Selectionner un job *"
+                data={jobOptions}
+                handleOpen={(option) => {
+                  setFieldValue("jobId", option);
                 }}
                 error={errors.jobId && touched.jobId && errors.jobId}
                 helperText={errors.jobId && touched.jobId ? errors.jobId : ""}
@@ -283,9 +292,33 @@ useEffect(() => {
                 onBlur={() => {
                   setFieldTouched("jobId", true);
                 }}
-                onChange={handleChange}
+                // onChange={(option) => {
+                //   setFieldValue('jobId', option.value);
+                // }}
+                style={{color:"black",fontSize:10}}
                 marginRight
-              /> */}
+              />
+
+              
+              <div style={{ marginRight: 20 }}>
+                <InputFeilds
+                  label={"Détails"}
+                  multiline={true}
+                  rows={4}
+                  id="details"
+                  error={errors.details && touched.details}
+                  helperText={
+                    errors.details && touched.details ? errors.details : ""
+                  }
+                  value={values.details}
+                  onChange={handleChange}
+                  autoFocus={true}
+                  name={"details"}
+                  onBlur={() => {
+                    setFieldTouched("details", true);
+                  }}
+                />
+              </div>
            
             
           
@@ -293,7 +326,9 @@ useEffect(() => {
                 
                 <Space space={20} />
 
-                <div style={{ float: "right" }}>
+                <div style={{ 
+                  float:"right"
+                }}>
                   <Button
                     variant="contained"
                     endIcon={<SendIcon />}
@@ -319,6 +354,17 @@ useEffect(() => {
                   </Button>
                 </div>
                 <Space space={20} />
+
+                {status === "succeeded" &&
+                <Snackbar
+                  open={openSnackbar}
+                  message="Mission  ajouté avec succès."
+                  autoHideDuration={3000}
+                  onClose={() => setOpenSnackbar(false)}
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  ContentProps={{ style: { backgroundColor: 'green' } }}
+                />
+                  }
               </form>
             );
           }}

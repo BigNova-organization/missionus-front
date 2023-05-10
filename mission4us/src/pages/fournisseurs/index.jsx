@@ -86,7 +86,7 @@ const Fournisseurs = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const providers = useSelector((state) => state.providers.providers);
-  console.log(providers,'froun')
+  
  
   const status = useSelector((state) => state.providers.status);
   const error = useSelector((state) => state.providers.error);

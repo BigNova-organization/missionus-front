@@ -29,6 +29,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useSelector,useDispatch } from "react-redux";
 import { deleteMission, fetchMissions } from "../../Redux/mission/slice";
 import DrawerInfo from "../../components/Drawer/Drawer.jsx";
+import { Snackbar } from '@material-ui/core';
 
 const useButtonStyles = makeStyles((theme) => ({
   root: {
@@ -125,7 +126,7 @@ const Missions = () => {
   const missions = useSelector((state) => state.missions.missions);
   const status = useSelector((state) => state.missions.status);
   const error = useSelector((state) => state.missions.error);
-  console.log(missions,'missions')
+  
 
   const handleOpen = useCallback(() => setOpen(true), []);
 
@@ -176,10 +177,11 @@ const Missions = () => {
     handleFermer();
     setSelectedRow(null);
   };
-
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleConfirmDelete = () => {
     dispatch(deleteMission(selectedRow));
     handleModalClose();
+    setOpenSnackbar(true);
   }
   const role = useSelector((state) => state.account?.user.authorities);
 
@@ -263,9 +265,9 @@ const Missions = () => {
                       <Stack direction="row">
                       {((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN"))?
                       <>
-                        <Tooltip title="Modifier">
+                        {/* <Tooltip title="Modifier">
                           <Box onClick={handleOpenEdit} sx={{color:'green'}}><EditIcon/></Box>
-                        </Tooltip>
+                        </Tooltip> */}
                         <Tooltip title="Supprimer">
                           <Box onClick={() => handleDelete(mission.id)} sx={{color:'red'}}><DeleteIcon/></Box>
                         </Tooltip>
@@ -308,6 +310,16 @@ const Missions = () => {
         title={"Voulez vous supprimer cette mission?"}
         onDelete={handleConfirmDelete}
       />
+       {status === "succeeded" &&
+          <Snackbar
+            open={openSnackbar}
+            message="Votre suppression a été exécutée avec succès."
+            autoHideDuration={3000}
+            onClose={() => setOpenSnackbar(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            ContentProps={{ style: { backgroundColor: 'green' } }}
+          />
+            }
       
     
       <TablePagination

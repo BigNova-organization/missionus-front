@@ -25,7 +25,7 @@ const Form2 = ({ changeMode }) => {
         onSubmit={(values, formikAction) => {
           dispatch(signUpUser(values))
           navigate('/login')
-          console.log("values", values);
+          
         }}
       >
         {({

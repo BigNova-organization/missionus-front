@@ -84,7 +84,7 @@ const Devis = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const devis = useSelector((state) => state.devis.devis);
-  console.log(devis,'devis')
+
  
   const status = useSelector((state) => state.devis.status);
   const error = useSelector((state) => state.devis.error);
@@ -93,7 +93,7 @@ const Devis = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   
   const providers = useSelector((state) => state.providers.providers);
-console.log(providers,'nom pro')
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -141,7 +141,7 @@ console.log(providers,'nom pro')
                         key={devi.id}
                       >
                         <StyledTableCell>
-                          <div style={{backgroundColor: devi.status === "SELECTED" ? "green" : "red", borderRadius: 50,padding:10,textAlign:'center',color:"white",width:100}}>
+                          <div style={{backgroundColor: devi.status === "SELECTED" ? "green" :devi.status === "NEW"? "blue":"red", borderRadius: 50,padding:10,textAlign:'center',color:"white",width:100}}>
                           {devi.status}
                           </div>
                           

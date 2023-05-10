@@ -42,9 +42,9 @@ const ProtectedRoutes = (props) => {
 	const isTokenExpired = (token) => {
 		const decodedToken = jwtDecode(token);
 		const currentTime = Date.now() / 1000; // convertit le temps en secondes
-	  console.log(currentTime,'currenttime')
-	  console.log(currentTime,'decodedToken')
-	  console.log(decodedToken.exp,'exptoken')
+	//   console.log(currentTime,'currenttime')
+	//   console.log(currentTime,'decodedToken')
+	//   console.log(decodedToken.exp,'exptoken')
 		return decodedToken.exp < currentTime;
 	  };
 

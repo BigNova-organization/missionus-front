@@ -12,7 +12,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-
+import { Snackbar } from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
@@ -86,7 +86,7 @@ const Jobs = () => {
   const jobs = useSelector((state) => state.jobs.jobs);
   const status = useSelector((state) => state.jobs.status);
   const error = useSelector((state) => state.jobs.error);
-  console.log(jobs, "jobs");
+  
   // const classes = useStyles();
   const buttonStyle = useButtonStyles();
 
@@ -122,13 +122,16 @@ const Jobs = () => {
     setSelectedRow(null);
   };
 
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const handleConfirmDelete = () => {
     dispatch(deleteJob(selectedRow));
     handleModalClose();
+    setOpenSnackbar(true);
   };
 
   return (
-    <Box className="dashboard">
+    <Box >
       <Box
         sx={{
           padding: "10px",
@@ -216,13 +219,13 @@ const Jobs = () => {
                           </Tooltip> */}
 
                       <Stack direction="row">
-                      <Tooltip title="Modifier">
+                      {/* <Tooltip title="Modifier">
                       <Box 
                       // onClick={() => navigate(`Update Job/${job.id}`)} 
                       sx={{color:'green'}}>
                         <EditIcon/>
                         </Box>
-                      </Tooltip>
+                      </Tooltip> */}
                       <Tooltip title="Supprimer">
                       <Box onClick={() => handleDelete(job.id)} sx={{color:'red'}}><DeleteIcon/></Box>
                       </Tooltip>
@@ -242,6 +245,16 @@ const Jobs = () => {
             title={"Voulez vous supprimer ce job?"}
             onDelete={handleConfirmDelete}
           />
+          {status === "succeeded" &&
+          <Snackbar
+            open={openSnackbar}
+            message="Votre suppression a été exécutée avec succès."
+            autoHideDuration={3000}
+            onClose={() => setOpenSnackbar(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            ContentProps={{ style: { backgroundColor: 'green' } }}
+          />
+            }
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"

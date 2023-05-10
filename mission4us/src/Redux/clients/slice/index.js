@@ -26,7 +26,7 @@ export const fetchClients = createAsyncThunk(
       },
     });
    
-    console.log(response,'clients response')
+    // console.log(response,'clients response')
     return response.data;
     
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Checkbox, Typography, useTheme } from "@mui/material";
 import Head from "../../../components/Head";
 import Body from "../../../components/Body";
@@ -19,12 +19,13 @@ import RadionButton from "../../../components/radioButton";
 import { RadioGroup, FormControlLabel, Radio,FormControl,FormLabel } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { addDevis } from "../../../Redux/devis/slice";
+import { Snackbar } from '@material-ui/core';
 
 const DevisMission = ({ open, onClose,missionId }) => {
 const theme = useTheme();
 const account = useSelector((state) => state.account?.user);
-console.log(missionId,'id de la mission pour changer devis')
-console.log(account.id,'accountid de la mission pour changer devis')
+const status = useSelector((state) => state.devis.status);
+
 const initialValues = {
 // datedeb: "2023-05-24",
 // datefin: "2023-06-24",
@@ -41,6 +42,8 @@ const validationSchema = Yup.object().shape({
   // datefin: Yup.date().required("Date de fin est obligatoire"),
 });
 const dispatch=useDispatch()
+const [openSnackbar, setOpenSnackbar] = useState(false);
+
 return (
 <Box
   sx={{
@@ -65,13 +68,14 @@ return (
   </Typography>
   </div>
 
-  <Body>
+  <Body sx={{height:"89vh"}}>
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log(values, "myvalues devismission");
+        
         dispatch(addDevis(values))
+        setOpenSnackbar(true);
      }
     }
     >
@@ -87,7 +91,7 @@ return (
 
         /* and other goodies */
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{height:"78vh"}}>
           <div style={{ marginRight: 20 }}>
             <InputFeilds
               label={"Fourchette du prix"}
@@ -157,7 +161,11 @@ return (
 
         <Space space={20} />
 
-          <div style={{ float: "right" }}>
+          <div style={{ 
+            position: "absolute",
+            bottom: 23,
+            right: 67,
+           }}>
             <Button
               variant="contained"
               endIcon={<SendIcon />}
@@ -182,9 +190,22 @@ return (
               Annuler
             </Button>
           </div>
+
+          {status === "succeeded" &&
+          <Snackbar
+            open={openSnackbar}
+            message="Devis  ajouté avec succès."
+            autoHideDuration={3000}
+            onClose={() => setOpenSnackbar(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            ContentProps={{ style: { backgroundColor: 'green' } }}
+          />
+            }
         </form>
+        
       )}
     </Formik>
+    
   </Body>
 </Box>
 );

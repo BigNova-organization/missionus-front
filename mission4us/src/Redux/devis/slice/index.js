@@ -23,7 +23,7 @@ export const fetchDevis = createAsyncThunk(
       },
     });
    
-    console.log(response,'devis response')
+    // console.log(response,'devis response')
     return response.data;
     
   }
@@ -43,7 +43,7 @@ export const addDevis = createAsyncThunk(
       },
     });
    
-    console.log(response,'create devis response')
+    // console.log(response,'create devis response')
     return response.data;
     
   }
@@ -67,6 +67,7 @@ const deviSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addDevis.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.devis.push(action.payload);
       })
 
