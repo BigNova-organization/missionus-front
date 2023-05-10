@@ -58,21 +58,18 @@ const Sidebar = ({
   const theme = useTheme();
  
   const role = useSelector((state) => state.account?.user.authorities);
-  console.log(role,'account sidebar')
+  
  
   const navItems = [
     {
       text: "Dashboard",
       icon: <HomeOutlined />,
     },
+  
     // {
-    //   text: userRole === "client" ? "Utilisateurs" : "",
-    //   icon: userRole === "client" ? <PersonOutline /> : null,
+    //   text: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER")) ? "": "Utilisateurs",
+    //   icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER"))? null: <PersonOutline />,
     // },
-    {
-      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER")) ? "": "Utilisateurs",
-      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER"))? null: <PersonOutline />,
-    },
     
     {
       text: role == "ROLE_CLIENT" ? "":"Clients",
@@ -99,8 +96,8 @@ const Sidebar = ({
       icon: <CalendarMonthOutlined />,
     },
     {
-      text: role == "ROLE_CLIENT" ? "": "PageCv",
-      icon: role == "ROLE_CLIENT" ? null:<FileCopyOutlined />,
+      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "": "PageCv",
+      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? null:<FileCopyOutlined />,
     },
     {
       text: "Jobs",

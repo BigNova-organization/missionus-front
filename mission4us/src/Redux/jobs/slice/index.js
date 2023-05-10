@@ -25,7 +25,7 @@ export const fetchJobs = createAsyncThunk(
       },
     });
    
-    console.log(response,'jobs response')
+    // console.log(response,'jobs response')
     return response.data;
     
   }
@@ -45,7 +45,7 @@ export const fetchJob = createAsyncThunk(
         },
       });
      
-      console.log(response,'job response')
+      // console.log(response,'job response')
       return response.data;
       
     }
@@ -64,7 +64,7 @@ export const addJob = createAsyncThunk(
         },
       },);
      
-      console.log(response,'create job response')
+      // console.log(response,'create job response')
       return response.data;
       
     }
@@ -74,8 +74,8 @@ export const addJob = createAsyncThunk(
     'jobs/updateJob',
     async (id,values) => {
      
-  console.log(id,'idslice')
-  console.log(values,'valuesslice')
+  // console.log(id,'idslice')
+  // console.log(values,'valuesslice')
       const token = localStorage.getItem("bearer-token");
       const url=`https://api.mission4us.com/api/jobs/${id}`;
       const response = await axios.put(url,values, {
@@ -84,7 +84,7 @@ export const addJob = createAsyncThunk(
         },
       },);
      
-      console.log(response,'create job response')
+      // console.log(response,'create job response')
       return response.data;
       
     }
@@ -97,7 +97,7 @@ export const deleteJob = createAsyncThunk(
 
     const token = localStorage.getItem("bearer-token");
     const url=`https://api.mission4us.com/api/jobs/${id}`;
-    console.log(url,'url')
+    
     axios.delete(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -105,7 +105,7 @@ export const deleteJob = createAsyncThunk(
       },
     });
    
-    console.log(id,'delete job')
+    // console.log(id,'delete job')
     return id;
     
   }
@@ -133,6 +133,7 @@ const jobSlice = createSlice({
         state.jobs = action.payload;
       })
       .addCase(addJob.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.jobs.push(action.payload);
       })
       .addCase(updateJob.fulfilled, (state, action) => {

@@ -15,7 +15,7 @@ export const signUpUser = createAsyncThunk(
       const url='http://api.mission4us.com/api/register';
       const response = await axios.post(url,values);
      
-      console.log(response,'register response')
+      // console.log(response,'register response')
       return response.data;
       
     }

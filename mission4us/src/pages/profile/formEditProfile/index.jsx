@@ -55,7 +55,7 @@ const EditProfile = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values, "myvalues");
+         
           setTimeout(() => {
             console.log(values, "myvalues");
             setSubmitting(false);
@@ -74,7 +74,7 @@ const EditProfile = () => {
           setFieldTouched,
           /* and other goodies */
         }) => {
-          console.log("valus", values);
+          
           return (
             <form onSubmit={handleSubmit}>
               <RowBox>

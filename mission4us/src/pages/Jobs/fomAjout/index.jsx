@@ -7,12 +7,14 @@ import { Formik } from "formik";
 import InputFeilds from "../../../components/outils/InputFeilds";
 import Space from "../../../components/outils/Space";
 import SendIcon from '@mui/icons-material/Send';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-
 import * as Yup from 'yup'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addJob } from "../../../Redux/jobs/slice";
+import { useState } from "react";
+import { Snackbar } from '@material-ui/core';
 const AddJob = () => {
   const theme = useTheme();
  
@@ -34,6 +36,8 @@ const AddJob = () => {
   })
   const dispatch=useDispatch()
   const navigate=useNavigate()
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const status = useSelector((state) => state.jobs.status);
   return (
     <Box
       sx={{
@@ -51,11 +55,11 @@ const AddJob = () => {
        initialValues={initialValues}
        validationSchema={validationSchema}
        onSubmit={(values) => {
-        console.log(values,'job values')
         dispatch(addJob(values))
         // setTimeout(() => {
         //   setSubmitting(false);
         // }, 4000);
+        setOpenSnackbar(true);
         navigate(-1)
        }}
       
@@ -70,7 +74,7 @@ const AddJob = () => {
          isSubmitting,
          /* and other goodies */
        }) => (
-         <form onSubmit={handleSubmit}>
+         <form onSubmit={handleSubmit} style={{height:"65vh"}}>
                 <Space space={20} />
                 
                 <InputFeilds
@@ -128,7 +132,11 @@ const AddJob = () => {
                 
                 <Space space={20} />
 
-                <div style={{ float: "right" }}>
+                <div style={{ 
+                  position: "absolute",
+                  bottom: 23,
+                  right: 67,
+                }}>
                 <Button
                   variant="contained"
                   endIcon={<SendIcon />}
@@ -136,12 +144,32 @@ const AddJob = () => {
                   style={{backgroundColor:theme.palette.primary.light,color:theme.palette.background.default}}
                   type="submit"
                   onClick={handleSubmit}
-                 
+                  sx={{ marginRight: 2 }}
                 >
                   Valider
                 </Button>
+              <Button
+              variant="contained"
+              endIcon={<CloseIcon />}
+              size="medium"
+              color="error"
+              onClick={()=>navigate(-1)}
+            >
+              Annuler
+            </Button>
                 </div>
-                <Space space={20} />
+
+                {status === "succeeded" &&
+          <Snackbar
+            open={openSnackbar}
+            message="Job  ajouté avec succès."
+            autoHideDuration={3000}
+            onClose={() => setOpenSnackbar(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            ContentProps={{ style: { backgroundColor: 'green' } }}
+          />
+            }
+               
                  </form>
            )}
        </Formik>

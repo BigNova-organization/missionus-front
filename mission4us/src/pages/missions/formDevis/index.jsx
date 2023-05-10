@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Checkbox, Typography, useTheme } from "@mui/material";
 import Head from "../../../components/Head";
 import Body from "../../../components/Body";
@@ -17,24 +17,33 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import RadionButton from "../../../components/radioButton";
 import { RadioGroup, FormControlLabel, Radio,FormControl,FormLabel } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { addDevis } from "../../../Redux/devis/slice";
+import { Snackbar } from '@material-ui/core';
 
-const DevisMission = ({ open, onClose }) => {
+const DevisMission = ({ open, onClose,missionId }) => {
 const theme = useTheme();
+const account = useSelector((state) => state.account?.user);
+const status = useSelector((state) => state.devis.status);
 
 const initialValues = {
-datedeb: "2023-05-24",
-datefin: "2023-06-24",
-prix: "500000",
-confirmdate: false,
+// datedeb: "2023-05-24",
+// datefin: "2023-06-24",
+missionId,
+amount: "",
+// confirmdate: false,
 };
 
 const validationSchema = Yup.object().shape({
-  datedeb: Yup.date().required("Date début est obligatoire"),
-  datefin: Yup.date().required("Date de fin est obligatoire"),
-  prix: Yup.number("Prix"),
-  confirmdate: Yup.boolean()
-  .oneOf([true], "Vous devez confirmer la date de début")
+  amount: Yup.number("Prix").required("Le prix est obligatoire"),
+  // confirmdate: Yup.boolean()
+  // .oneOf([true], "Vous devez confirmer la date de début"),
+  // datedeb: Yup.date().required("Date début est obligatoire"),
+  // datefin: Yup.date().required("Date de fin est obligatoire"),
 });
+const dispatch=useDispatch()
+const [openSnackbar, setOpenSnackbar] = useState(false);
+
 return (
 <Box
   sx={{
@@ -59,17 +68,16 @@ return (
   </Typography>
   </div>
 
-  <Body>
+  <Body sx={{height:"89vh"}}>
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log(values, "myvalues devismission");
-        setTimeout(() => {
+      onSubmit={(values) => {
         
-          setSubmitting(false);
-        }, 1000);
-      }}
+        dispatch(addDevis(values))
+        setOpenSnackbar(true);
+     }
+    }
     >
       {({
         values,
@@ -83,25 +91,25 @@ return (
 
         /* and other goodies */
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{height:"78vh"}}>
           <div style={{ marginRight: 20 }}>
             <InputFeilds
               label={"Fourchette du prix"}
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.prix}
-              id="prix"
-              required={false}
-              error={errors.prix && touched.prix}
-              helperText={errors.prix && touched.prix ? errors.prix : ""}
+              value={values.amount}
+              id="amount"
+              required={true}
+              error={errors.amount && touched.amount}
+              helperText={errors.amount && touched.amount ? errors.amount : ""}
               
               
             />
           </div>
 
-          <Space space={20} />
+          {/* <Space space={20} /> */}
 
-          <RowBox>
+          {/* <RowBox>
             <DatePickers
               id="datedeb"
               label={"Date Debut *"}
@@ -126,10 +134,10 @@ return (
                 errors.datefin && touched.datefin ? errors.datefin : ""
               }
             />
-          </RowBox>
+          </RowBox> */}
 
           
-      <FormControlLabel required 
+      {/* <FormControlLabel required 
       control={<Checkbox
       id="confirmdate"
       value={values.confirmdate}
@@ -149,11 +157,15 @@ return (
           {errors.confirmdate}
         </div>
       ) : 
-      null}
+      null} */}
 
         <Space space={20} />
 
-          <div style={{ float: "right" }}>
+          <div style={{ 
+            position: "absolute",
+            bottom: 23,
+            right: 67,
+           }}>
             <Button
               variant="contained"
               endIcon={<SendIcon />}
@@ -178,9 +190,22 @@ return (
               Annuler
             </Button>
           </div>
+
+          {status === "succeeded" &&
+          <Snackbar
+            open={openSnackbar}
+            message="Devis  ajouté avec succès."
+            autoHideDuration={3000}
+            onClose={() => setOpenSnackbar(false)}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            ContentProps={{ style: { backgroundColor: 'green' } }}
+          />
+            }
         </form>
+        
       )}
     </Formik>
+    
   </Body>
 </Box>
 );

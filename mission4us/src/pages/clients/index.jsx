@@ -144,15 +144,17 @@ const Clients = () => {
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                {status === "loading" && <CircularProgress />}
+               
                 {clients
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((client) => {
                     return (
+                      <>
+                      {status === "loading" && <CircularProgress />}
                       <StyledTableRow
                         hover
-                        role="checkbox"
-                        tabIndex={-1}
+                        // role="checkbox"
+                        // tabIndex={-1}
                         key={client.id}
                       >
                         <StyledTableCell>{client.firstName}</StyledTableCell>
@@ -161,6 +163,7 @@ const Clients = () => {
                         <StyledTableCell>{client.email}</StyledTableCell>
                         <StyledTableCell>{client.phoneNumber}</StyledTableCell>
                       </StyledTableRow>
+                      </>
                     );
                   })}
               </TableBody>

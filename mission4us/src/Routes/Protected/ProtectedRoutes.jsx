@@ -42,15 +42,16 @@ const ProtectedRoutes = (props) => {
 	const isTokenExpired = (token) => {
 		const decodedToken = jwtDecode(token);
 		const currentTime = Date.now() / 1000; // convertit le temps en secondes
-	  console.log(currentTime,'currenttime')
-	  console.log(currentTime,'decodedToken')
-	  console.log(decodedToken.exp,'exptoken')
+	//   console.log(currentTime,'currenttime')
+	//   console.log(currentTime,'decodedToken')
+	//   console.log(decodedToken.exp,'exptoken')
 		return decodedToken.exp < currentTime;
 	  };
 
 	  useEffect(() => {
 		if (token && isTokenExpired(token)) {
 		  // si le token est expiré, déconnectez l'utilisateur
+		  window.location.reload()
 		  dispatch(logout());
 		  navigate('/login')
 		}

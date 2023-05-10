@@ -21,8 +21,7 @@ const UpdateJob = () => {
  const jobs = useSelector((state) => state.jobs?.jobs);
  const job=jobs.find((j) => j.id === parseInt(id))
 // const job = useSelector((state) => state.jobs.find((j) => j.id === parseInt(id)));
- console.log(id,'id')
- console.log(job,'job')
+ 
   const initialValues={
     id:job?.id,
     name:job?.name,
@@ -54,7 +53,7 @@ const dispatch=useDispatch()
        initialValues={initialValues}
        validationSchema={validationSchema}
        onSubmit={(values) => {
-        console.log(values,'edit job values')
+        
         // setTimeout(() => {
         //   console.log(values,'myvalues')
         //   setSubmitting(false);

@@ -20,7 +20,7 @@ export const fetchAccountInfo = createAsyncThunk(
    
     const url='http://api.mission4us.com/api/auth-info';
     const response = await axios.get(url);
-    console.log(response,'info account')
+    // console.log(response,'info account')
     return response.data;
     
   }

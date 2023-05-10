@@ -23,7 +23,7 @@ export const fetchProviders = createAsyncThunk(
       },
     });
    
-    console.log(response,'providers response')
+    // console.log(response,'providers response')
     return response.data;
     
   }

@@ -88,12 +88,9 @@ const EditMission = ({ open, onClose }) => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values, "myvalues");
-            setTimeout(() => {
-              console.log(values, "myvalues");
-              setSubmitting(false);
-            }, 1000);
+          onSubmit={(values) => {
+            console.log(values, "myvalues update mission");
+          
           }}
         >
           {({
@@ -108,7 +105,7 @@ const EditMission = ({ open, onClose }) => {
             setFieldTouched,
             /* and other goodies */
           }) => {
-            console.log("valus", values);
+            
             return (
               <form onSubmit={handleSubmit}>
                 <div style={{ marginRight: 20 }}>

@@ -27,7 +27,7 @@ export const fetchMissions = createAsyncThunk(
       },
     });
    
-    console.log(response,'missions response')
+    // console.log(response,'missions response')
     return response.data;
     
   }
@@ -40,7 +40,7 @@ export const deleteMission = createAsyncThunk(
 
     const token = localStorage.getItem("bearer-token");
     const url=`https://api.mission4us.com/api/missions/${id}`;
-    console.log(url,'url')
+   
     axios.delete(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -48,8 +48,28 @@ export const deleteMission = createAsyncThunk(
       },
     });
    
-    console.log(id,'delete mission')
+    // console.log(id,'delete mission')
     return id;
+    
+  }
+);
+
+export const addMission = createAsyncThunk(
+  'devis/addMission',
+  async (values) => {
+   
+
+    const token = localStorage.getItem("bearer-token");
+    const url='https://api.mission4us.com/api/missions';
+    const response = await axios.post(url,values ,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+   
+    // console.log(response,'create mission response')
+    return response.data;
     
   }
 );
@@ -74,7 +94,12 @@ const missionSlice = createSlice({
 
       .addCase(deleteMission.fulfilled, (state, action) => {
         state.missions = state.missions.filter(mission => mission.id !== action.payload);
-      });
+      })
+      .addCase(addMission.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.missions.push(action.payload);
+      })
+      ;
   },
 });
 
