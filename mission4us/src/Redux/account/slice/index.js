@@ -23,7 +23,7 @@ export const fetchAccount = createAsyncThunk(
       },
     });
    
-    console.log(response,'account response')
+    // console.log(response,'account response')
     return response.data;
     
   }

@@ -48,11 +48,7 @@ export function UseHooks() {
 
   const navigate = useNavigate();
   const OnSubmit = async (data) => {
-    // navigate("VisualiserCv",{data});
-    // console.log("ddd", data);
-    // await dispatch({ type: "LOGIN", payload: data });
     navigate("VisualiserCv", { state: data });
-    // console.log('data', data)
   };
 
   let validationSchema = Yup.object().shape({
@@ -62,8 +58,10 @@ export function UseHooks() {
     prenom: Yup.string()
       .max(20, "Le prenom est trop long - doit être de 20 caractères maximum.")
       .required("prenom est requis"),
-    sexe: Yup.string().required("sexe est requis"),
-    situation: Yup.string().required("situation est requis"),
+    sexe: Yup.string(),
+    // .required("sexe est requis")
+    situation: Yup.string(),
+    // .required("situation est requis")
     phone: Yup.number()
       .min(10, "Le phone est trop court - doit être de 10 number minimum.")
       .required("phone est requis"),
@@ -81,22 +79,24 @@ export function UseHooks() {
     apropos: Yup.string()
       .min(6, "a propos est trop court - doit être de 6 caractères minimum.")
       .max(200, "a propos est trop long - doit être de 200 caractères maximum.")
-      .required("a propos est requis"),
+      // .required("a propos est requis")
+      ,
     langue: Yup.string().required("la langue est requis"),
     permis: Yup.string().required("le permis est requis"),
     experience: Yup.string().required("l'experience est requis"),
-    formation: Yup.string().required("formation est requis"),
+    formation: Yup.string(),
+    // .required("formation est requis")
     competence: Yup.string().required("competence est requis"),
     loisirs: Yup.string(),
-    reseaux: Yup.string().required("réseaux sociaux est requis"),
-    profile: Yup.string().required("profile image est requis"),
-
-    presentation: Yup.string()
-      .min(
-        350,
-        "La presentation est trop court - doit être de 150 caractères minimum."
-      )
-      .required("presentation est requis"),
+    reseaux: Yup.string(),
+    // .required("réseaux sociaux est requis")
+    profile: Yup.string(),
+    // .required("profile image est requis")
+    presentation: Yup.string().min(
+      350,
+      "La presentation est trop court - doit être de 150 caractères minimum."
+    ),
+    // .required("presentation est requis"),
   });
   const classes = useStyles();
 

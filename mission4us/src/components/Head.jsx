@@ -5,7 +5,7 @@
   import { Stack } from "@mui/system";
 import Space from "./outils/Space";
 import FlexBetween from "./FlexBetween";
-  const Head = ({ title, retur,btn }) => {
+  const Head = ({ title, retur,btn,onReturn }) => {
     const theme = useTheme();
     const handleShareResume = () => {
       // Use the 'navigator.share()' API to share the resume
@@ -36,6 +36,7 @@ import FlexBetween from "./FlexBetween";
             textDecoration: retur ? "underline" : "none",
           },
         }}
+        onClick={onReturn}
       >
        
         {retur ? (
@@ -46,8 +47,8 @@ import FlexBetween from "./FlexBetween";
         {/* <Space space={"20px"} /> */}
       
   {btn?(
-    <div style={{paddingLeft:20}}>
-    <Tooltip title="Partager sur Facebook">
+    <>
+    <Tooltip title="Partager sur Facebook" style={{marginLeft:20}}>
     <FacebookShareButton
     url={'https://example.com/my-resume.pdf'}
     quote={'Check out my resume!'}
@@ -81,7 +82,7 @@ import FlexBetween from "./FlexBetween";
   </LinkedinShareButton>
 
   </Tooltip>
-  </div>
+  </>
       
   ):null}
      

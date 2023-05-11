@@ -9,8 +9,8 @@ const SocialMedia = () => {
 
   const { Rsociaux } = useSelector((state) => state.cvs);
 
-
   return (
+    Rsociaux.lenght?
     <>
       <Stack
         component={"div"}
@@ -30,7 +30,7 @@ const SocialMedia = () => {
           text={"Réseaux Sociaux"}
           color={theme.palette.primary.light}
         />
-      </Stack>
+      </Stack> 
       <Space space={15} />
       <Stack
         sx={{
@@ -56,6 +56,7 @@ const SocialMedia = () => {
         })}
       </Stack>
     </>
+    : null
   ) ;
 };
 

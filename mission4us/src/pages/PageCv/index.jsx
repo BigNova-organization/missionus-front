@@ -12,17 +12,22 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-
 import Head from "../../components/Head";
 import Body from "../../components/Body";
-import { Formik } from "formik";
+import toast, { Toaster } from 'react-hot-toast';
+// import { Formik } from "formik";
 import { UseHooks } from "./Hooks";
 import InputFeilds from "../../components/outils/InputFeilds";
 import Space from "../../components/outils/Space";
 import RowBox from "../../components/RowBox";
 import SelectMenue from "../../components/outils/SelectMenue";
 import useStyles from "./styles";
-import { listLangue, listPermis, listSexe, listSituation } from "../../data/listLanguages";
+import {
+  listLangue,
+  listPermis,
+  listSexe,
+  listSituation,
+} from "../../data/listLanguages";
 import ChipsArray from "../../components/Add-card";
 import {
   CloseModal,
@@ -41,7 +46,14 @@ import { Person2Outlined } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { PrimaryText } from "../../components/utils/typography";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Formik, Form, Field } from "formik";
+import ReseauxSc from "./Components/ReseauxSc";
+import Experiences from "./Components/Experiences";
+import Formations from "./Components/Formations";
+import Loisirs from "./Components/Loisirs";
+import Competences from "./Components/Competences";
+import { CreateCvApi } from "../../Redux/createCv/api/createCvSlice";
+// import { ToastContainer, toast } from 'react-toastify';
 const PageCv = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -124,14 +136,35 @@ const PageCv = () => {
     </Box>
   );
 
+  const [submitButtonState, setSubmitButtonState] = useState(null);
+  const handleSubmitButtonState = (isSubmit) => {
+    setSubmitButtonState(isSubmit);
+  };
+  const notify = () => toast('Cv created successfully.');
+  const onError = () => {};
+  const onSuccesAction = () => {
+    notify()
+  };
+
+  const onErrorAction = (message) => {
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+    });
+  };
+
   return (
     <Box>
       <Head title="Page Cv" />
+      {/* <ToastContainer /> */}
       <Body>
         <PrimaryText
           fontWeight={"600"}
           fontSize={"35px"}
-          text={" Créez votre cv"}
+          text={"Créez votre cv"}
           color={theme.palette.secondary.light}
           cursor
         />
@@ -139,8 +172,84 @@ const PageCv = () => {
         <Formik
           initialValues={initialState}
           validationSchema={validationSchema}
-          onSubmit={(values, formikAction) => {
-            OnSubmit(values);
+          onSubmit={(values) => {
+            if (submitButtonState == "Valider") {
+              // console.log("valider", values);
+              // console.log("formation", values.formation);
+
+              let exp = experience.map((i) => {
+                return i.label;
+              });
+              let expe = competences.map((i) => {
+                return i.label;
+              });
+
+              let iok = expe.map((i) => {
+                return {
+                  name: i.competence.toUpperCase(),
+                  type: "SKILL",
+                  description: i.description,
+                  rating: 9,
+                };
+              });
+
+              let iok2 = exp.map((i) => {
+                return {
+                  name: i.nomExperience.toUpperCase(),
+                  type: "PROFESSIONNAL_EXPERIENCE",
+                  startDate: "2023-05-09",
+                  endDate: "2024-05-09",
+                  location: i.lieux,
+                  establishment: "ti",
+                  description: i.description,
+                };
+              });
+
+              let obj = {
+                firstName: values.nom,
+                lastName: values.prenom,
+                // dateOfBirth: JSON.stringify(values.date) "2023-05-09",
+                dateOfBirth: "2023-05-09",
+                street: values.adresse,
+                city: "Ginochester",
+                country: "Iran",
+                socialReason: "Intranet Cotton HTTP",
+                phoneNumber: values.phone,
+                email: values.email,
+                languages: [
+                  {
+                    id: 5,
+                  },
+                ],
+                jobs: [
+                  {
+                    id: 5,
+                  },
+                ],
+                driverLicences: [
+                  {
+                    id: 1,
+                  },
+                  {
+                    id: 2,
+                  },
+                ],
+                skillAndHobbies: iok,
+
+                experiences: iok2,
+              };
+              console.log("obj", obj);
+              let object = {
+                obj,
+                onSuccesAction,
+                onError,
+                onErrorAction
+              };
+              dispatch(CreateCvApi(object));
+            } else {
+              console.log("visiualizer", values);
+              OnSubmit(values);
+            }
           }}
         >
           {({
@@ -153,6 +262,7 @@ const PageCv = () => {
             isSubmitting,
             setFieldValue,
             setFieldTouched,
+            setSubmitting,
           }) => {
             const {
               nom,
@@ -166,34 +276,35 @@ const PageCv = () => {
               apropos,
               langue,
               permis,
-              presentation
+              presentation,
             } = values;
+
             return (
               <>
                 <Space space={"20px"} />
                 <Stack width={"100%"} spacing={3} display="flex">
-                  <Stack direction={"column"} justifyContent="center">
-                    <PrimaryText
+                  {/* <Stack direction={"column"} justifyContent="center"> */}
+                  {/* <PrimaryText
                       fontWeight={"500"}
                       fontSize={"25px"}
                       text={"ajouter la photo du profile "}
                       color={theme.palette.secondary.light}
                       cursor
                     />
-                    <Space space={"20px"} />
+                    <Space space={"20px"} /> */}
 
-                    {imageUrl ? (
-                         <Box
-                         component={"img"}
-                         src={imageUrl}
-                         width="220px"
-                         height="150px"
-                         sx={{
-                           borderRadius: "10px",
-                           border: `2px solid ${theme.palette.secondary.light}`,
-                           mb: 1,
-                         }}
-                       />
+                  {/* {imageUrl ? (
+                      <Box
+                        component={"img"}
+                        src={imageUrl}
+                        width="220px"
+                        height="150px"
+                        sx={{
+                          borderRadius: "10px",
+                          border: `2px solid ${theme.palette.secondary.light}`,
+                          mb: 1,
+                        }}
+                      />
                     ) : (
                       <Badge overlap="circular">{circle}</Badge>
                     )}
@@ -215,13 +326,13 @@ const PageCv = () => {
                         width: "20%",
                       }}
                       type="file"
-                    />
-                    <FormHelperText
+                    /> */}
+                  {/* <FormHelperText
                       sx={{ color: theme.palette.error.main, pl: 3 }}
                     >
                       {errors.profile && touched.profile ? errors.profile : ""}
                     </FormHelperText>
-                  </Stack>
+                  </Stack> */}
 
                   <RowBox>
                     <InputFeilds
@@ -279,16 +390,14 @@ const PageCv = () => {
                       setFieldValue("sexe", val);
                     }}
                     error={errors.sexe && touched.sexe}
-                    helperText={
-                      errors.sexe && touched.sexe ? errors.sexe : ""
-                    }
+                    helperText={errors.sexe && touched.sexe ? errors.sexe : ""}
                     value={sexe}
                     onBlur={() => {
                       setFieldTouched("sexe", true);
                     }}
                     marginRight
                   />
-                   <SelectMenue
+                  <SelectMenue
                     selectionTitle="Selectionner votre situation*"
                     data={listSituation}
                     handleOpen={(val) => {
@@ -296,7 +405,9 @@ const PageCv = () => {
                     }}
                     error={errors.situation && touched.situation}
                     helperText={
-                      errors.situation && touched.situation ? errors.situation : ""
+                      errors.situation && touched.situation
+                        ? errors.situation
+                        : ""
                     }
                     value={situation}
                     onBlur={() => {
@@ -368,7 +479,7 @@ const PageCv = () => {
                     value={date}
                     onChange={handleChange}
                     autoFocus={true}
-                    autoComplete="email"
+                    // autoComplete="email"
                     required={true}
                     id={"outlined-controlled"}
                     name={"date"}
@@ -417,25 +528,26 @@ const PageCv = () => {
                   />
                 </RowBox>
                 {/* <RowBox> */}
-                  <InputFeilds
-                    label={"Presentation"}
-                    multiline={true}
-                    rows={4}
-                    id="standard-multiline-static"
-                    error={errors.presentation && touched.presentation}
-                    helperText={
-                      errors.presentation  && touched.presentation ? errors.presentation : ""
-                    }
-                    value={presentation}
-                    onChange={handleChange}
-                    autoFocus={true}
-                    required={true}
-                    name={"presentation"}
-                    onBlur={() => {
-                      setFieldTouched("presentation", presentation);
-                    }}
-                   
-                  />
+                <InputFeilds
+                  label={"Presentation"}
+                  multiline={true}
+                  rows={4}
+                  id="standard-multiline-static"
+                  error={errors.presentation && touched.presentation}
+                  helperText={
+                    errors.presentation && touched.presentation
+                      ? errors.presentation
+                      : ""
+                  }
+                  value={presentation}
+                  onChange={handleChange}
+                  autoFocus={true}
+                  required={true}
+                  name={"presentation"}
+                  onBlur={() => {
+                    setFieldTouched("presentation", presentation);
+                  }}
+                />
                 {/* </RowBox> */}
 
                 <Space space={30} />
@@ -511,10 +623,12 @@ const PageCv = () => {
                     open={openExp}
                     chipData={experience}
                     handleDelete={(chipToDelete) => () => {
-                      const updatedFruits = experience.filter(
-                        (fruit, i) => i !== chipToDelete.key - 1
+                      console.log("chipToDelete", chipToDelete);
+
+                      const newItems = experience.filter(
+                        (item) => item.key !== chipToDelete.key
                       );
-                      dispatch(createExperiences(updatedFruits));
+                      dispatch(createExperiences(newItems));
                     }}
                   />
                   <Space />
@@ -545,10 +659,14 @@ const PageCv = () => {
                     open={openForm}
                     chipData={fomations}
                     handleDelete={(chipToDelete) => () => {
-                      const updatedFruits = experience.filter(
+                      const updatedFruits = fomations.filter(
                         (fruit, i) => i !== chipToDelete.key - 1
                       );
-                      dispatch(createFomations(updatedFruits));
+                      const newItems = fomations.filter(
+                        (item) => item.key !== chipToDelete.key
+                      );
+
+                      dispatch(createFomations(newItems));
                     }}
                   />
                 </Stack>
@@ -589,10 +707,14 @@ const PageCv = () => {
                     open={openComp}
                     chipData={competences}
                     handleDelete={(chipToDelete) => () => {
-                      const updatedFruits = experience.filter(
-                        (fruit, i) => i !== chipToDelete.key - 1
+                      // const updatedFruits = experience.filter(
+                      //   (fruit, i) => i !== chipToDelete.key - 1
+                      // );
+                      const newItems = competences.filter(
+                        (item) => item.key !== chipToDelete.key
                       );
-                      dispatch(createCompetences(updatedFruits));
+
+                      dispatch(createCompetences(newItems));
                     }}
                   />
                   <Space />
@@ -613,10 +735,14 @@ const PageCv = () => {
                     open={openLois}
                     chipData={loisirs}
                     handleDelete={(chipToDelete) => () => {
-                      const updatedFruits = experience.filter(
-                        (fruit, i) => i !== chipToDelete.key - 1
+                      // const updatedFruits = experience.filter(
+                      //   (fruit, i) => i !== chipToDelete.key - 1
+                      // );
+                      const newItems = loisirs.filter(
+                        (item) => item.key !== chipToDelete.key
                       );
-                      dispatch(createLoisirs(updatedFruits));
+
+                      dispatch(createLoisirs(newItems));
                     }}
                   />
                 </Stack>
@@ -646,15 +772,20 @@ const PageCv = () => {
                   open={openResx}
                   chipData={Rsociaux}
                   handleDelete={(chipToDelete) => () => {
-                    const updatedFruits = experience.filter(
-                      (fruit, i) => i !== chipToDelete.key - 1
+                    // const updatedFruits = loisirs.filter(
+                    //   (fruit, i) => i !== chipToDelete.key - 1
+                    // );
+
+                    const newItems = createRsociaux.filter(
+                      (item) => item.key !== chipToDelete.key
                     );
-                    dispatch(createRsociaux(updatedFruits));
+
+                    dispatch(createRsociaux(newItems));
                   }}
                 />
                 <Space space={30} />
 
-                <Stack direction={"column"} spacing={3}>
+                {/* <Stack direction={"column"} spacing={3}>
                   <PrimaryText
                     fontWeight={"600"}
                     fontSize={"25px"}
@@ -670,7 +801,8 @@ const PageCv = () => {
                     sx={{ pl: "0px", flex: 1, height: 40, color: "#000" }}
                     type="file"
                   />
-                </Stack>
+                </Stack> */}
+
                 <Stack
                   justifyContent="flex-end"
                   maxWidth="100%"
@@ -678,25 +810,42 @@ const PageCv = () => {
                   p={3}
                 >
                   <Button
+                    type="submit"
                     variant="contained"
                     sx={{
                       p: 1,
                       mr: 2,
                       bgcolor: theme.palette.secondary.dark,
                       color: theme.palette.secondary.main,
+                      "&:hover ": {
+                        bgcolor: theme.palette.secondary.dark,
+                        color: theme.palette.secondary.main,
+                      },
                     }}
-                    onClick={handleSubmit}
+                    onClick={() => {
+                      handleSubmitButtonState("skip");
+                      handleSubmit();
+                    }}
                   >
                     Visualiser
                   </Button>
 
                   <Button
+                    type="submit"
                     variant="contained"
                     sx={{
                       p: 1,
                       mr: 2,
                       bgcolor: theme.palette.secondary.main,
                       color: theme.palette.secondary.dark,
+                      "&:hover ": {
+                        bgcolor: theme.palette.secondary.main,
+                        color: theme.palette.secondary.dark,
+                      },
+                    }}
+                    onClick={() => {
+                      handleSubmitButtonState("Valider");
+                      handleSubmit();
                     }}
                   >
                     Valider
@@ -712,667 +861,3 @@ const PageCv = () => {
 };
 
 export default PageCv;
-
-const Formations = () => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const { fomations } = useSelector((state) => state.cvs);
-  const { initialStateFormation, validationSchemaFormation } = UseHooks();
-  return (
-    <>
-      <Formik
-        initialValues={initialStateFormation}
-        validationSchema={validationSchemaFormation}
-        onSubmit={(values, formikAction) => {
-          dispatch(
-            createFomations([
-              ...fomations,
-              { key: fomations.length + 1, label: values },
-            ])
-          );
-        }}
-      >
-        {({
-          values,
-          errors,
-          handleChange,
-          handleBlur,
-          touched,
-          handleSubmit,
-          isSubmitting,
-          setFieldValue,
-          setFieldTouched,
-        }) => {
-          const { lieux, title, fin, debut,nomFormation } = values;
-
-          return (
-            <>
-              <>
-                <PrimaryText
-                  fontWeight={"500"}
-                  fontSize={"25px"}
-                  text={"Formations *"}
-                  color={theme.palette.secondary.light}
-                  cursor
-                />
-                <Space space={"20px"} />
-
-                <InputFeilds
-                  value={title}
-                  label={"Ajouter un titre"}
-                  // margin
-                  onChange={handleChange}
-                  error={errors.title && touched.title}
-                  helperText={errors.title && touched.title ? errors.title : ""}
-                  autoFocus={true}
-                  required={true}
-                  id={"outlined-controlled"}
-                  name={"title"}
-                  onBlur={() => {
-                    setFieldTouched("title", true);
-                  }}
-                />
-                  <InputFeilds
-                  label={"Ajouter Établissement d'enseignement"}
-                  value={nomFormation}
-                  // margin
-                  onChange={handleChange}
-                  error={errors.nomFormation && touched.nomFormation}
-                  helperText={errors.nomFormation && touched.nomFormation ? errors.nomFormation : ""}
-                  autoFocus={true}
-                  required={true}
-                  id={"outlined-controlled"}
-                  name={"nomFormation"}
-                  onBlur={() => {
-                    setFieldTouched("nomFormation", true);
-                  }}
-                />
-                <InputFeilds
-                  label={"Ajouter un lieux"}
-                  value={lieux}
-                  // margin
-                  onChange={handleChange}
-                  error={errors.lieux && touched.lieux}
-                  helperText={errors.lieux && touched.lieux ? errors.lieux : ""}
-                  autoFocus={true}
-                  required={true}
-                  id={"outlined-controlled"}
-                  name={"lieux"}
-                  onBlur={() => {
-                    setFieldTouched("lieux", true);
-                  }}
-                />
-                <InputFeilds
-                 label={"Ajouter une date debut"}
-                  value={debut}
-                  // margin
-                  onChange={handleChange}
-                  error={errors.debut && touched.debut}
-                  helperText={errors.debut && touched.debut ? errors.debut : ""}
-                  autoFocus={true}
-                  required={true}
-                  id={"outlined-controlled"}
-                  name={"debut"}
-                  onBlur={() => {
-                    setFieldTouched("debut", true);
-                  }}
-                  type="date"
-                  shrink={true}
-
-                />
-
-                <InputFeilds
-                  label={"Ajouter une date fin"}
-                  value={fin}
-                  // margin
-                  onChange={handleChange}
-                  error={errors.fin && touched.fin}
-                  helperText={errors.fin && touched.fin ? errors.fin : ""}
-                  autoFocus={true}
-                  required={true}
-                  id={"outlined-controlled"}
-                  name={"fin"}
-                  onBlur={() => {
-                    setFieldTouched("fin", true);
-                  }}
-                  type="date"
-                  shrink={true}
-
-                />
-
-                <Space space={"15px"} />
-              </>
-
-              <Box component={"div"} style={{ paddingTop: 20, float: "right" }}>
-                <Button
-                  variant="contained"
-                  size="medium"
-                  color="error"
-                  onClick={() => {
-                    // dispatch(handleModel(false));
-                    dispatch(CloseModal(false));
-                  }}
-                  sx={{ marginRight: 2 }}
-                >
-                  annuler
-                </Button>
-                <Button
-                  variant="contained"
-                  size="medium"
-                  onClick={() => {
-                    handleSubmit();
-                  }}
-                >
-                  Ajouter
-                </Button>
-              </Box>
-            </>
-          );
-        }}
-      </Formik>
-    </>
-  );
-};
-
-const Experiences = () => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const { experience } = useSelector((state) => state.cvs);
-  const { validationSchemaExperince, initialStateExperience } = UseHooks();
-
-  return (
-    <Formik
-      initialValues={initialStateExperience}
-      validationSchema={validationSchemaExperince}
-      onSubmit={(values, formikAction) => {
-        dispatch(
-          createExperiences([
-            ...experience,
-            { key: experience.length + 1, label: values },
-          ])
-        );
-      }}
-    >
-      {({
-        values,
-        errors,
-        handleChange,
-        handleBlur,
-        touched,
-        handleSubmit,
-        isSubmitting,
-        setFieldValue,
-        setFieldTouched,
-      }) => {
-        const { nomExperience,nomEntreprise, description, lieux, experienceDate, dateDebut } =
-          values;
-
-        return (
-          <>
-            <>
-              <PrimaryText
-                fontWeight={"500"}
-                fontSize={"25px"}
-                text={"Experiences Professionnelle *"}
-                color={theme.palette.secondary.light}
-                cursor
-              />
-              <Space space={"20px"} />
-
-              <InputFeilds
-                value={nomExperience}
-                label={"Ajouter un titre d'expérience"}
-                // margin
-                onChange={handleChange}
-                error={errors.nomExperience && touched.nomExperience}
-                helperText={
-                  errors.nomExperience && touched.nomExperience
-                    ? errors.nomExperience
-                    : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"nomExperience"}
-                onBlur={() => {
-                  setFieldTouched("nomExperience", true);
-                }}
-              />
-              <InputFeilds
-                value={nomEntreprise}
-                label={"Ajouter le nom de l'entreprise"}
-                // margin
-                onChange={handleChange}
-                error={errors.nomEntreprise && touched.nomEntreprise}
-                helperText={
-                  errors.nomEntreprise && touched.nomEntreprise
-                    ? errors.nomEntreprise
-                    : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"nomEntreprise"}
-                onBlur={() => {
-                  setFieldTouched("nomEntreprise", true);
-                }}
-              />
-              <InputFeilds
-                value={lieux}
-                label={"Ajouter un lieux"}
-                // margin
-                onChange={handleChange}
-                error={errors.lieux && touched.lieux}
-                helperText={errors.lieux && touched.lieux ? errors.lieux : ""}
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"lieux"}
-                onBlur={() => {
-                  setFieldTouched("lieux", true);
-                }}
-              />
-
-              <InputFeilds
-                label={"Ajouter une date de debut"}
-                value={dateDebut}
-                // margin
-                onChange={handleChange}
-                error={errors.dateDebut && touched.dateDebut}
-                helperText={
-                  errors.dateDebut && touched.dateDebut ? errors.dateDebut : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"dateDebut"}
-                onBlur={() => {
-                  setFieldTouched("dateDebut", true);
-                }}
-                type="date"
-                shrink={true}
-              />
-
-              <InputFeilds
-                value={experienceDate}
-                 label={"Ajouter date de fin "}
-                // margin
-                onChange={handleChange}
-                error={errors.experienceDate && touched.experienceDate}
-                helperText={
-                  errors.experienceDate && touched.experienceDate
-                    ? errors.experienceDate
-                    : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"experienceDate"}
-                onBlur={() => {
-                  setFieldTouched("experienceDate", true);
-                }}
-                type="date"
-                shrink={true}
-
-              />
-              <InputFeilds
-                value={description}
-                label={"Ajouter une description "}
-                // margin
-                onChange={handleChange}
-                error={errors.description && touched.description}
-                helperText={
-                  errors.description && touched.description
-                    ? errors.description
-                    : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"description"}
-                onBlur={() => {
-                  setFieldTouched("description", true);
-                }}
-                rows={3}
-                multiline={true}
-              />
-              <Space space={"15px"} />
-            </>
-
-            <Box component={"div"} style={{ paddingTop: 20, float: "right" }}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="error"
-                onClick={() => {
-                  // dispatch(handleModel(false));
-                  dispatch(CloseModal(false));
-                }}
-                sx={{ marginRight: 2 }}
-              >
-                annuler
-              </Button>
-              <Button
-                variant="contained"
-                size="medium"
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                Ajouter
-              </Button>
-            </Box>
-          </>
-        );
-      }}
-    </Formik>
-  );
-};
-
-const Competences = () => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const { competences } = useSelector((state) => state.cvs);
-  const { initialStateCompetence, validationSchemaCompetence } = UseHooks();
-
-  return (
-    <Formik
-      initialValues={initialStateCompetence}
-      validationSchema={validationSchemaCompetence}
-      onSubmit={(values, formikAction) => {
-        dispatch(
-          createCompetences([
-            ...competences,
-            { key: competences.length + 1, label: values },
-          ])
-        );
-      }}
-    >
-      {({
-        values,
-        errors,
-        handleChange,
-        handleBlur,
-        touched,
-        handleSubmit,
-        isSubmitting,
-        setFieldValue,
-        setFieldTouched,
-      }) => {
-        const { competence, description } = values;
-
-        return (
-          <>
-            <>
-              <PrimaryText
-                fontWeight={"500"}
-                fontSize={"25px"}
-                text={"Ajouter une Compétences"}
-                color={theme.palette.secondary.light}
-                cursor
-              />
-              <Space space={"20px"} />
-
-              <InputFeilds
-                value={competence}
-                label={"Ajouter une compétence"}
-                // margin
-                onChange={handleChange}
-                error={errors.competence && touched.competence}
-                helperText={
-                  errors.competence && touched.competence
-                    ? errors.competence
-                    : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"competence"}
-                onBlur={() => {
-                  setFieldTouched("competence", true);
-                }}
-              />
-              <InputFeilds
-                value={description}
-                label={"Ajouter une description"}
-                // margin
-                onChange={handleChange}
-                error={errors.description && touched.description}
-                helperText={
-                  errors.description && touched.description
-                    ? errors.description
-                    : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"description"}
-                onBlur={() => {
-                  setFieldTouched("description", true);
-                }}
-                rows={4}
-                multiline={true}
-              />
-
-              <Space space={"15px"} />
-            </>
-
-            <Box component={"div"} style={{ paddingTop: 20, float: "right" }}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="error"
-                onClick={() => {
-                  // dispatch(handleModel(false));
-                  dispatch(CloseModal(false));
-                }}
-                sx={{ marginRight: 2 }}
-              >
-                annuler
-              </Button>
-              <Button
-                variant="contained"
-                size="medium"
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                Ajouter
-              </Button>
-            </Box>
-          </>
-        );
-      }}
-    </Formik>
-  );
-};
-
-const Loisirs = () => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const { loisirs } = useSelector((state) => state.cvs);
-  const { initialStateHobbies, validationSchemaHobbies } = UseHooks();
-
-  return (
-    <Formik
-      initialValues={initialStateHobbies}
-      validationSchema={validationSchemaHobbies}
-      onSubmit={(values, formikAction) => {
-        dispatch(
-          createLoisirs([
-            ...loisirs,
-            { key: loisirs.length + 1, label: values },
-          ])
-        );
-      }}
-    >
-      {({
-        values,
-        errors,
-        handleChange,
-        handleBlur,
-        touched,
-        handleSubmit,
-        isSubmitting,
-        setFieldValue,
-        setFieldTouched,
-      }) => {
-        const { hobbies } = values;
-
-        return (
-          <>
-            <>
-              <PrimaryText
-                fontWeight={"500"}
-                fontSize={"25px"}
-                text={"Ajouter un loisirs"}
-                color={theme.palette.secondary.light}
-                cursor
-              />
-              <Space space={"20px"} />
-
-              <InputFeilds
-                value={hobbies}
-                label={"Ajouter "}
-                // margin
-                onChange={handleChange}
-                error={errors.hobbies && touched.hobbies}
-                helperText={
-                  errors.hobbies && touched.hobbies ? errors.hobbies : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"hobbies"}
-                onBlur={() => {
-                  setFieldTouched("hobbies", true);
-                }}
-              />
-
-              <Space space={"15px"} />
-            </>
-
-            <Box component={"div"} style={{ paddingTop: 20, float: "right" }}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="error"
-                onClick={() => {
-                  // dispatch(handleModel(false));
-                  dispatch(CloseModal(false));
-                }}
-                sx={{ marginRight: 2 }}
-              >
-                annuler
-              </Button>
-              <Button
-                variant="contained"
-                size="medium"
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                Ajouter
-              </Button>
-            </Box>
-          </>
-        );
-      }}
-    </Formik>
-  );
-};
-
-const ReseauxSc = () => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const { Rsociaux } = useSelector((state) => state.cvs);
-  const { initialStateResSx, validationSchemaResSx } = UseHooks();
-
-  return (
-    <Formik
-      initialValues={initialStateResSx}
-      validationSchema={validationSchemaResSx}
-      onSubmit={(values, formikAction) => {
-        dispatch(
-          createRsociaux([
-            ...Rsociaux,
-            { key: Rsociaux.length + 1, label: values },
-          ])
-        );
-      }}
-    >
-      {({
-        values,
-        errors,
-        handleChange,
-        handleBlur,
-        touched,
-        handleSubmit,
-        isSubmitting,
-        setFieldValue,
-        setFieldTouched,
-      }) => {
-        const { reseaux } = values;
-
-        return (
-          <>
-            <>
-              <PrimaryText
-                fontWeight={"500"}
-                fontSize={"25px"}
-                text={"Ajouter un réseaux sociaux"}
-                color={theme.palette.secondary.light}
-                cursor
-              />
-              <Space space={"20px"} />
-
-              <InputFeilds
-                value={reseaux}
-                label={"Ajouter"}
-                // margin
-                onChange={handleChange}
-                error={errors.reseaux && touched.reseaux}
-                helperText={
-                  errors.reseaux && touched.reseaux ? errors.reseaux : ""
-                }
-                autoFocus={true}
-                required={true}
-                id={"outlined-controlled"}
-                name={"reseaux"}
-                onBlur={() => {
-                  setFieldTouched("reseaux", true);
-                }}
-              />
-
-              <Space space={"15px"} />
-            </>
-
-            <Box component={"div"} style={{ paddingTop: 20, float: "right" }}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="error"
-                onClick={() => {
-                  // dispatch(handleModel(false));
-                  dispatch(CloseModal(false));
-                }}
-                sx={{ marginRight: 2 }}
-              >
-                annuler
-              </Button>
-              <Button
-                variant="contained"
-                size="medium"
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                Ajouter
-              </Button>
-            </Box>
-          </>
-        );
-      }}
-    </Formik>
-  );
-};

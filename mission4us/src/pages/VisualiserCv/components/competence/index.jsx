@@ -20,7 +20,7 @@ const Competence = () => {
     {
       nom: "Competence2",
       details:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa perspiciatis quasi nesciunt facilis",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa Ïperspiciatis quasi nesciunt facilis",
     },
 
     {
@@ -78,7 +78,10 @@ const Competence = () => {
 
           let item = data[index]
           return (
-           <RenderItem item={item} index={index} i={i}/>
+            <Box key={index}>
+
+              <RenderItem item={item} index={index} i={i}/>
+            </Box>
           );
         })}
       </Stack>
