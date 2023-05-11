@@ -6,13 +6,16 @@ export const CreateCvApi = createAsyncThunk(
   async (object, thunkAPI) => {
     const token = localStorage.getItem("bearer-token");
 // console.log('object', object)
-    const {obj,onSuccesAction}=object
+    const {obj,onErrorAction,onSuccesAction}=object
     try {
      let res= await CreateCvService.api(obj,token);
+     console.log('res.status', res.status)
      if(res.status ==200){
        console.log('res', res.data)
        onSuccesAction('cv Created successfully')
         return res.data
+     }else{
+      onErrorAction()
      }
 
     } catch (error) {
@@ -20,6 +23,8 @@ export const CreateCvApi = createAsyncThunk(
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
+      onErrorAction()
+
       return thunkAPI.rejectWithValue(message);
     }
   }

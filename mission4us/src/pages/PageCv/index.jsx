@@ -140,20 +140,14 @@ const PageCv = () => {
   const handleSubmitButtonState = (isSubmit) => {
     setSubmitButtonState(isSubmit);
   };
-  const notify = () => toast('Cv created successfully.');
+  const notify = () => toast.success('CV créée avec succés');
   const onError = () => {};
   const onSuccesAction = () => {
     notify()
   };
 
   const onErrorAction = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-    });
+    toast.error('échec de la création du CV')
   };
 
   return (
