@@ -5,13 +5,13 @@ import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 
 import CreateCvSlice from "./createCv/slice";
+import putCvSlice from "./createCv/api/createCvSlice";
 import clientSlice from "./clients/slice";
 import missionSlice from "./mission/slice";
 import accountSlice from './account/slice'
 import logoutSlice from "./logout/slice";
 import authSlice from "./register/slice";
 import jobSlice from "./jobs/slice";
-import infoAccountSlice from "./infoAccount/slice";
 import globalReducer from "./modeTheme";
 import persistStore from "redux-persist/es/persistStore";
 import providerSlice from "./fournisseurs/slice"
@@ -19,6 +19,7 @@ import deviSlice from "./devis/slice"
 
 const reducers = combineReducers({
   cvs:CreateCvSlice,
+  putCvSlice,
   global: globalReducer,
   clients:clientSlice,
   logout:logoutSlice,

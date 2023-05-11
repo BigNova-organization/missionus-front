@@ -8,7 +8,6 @@ import { PrimaryText } from "../../../../components/utils/typography";
 const Presentation = ({ state }) => {
   const theme = useTheme();
 
-  // console.log('competence',JSON.stringify(state.competence))
   const [Age, setAge] = useState(null);
 
   const calculateAge = () => {

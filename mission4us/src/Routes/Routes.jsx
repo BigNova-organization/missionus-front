@@ -42,7 +42,7 @@ const MainRoutes = () => (
     <Route path="/" element={<ProtectedRoutes />}>
       <Route path="/" element={<InnerContent />}>
         <Route element={<Layout />}>
-          <Route path="/" element={<Navigate replace to="dashboard" />} />
+          <Route path="/" element={<Navigate replace to="missions" />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route
             path="tabs"

@@ -8,10 +8,9 @@ const Formation = () => {
   const theme = useTheme();
 
   const {fomations} = useSelector((state) => state.cvs);
-
   return (
     <>
-      <Stack
+{   fomations.length?   <Stack
         component={"div"}
         sx={{
           width: "100%",
@@ -29,7 +28,7 @@ const Formation = () => {
           text={"Formations"}
           color={theme.palette.primary.light}
         />
-      </Stack>
+      </Stack>:null}
       <Space space={15} />
       <Stack
         sx={{

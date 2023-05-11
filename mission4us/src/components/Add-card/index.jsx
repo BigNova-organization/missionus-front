@@ -23,8 +23,6 @@ export default function ChipsArray({
   title,
   onBlur,
   sousTitre,
-  addToCv,
-  titleModel,
   open,
   helperText,
   setFieldValue,
@@ -36,29 +34,7 @@ export default function ChipsArray({
   handleDelete
 }) {
   const themes = useTheme();
-  // const dispatch = useDispatch();
-
-  // const [chipData, setChipData] = useState([]);
-  // const [valueInput, setValueInput] = useState("");
-
-
-
-  // const onChange = useCallback((val) => {
-  //   setValueInput(val);
-  // }, []);
-
-  // const handleAdd = () => {
-  //   setFieldValue(
-  //     name,
-  //     [...chipData, { key: chipData.length + 1, label: valueInput }].toString()
-  //   );
-  //   setChipData([...chipData, { key: chipData.length + 1, label: valueInput }]);
-  //   dispatch(
-  //     addToCv([...chipData, { key: chipData.length + 1, label: valueInput }])
-  //   );
-  //   setValueInput("");
-  //   handleClose();
-  // };
+ 
 
   useEffect(() => {
     if (chipData.length) {

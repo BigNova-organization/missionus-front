@@ -32,7 +32,7 @@ useEffect(() => {
 	  if (!auth) {
 		window.location.reload();
 	  } else {
-		navigate("/dashboard");
+		navigate("/missions");
 		// const userRole = localStorage.getItem("userRole")
 		localStorage.setItem("user", JSON.stringify({role: "ADMIN"}))
 		// localStorage.getItem("userRole")

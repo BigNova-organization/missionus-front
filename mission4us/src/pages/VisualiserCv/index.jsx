@@ -19,11 +19,15 @@ const VisualiserCv = ( props) => {
   const  state  = location.state;
 
   const theme = useTheme();
+  const navigate = useNavigate();
 
+  const onReturn = () => { 
+    navigate('/PageCv')
+   }
   
   return (
     <>
-    <Head title="Visualiser Curriculum Vitae" retur btn/>
+    <Head title="Visualiser Curriculum Vitae" retur btn onReturn={onReturn} />
       <Body> 
         <Stack>
           <Presentation state={state} />

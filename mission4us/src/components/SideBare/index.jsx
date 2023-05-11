@@ -95,6 +95,10 @@ const Sidebar = ({
       text: "Missions",
       icon: <CalendarMonthOutlined />,
     },
+    // {
+    //   text: role == "ROLE_CLIENT" ? "": "PageCv",
+    //   icon: role == "ROLE_CLIENT" ? null:<FileCopyOutlined />,
+    // },
     {
       text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "": "PageCv",
       icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? null:<FileCopyOutlined />,
@@ -209,22 +213,26 @@ const ListItems = ({
   // </Typography>
   return (
     <List>
-      {navItems.map(({ text, icon }) => {
-        if (!icon) {
+      {navItems.map((i,index) => {
+        if (!i.icon) {
           return (
-            <PrimaryText
-              fontWeight={"500"}
-              fontSize={"25px"}
-              text={text}
-              color={theme.palette.secondary.light}
-              cursor
-            />
+            <Box key={index}>
+
+
+              <PrimaryText
+                fontWeight={"500"}
+                fontSize={"25px"}
+                text={i.text}
+                color={theme.palette.secondary.light}
+                cursor
+              />
+            </Box>
           );
         }
-        const lcText = text.toLowerCase();
+        const lcText = i.text.toLowerCase();
 
         return (
-          <ListItem key={text} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton
               onClick={() => {
                 navigate(`/${lcText}`);
@@ -272,10 +280,10 @@ const ListItems = ({
                   },
                 }}
               >
-                {icon}
+                {i.icon}
               </ListItemIcon>
 
-              <ListItemText primary={text} />
+              <ListItemText primary={i.text} />
 
               {active === lcText && (
                 <ChevronRightOutlined
