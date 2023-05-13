@@ -12,7 +12,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Snackbar } from '@material-ui/core';
+import { Snackbar } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
@@ -86,7 +86,8 @@ const Jobs = () => {
   const jobs = useSelector((state) => state.jobs.jobs);
   const status = useSelector((state) => state.jobs.status);
   const error = useSelector((state) => state.jobs.error);
-  
+  const role = useSelector((state) => state.account?.user.authorities);
+
   // const classes = useStyles();
   const buttonStyle = useButtonStyles();
 
@@ -108,6 +109,7 @@ const Jobs = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(role, " role");
     dispatch(fetchJobs());
   }, [dispatch]);
 
@@ -131,7 +133,7 @@ const Jobs = () => {
   };
 
   return (
-    <Box >
+    <Box>
       <Box
         sx={{
           padding: "10px",
@@ -152,18 +154,20 @@ const Jobs = () => {
           <p>Jobs</p>
         </div>
 
-        <Button
-          variant="contained"
-          endIcon={<AddIcon />}
-          size="medium"
-          style={{
-            backgroundColor: theme.palette.primary.light,
-            color: theme.palette.background.default,
-          }}
-          onClick={() => navigate("Add Job")}
-        >
-          Ajouter
-        </Button>
+        {role && role.includes("ROLE_ADMIN") && (
+          <Button
+            variant="contained"
+            endIcon={<AddIcon />}
+            size="medium"
+            style={{
+              backgroundColor: theme.palette.primary.light,
+              color: theme.palette.background.default,
+            }}
+            onClick={() => navigate("Add Job")}
+          >
+            Ajouter
+          </Button>
+        )}
       </Box>
       <Body>
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -172,34 +176,29 @@ const Jobs = () => {
               <TableHead>
                 <StyledTableRow>
                   {columns.map((column) => (
-                    <StyledTableCell
-                     
-                    >
-                      {column.label}
-                    </StyledTableCell>
+                    <StyledTableCell>{column.label}</StyledTableCell>
                   ))}
                 </StyledTableRow>
               </TableHead>
               <TableBody>
-                
                 {jobs
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((job) => {
                     return (
                       <>
-                      {status === "loading" && <CircularProgress />}
-                      <StyledTableRow
-                        hover
-                        // role="checkbox"
-                        // tabIndex={-1}
-                        key={job.id}
-                      >
-                        <StyledTableCell>{job.name}</StyledTableCell>
-                        {/* <StyledTableCell >{job.name}</StyledTableCell> */}
-                        {/* <StyledTableCell>{row.secteur}</StyledTableCell> */}
+                        {status === "loading" && <CircularProgress />}
+                        <StyledTableRow
+                          hover
+                          // role="checkbox"
+                          // tabIndex={-1}
+                          key={job.id}
+                        >
+                          <StyledTableCell>{job.name}</StyledTableCell>
+                          {/* <StyledTableCell >{job.name}</StyledTableCell> */}
+                          {/* <StyledTableCell>{row.secteur}</StyledTableCell> */}
 
-                        <StyledTableCell align="left">
-                          {/* <Tooltip title="Modifier">
+                          <StyledTableCell align="left">
+                            {/* <Tooltip title="Modifier">
                             <IconButton
                               aria-label="edit"
                               color="primary"
@@ -218,21 +217,25 @@ const Jobs = () => {
                             </IconButton>
                           </Tooltip> */}
 
-                      <Stack direction="row">
-                      {/* <Tooltip title="Modifier">
+                            <Stack direction="row">
+                              {/* <Tooltip title="Modifier">
                       <Box 
                       // onClick={() => navigate(`Update Job/${job.id}`)} 
                       sx={{color:'green'}}>
                         <EditIcon/>
                         </Box>
                       </Tooltip> */}
-                      <Tooltip title="Supprimer">
-                      <Box onClick={() => handleDelete(job.id)} sx={{color:'red'}}><DeleteIcon/></Box>
-                      </Tooltip>
-                     
-                      </Stack>
-                        </StyledTableCell>
-                      </StyledTableRow>
+                              <Tooltip title="Supprimer">
+                                <Box
+                                  onClick={() => handleDelete(job.id)}
+                                  sx={{ color: "red" }}
+                                >
+                                  <DeleteIcon />
+                                </Box>
+                              </Tooltip>
+                            </Stack>
+                          </StyledTableCell>
+                        </StyledTableRow>
                       </>
                     );
                   })}
@@ -245,16 +248,16 @@ const Jobs = () => {
             title={"Voulez vous supprimer ce job?"}
             onDelete={handleConfirmDelete}
           />
-          {status === "succeeded" &&
-          <Snackbar
-            open={openSnackbar}
-            message="Votre suppression a été exécutée avec succès."
-            autoHideDuration={3000}
-            onClose={() => setOpenSnackbar(false)}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            ContentProps={{ style: { backgroundColor: 'green' } }}
-          />
-            }
+          {status === "succeeded" && (
+            <Snackbar
+              open={openSnackbar}
+              message="Votre suppression a été exécutée avec succès."
+              autoHideDuration={3000}
+              onClose={() => setOpenSnackbar(false)}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              ContentProps={{ style: { backgroundColor: "green" } }}
+            />
+          )}
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
