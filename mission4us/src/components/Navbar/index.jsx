@@ -36,15 +36,14 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-  let initOptions = {
-    url: "https://auth.mission4us.com/auth",
-    realm: "local_tests",
-    clientId: "m4us_tests",
-    
-    
-    // KeycloakResponseType: 'code'
-    };
-  const keycloak = new Keycloak(initOptions);
+
+
+  const keycloak = new Keycloak({
+      url: "https://auth.mission4us.com/auth",
+      realm: "local_tests",
+      clientId: "m4us_tests",
+    });
+  // const keycloak = new Keycloak(initOptions);
   // const handleClose = () => {
   //   // localStorage.removeItem('bearer-token'),
   //   // localStorage.removeItem('refresh-token'),
@@ -85,6 +84,14 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
       dispatch(fetchAccount());
     }
   }, [dispatch, token]);
+
+  
+
+  // const SignOut=()=> {
+  //   keycloak.logout();
+  //   navigate('/login')
+    
+  // }
 
   return (
     <AppBar
@@ -193,7 +200,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 My profile
               </MenuItem>
              
-              <MenuItem onClick={()=>keycloak.logout()}>Log Out</MenuItem>
+              <MenuItem 
+              // onClick={SignOut}
+              >
+              Log Out
+              </MenuItem>
               
             </Menu>
           </FlexBetween>
