@@ -131,7 +131,7 @@ const Clients = () => {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <StyledTableRow>
+                <StyledTableRow key="header-row">
                   {columns.map((column) => (
                     <StyledTableCell
                       key={column.id}
@@ -143,29 +143,64 @@ const Clients = () => {
                   ))}
                 </StyledTableRow>
               </TableHead>
+
+              {/* <TableBody>
+                {status === "loading" ? (
+                  <CircularProgress />
+                ) : (
+                  clients
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((client, ind) => {
+                      return (
+                        <Box key={ind}>
+                          <StyledTableRow
+                            hover
+                            // role="checkbox"
+                            // tabIndex={-1}
+                            key={client.id}
+                          >
+                            <StyledTableCell>
+                              {client.firstName}
+                            </StyledTableCell>
+                            <StyledTableCell>{client.lastName}</StyledTableCell>
+                            <StyledTableCell>{client.country}</StyledTableCell>
+                            <StyledTableCell>{client.email}</StyledTableCell>
+                            <StyledTableCell>
+                              {client.phoneNumber}
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        </Box>
+                      );
+                    })
+                )}
+              </TableBody> */}
               <TableBody>
-               
                 {clients
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((client) => {
-                    return (
-                      <>
-                      {status === "loading" && <CircularProgress />}
-                      <StyledTableRow
-                        hover
-                        // role="checkbox"
-                        // tabIndex={-1}
-                        key={client.id}
-                      >
-                        <StyledTableCell>{client.firstName}</StyledTableCell>
-                        <StyledTableCell>{client.lastName}</StyledTableCell>
-                        <StyledTableCell>{client.country}</StyledTableCell>
-                        <StyledTableCell>{client.email}</StyledTableCell>
-                        <StyledTableCell>{client.phoneNumber}</StyledTableCell>
-                      </StyledTableRow>
-                      </>
-                    );
-                  })}
+                  .map((client) => (
+                    <StyledTableRow
+                      hover
+                      key={client.id}
+                      onClick={() => handleRowClick(client.id)}
+                    >
+                      <StyledTableCell>
+                        <div>{client.firstName}  </div>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <div>{client.lastName}</div>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <div>{client.country}</div>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <div>{client.email}</div>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <div>{`${client.phoneNumber}`}</div>
+                      </StyledTableCell>
+                    
+                    </StyledTableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>

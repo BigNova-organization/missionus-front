@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UseHooks } from "../../Hooks";
 import { Formik, Form, Field } from "formik";
 import { CloseModal, createExperiences } from '../../../../Redux/createCv/slice';
+import DatePickers from '../../../../components/datePicker';
 
 const Experiences = () => {
     const theme = useTheme();
@@ -113,12 +114,17 @@ const Experiences = () => {
                     setFieldTouched("lieux", true);
                   }}
                 />
+                <Space  space={20}/>
   
-                <InputFeilds
+                <DatePickers
                   label={"Ajouter une date de debut"}
                   value={dateDebut}
                   // margin
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange={(date) => {
+                    // setFieldValue("date",formatDate(date.toString()));
+                    setFieldValue("dateDebut",date.toString());
+                  }}
                   error={errors.dateDebut && touched.dateDebut}
                   helperText={
                     errors.dateDebut && touched.dateDebut ? errors.dateDebut : ""
@@ -133,12 +139,17 @@ const Experiences = () => {
                   type="date"
                   shrink={true}
                 />
+                <Space  space={20}/>
   
-                <InputFeilds
+                <DatePickers
                   value={experienceDate}
                   label={"Ajouter date de fin "}
                   // margin
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange={(date) => {
+                    // setFieldValue("date",formatDate(date.toString()));
+                    setFieldValue("experienceDate",date.toString());
+                  }}
                   error={errors.experienceDate && touched.experienceDate}
                   helperText={
                     errors.experienceDate && touched.experienceDate

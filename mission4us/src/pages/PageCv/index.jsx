@@ -8,13 +8,14 @@ import {
   FormHelperText,
   Input,
   InputBase,
+  InputLabel,
   Stack,
   Typography,
   useTheme,
 } from "@mui/material";
 import Head from "../../components/Head";
 import Body from "../../components/Body";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 // import { Formik } from "formik";
 import { UseHooks } from "./Hooks";
 import InputFeilds from "../../components/outils/InputFeilds";
@@ -53,7 +54,21 @@ import Formations from "./Components/Formations";
 import Loisirs from "./Components/Loisirs";
 import Competences from "./Components/Competences";
 import { CreateCvApi } from "../../Redux/createCv/api/createCvSlice";
-// import { ToastContainer, toast } from 'react-toastify';
+
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import TextField from "@mui/material/TextField";
+// import { DatePicker, LocalizationProvider } from '@mui/lab';
+import DatePikerProvider from "../../components/datePikerProvider";
+
+// import { makeStyles } from '@mui/stykles';
+
+// import { styled } from '@mui/system';
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import DatePickers from "../../components/datePicker";
+
 const PageCv = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -140,14 +155,55 @@ const PageCv = () => {
   const handleSubmitButtonState = (isSubmit) => {
     setSubmitButtonState(isSubmit);
   };
-  const notify = () => toast.success('CV créée avec succés');
+  const notify = () => toast.success("CV créée avec succés");
   const onError = () => {};
   const onSuccesAction = () => {
-    notify()
+    notify();
   };
 
   const onErrorAction = (message) => {
-    toast.error('échec de la création du CV')
+    toast.error("échec de la création du CV");
+  };
+
+  const StyledDatePicker = styled(DatePicker)(({}) => ({
+    width: "100%",
+    // color: theme.palette.primary.light,
+    marginRight: 15,
+    padding: "5px 1px 0px 0px",
+    justifyContent: "center",
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: theme.palette.primary.light,
+        color: theme.palette.primary.light,
+      },
+      "&:hover fieldset": {
+        borderColor: theme.palette.primary.light,
+        color: theme.palette.primary.light,
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.primary.light,
+        color: theme.palette.primary.light,
+      },
+      "&.MuiFormControl-root": {
+        color: theme.palette.primary.light,
+      },
+      "& .MuiInputBase-input": {
+        color: theme.palette.primary.light,
+      },
+      "& .MuiSvgIcon-root": {
+        color: theme.palette.primary.light,
+      },
+    },
+  }));
+ 
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -237,7 +293,7 @@ const PageCv = () => {
                 obj,
                 onSuccesAction,
                 onError,
-                onErrorAction
+                onErrorAction,
               };
               dispatch(CreateCvApi(object));
             } else {
@@ -272,7 +328,6 @@ const PageCv = () => {
               permis,
               presentation,
             } = values;
-
             return (
               <>
                 <Space space={"20px"} />
@@ -429,7 +484,7 @@ const PageCv = () => {
                   /> */}
                 </RowBox>
 
-                <RowBox>
+                <RowBox sx={{alignItems:"center"}}>
                   <InputFeilds
                     label={"Téléphone"}
                     error={errors.phone && touched.phone}
@@ -466,23 +521,80 @@ const PageCv = () => {
                 </RowBox>
 
                 <RowBox>
-                  <InputFeilds
+
+
+                <DatePickers
+                       label={"Date de naissance"}
+                       error={errors.date && touched.date}
+                       helperText={errors.date && touched.date ? errors.date : ""}
+                       value={date}
+                        // onChange={handleChange}
+                       onChange={(date) => {
+                        // setFieldValue("date",formatDate(date.toString()));
+                        setFieldValue("date",date.toString());
+                      }}
+                       autoFocus={true}
+                       required={true}
+                       id={"outlined-controlled"}
+                       name={"date"}
+                       onBlur={() => {
+                         setFieldTouched("date", true);
+                       }}
+                       type=""
+                       shrink={true}
+                       formatDate={formatDate}
+                       setFieldValue={setFieldValue}
+
+                />
+
+                  {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <StyledDatePicker
+                      //
+                      //  label={"Date de naissance"}
+                      onChange={(date) => {
+                        setFieldValue("date",formatDate(date.toString()));
+                      }}
+                      format="DD/MM/YYYY"
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          variant="outlined"
+                          className={classes.datePicker}
+                          id="datepicker"
+                      value={date}
+                      error={errors.date && touched.date}
+                      helperText={errors.date && touched.date ? errors.date : ""}
+                      autoFocus={true}
+                      required={true}
+                    name={"date"}
+                    onBlur={() => {
+                      setFieldTouched("date", true);
+                    }}
+                        />
+                      )}
+                    shrink={true}
+
+                    />
+                  </LocalizationProvider> */}
+
+
+                  {/* <InputFeilds
                     label={"Date de naissance"}
                     error={errors.date && touched.date}
                     helperText={errors.date && touched.date ? errors.date : ""}
                     value={date}
                     onChange={handleChange}
                     autoFocus={true}
-                    // autoComplete="email"
                     required={true}
                     id={"outlined-controlled"}
                     name={"date"}
                     onBlur={() => {
                       setFieldTouched("date", true);
                     }}
-                    type="date"
+                    type=""
                     shrink={true}
-                  />
+                    renderInput={(params) => <TextField {...params} />}
+                  /> */}
                   <InputFeilds
                     label={"Adresse"}
                     error={errors.adresse && touched.adresse}
@@ -617,7 +729,6 @@ const PageCv = () => {
                     open={openExp}
                     chipData={experience}
                     handleDelete={(chipToDelete) => () => {
-                      console.log("chipToDelete", chipToDelete);
 
                       const newItems = experience.filter(
                         (item) => item.key !== chipToDelete.key

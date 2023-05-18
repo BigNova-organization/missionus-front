@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UseHooks } from "../../Hooks";
 import { Formik, Form, Field } from "formik";
 import { CloseModal, createFomations } from '../../../../Redux/createCv/slice';
+import DatePickers from '../../../../components/datePicker';
 
 
 const Formations = () => {
@@ -104,11 +105,17 @@ const Formations = () => {
                       setFieldTouched("lieux", true);
                     }}
                   />
-                  <InputFeilds
+  <Space space={20}/>
+
+                  <DatePickers
                     label={"Ajouter une date debut"}
                     value={debut}
                     // margin
-                    onChange={handleChange}
+                    // onChange={handleChange}
+                    onChange={(date) => {
+                      // setFieldValue("date",formatDate(date.toString()));
+                      setFieldValue("debut",date.toString());
+                    }}
                     error={errors.debut && touched.debut}
                     helperText={errors.debut && touched.debut ? errors.debut : ""}
                     autoFocus={true}
@@ -121,12 +128,16 @@ const Formations = () => {
                     type="date"
                     shrink={true}
                   />
-  
-                  <InputFeilds
+  <Space space={20}/>
+                  <DatePickers
                     label={"Ajouter une date fin"}
                     value={fin}
                     // margin
-                    onChange={handleChange}
+                    // onChange={handleChange}
+                    onChange={(date) => {
+                      // setFieldValue("date",formatDate(date.toString()));
+                      setFieldValue("fin",date.toString());
+                    }}
                     error={errors.fin && touched.fin}
                     helperText={errors.fin && touched.fin ? errors.fin : ""}
                     autoFocus={true}

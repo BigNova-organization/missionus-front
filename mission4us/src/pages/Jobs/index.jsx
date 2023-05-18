@@ -174,13 +174,17 @@ const Jobs = () => {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <StyledTableRow>
+                <StyledTableRow key="header-row">
                   {columns.map((column) => (
-                    <StyledTableCell>{column.label}</StyledTableCell>
+                    <StyledTableCell 
+                    key={column.id}
+                    
+                    
+                    >{column.label}</StyledTableCell>
                   ))}
                 </StyledTableRow>
               </TableHead>
-              <TableBody>
+              {/* <TableBody>
                 {jobs
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((job) => {
@@ -194,8 +198,8 @@ const Jobs = () => {
                           key={job.id}
                         >
                           <StyledTableCell>{job.name}</StyledTableCell>
-                          {/* <StyledTableCell >{job.name}</StyledTableCell> */}
-                          {/* <StyledTableCell>{row.secteur}</StyledTableCell> */}
+                     <StyledTableCell >{job.name}</StyledTableCell>  
+                          <StyledTableCell>{row.secteur}</StyledTableCell> 
 
                           <StyledTableCell align="left">
                             {/* <Tooltip title="Modifier">
@@ -215,16 +219,16 @@ const Jobs = () => {
                             >
                               <DeleteIcon />
                             </IconButton>
-                          </Tooltip> */}
+                          </Tooltip> 
 
                             <Stack direction="row">
-                              {/* <Tooltip title="Modifier">
+                              <Tooltip title="Modifier">
                       <Box 
                       // onClick={() => navigate(`Update Job/${job.id}`)} 
                       sx={{color:'green'}}>
                         <EditIcon/>
                         </Box>
-                      </Tooltip> */}
+                      </Tooltip> 
                               <Tooltip title="Supprimer">
                                 <Box
                                   onClick={() => handleDelete(job.id)}
@@ -239,6 +243,34 @@ const Jobs = () => {
                       </>
                     );
                   })}
+              </TableBody> */}
+                    <TableBody>
+                {jobs
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((job,inx) => (
+                    <StyledTableRow
+                      hover
+                      key={inx}
+                      onClick={() => handleRowClick(job.id)}
+                    >
+                      <StyledTableCell>
+                        <div>{job.name}  </div>
+                      </StyledTableCell>
+                      <StyledTableCell>
+
+                      <Tooltip title="Supprimer">
+                            <IconButton
+                              aria-label="delete"
+                              color="secondary"
+                              onClick={() => handleDelete(job.id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Tooltip> 
+                          </StyledTableCell>
+                    
+                    </StyledTableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
