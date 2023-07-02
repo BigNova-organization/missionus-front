@@ -34,6 +34,7 @@ import Register from "../pages/Auth/Register/Register";
 import Clients from "../pages/clients";
 import Fournisseurs from "../pages/fournisseurs";
 import Devis from "../pages/devis";
+import VisualiserCvDetailsProvider from "../pages/detailsProvider";
 
 const MainRoutes = () => (
   <Routes>
@@ -86,6 +87,7 @@ const MainRoutes = () => (
             <Route path="tab3" element={<Tab3 />} />
           </Route> */}
 
+          <Route path="VisualiserCvDetailsProvider" element={<VisualiserCvDetailsProvider />} />
           <Route path="PageCv" element={<PageCv />} />
           <Route path="PageCv/VisualiserCv" element={<VisualiserCv />} />
           <Route path="parametre" element={<Parametre />} />

@@ -89,35 +89,7 @@ const PageCv = () => {
     setFieldValue("profile", imageUrl);
   };
 
-  const StyledBadge = styled(Badge)(() => ({
-    "& .MuiBadge-badge": {
-      backgroundColor: "#44b700",
-      color: "#44b700",
-      boxShadow: `0 0 0 2px ${theme.palette.grey[100]}`,
-      "&::after": {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        borderRadius: "50%",
-        animation: "ripple 1.2s infinite ease-in-out",
-        border: "1px solid currentColor",
-        content: '""',
-      },
-    },
-    "@keyframes ripple": {
-      "0%": {
-        transform: "scale(.8)",
-        opacity: 1,
-      },
-      "100%": {
-        transform: "scale(2.4)",
-        opacity: 0,
-      },
-    },
-  }));
-
+ 
   const shapeStyles = {
     bgcolor: theme.palette.background.default,
     width: 80,
@@ -165,36 +137,7 @@ const PageCv = () => {
     toast.error("échec de la création du CV");
   };
 
-  const StyledDatePicker = styled(DatePicker)(({}) => ({
-    width: "100%",
-    // color: theme.palette.primary.light,
-    marginRight: 15,
-    padding: "5px 1px 0px 0px",
-    justifyContent: "center",
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: theme.palette.primary.light,
-        color: theme.palette.primary.light,
-      },
-      "&:hover fieldset": {
-        borderColor: theme.palette.primary.light,
-        color: theme.palette.primary.light,
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: theme.palette.primary.light,
-        color: theme.palette.primary.light,
-      },
-      "&.MuiFormControl-root": {
-        color: theme.palette.primary.light,
-      },
-      "& .MuiInputBase-input": {
-        color: theme.palette.primary.light,
-      },
-      "& .MuiSvgIcon-root": {
-        color: theme.palette.primary.light,
-      },
-    },
-  }));
+ 
  
 
   const formatDate = (dateString) => {
@@ -288,7 +231,6 @@ const PageCv = () => {
 
                 experiences: iok2,
               };
-              console.log("obj", obj);
               let object = {
                 obj,
                 onSuccesAction,
@@ -342,7 +284,7 @@ const PageCv = () => {
                     />
                     <Space space={"20px"} /> */}
 
-                  {/* {imageUrl ? (
+                  {imageUrl ? (
                       <Box
                         component={"img"}
                         src={imageUrl}
@@ -375,7 +317,7 @@ const PageCv = () => {
                         width: "20%",
                       }}
                       type="file"
-                    /> */}
+                    />
                   {/* <FormHelperText
                       sx={{ color: theme.palette.error.main, pl: 3 }}
                     >

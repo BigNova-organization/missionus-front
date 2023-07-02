@@ -12,13 +12,12 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialMedia from "./components/rsociaux";
 
 
-const VisualiserCv = ( props) => {
+const VisualiserCv = () => {
 
 
   const location = useLocation();
   const  state  = location.state;
 
-  const theme = useTheme();
   const navigate = useNavigate();
 
   const onReturn = () => { 

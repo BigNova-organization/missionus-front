@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, Tooltip, useTheme } from "@mui/material";
 
 import Head from "../../components/Head";
 import Body from "../../components/Body";
@@ -9,7 +9,7 @@ import Drawer from "../../components/Drawer/Drawer.jsx";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { styled } from "@mui/material/styles";
 import Paper from "@material-ui/core/Paper";
-
+import InfoIcon from "@mui/icons-material/Info";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -17,6 +17,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +25,7 @@ import { fetchAccountInfo } from "../../Redux/infoAccount/slice";
 import { CircularProgress } from "@material-ui/core";
 import { Stack } from "@mui/system";
 import { fetchDevis } from "../../Redux/devis/slice";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -76,22 +78,24 @@ const columns = [
   //   align: "left",
   //   format: (value) => value.toLocaleString("en-US"),
   // },
+  {
+    id: "actions",
+    label: "Actions",
+    format: (value) => value.toLocaleString("en-US"),
+  },
 ];
-
-
 
 const Devis = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const devis = useSelector((state) => state.devis.devis);
 
- 
   const status = useSelector((state) => state.devis.status);
   const error = useSelector((state) => state.devis.error);
   let navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
+
   const providers = useSelector((state) => state.providers.providers);
 
   const handleChangePage = (event, newPage) => {
@@ -107,7 +111,8 @@ const Devis = () => {
     dispatch(fetchDevis());
   }, [dispatch]);
 
- 
+  const role = useSelector((state) => state.account?.user.authorities);
+
   return (
     <Box>
       <Head title="Devis" />
@@ -132,7 +137,7 @@ const Devis = () => {
                 {status === "loading" && <CircularProgress />}
                 {devis
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((devi,index) => {
+                  .map((devi, index) => {
                     return (
                       <StyledTableRow
                         hover
@@ -141,15 +146,62 @@ const Devis = () => {
                         key={devi.id}
                       >
                         <StyledTableCell>
-                          <div style={{backgroundColor: devi.status === "SELECTED" ? "green" :devi.status === "NEW"? "blue":"red", borderRadius: 50,padding:10,textAlign:'center',color:"white",width:100}}>
-                          {devi.status}
+                          <div
+                            style={{
+                              backgroundColor:
+                                devi.status === "SELECTED"
+                                  ? "green"
+                                  : devi.status === "NEW"
+                                  ? "blue"
+                                  : "red",
+                              borderRadius: 50,
+                              padding: 10,
+                              textAlign: "center",
+                              color: "white",
+                              width: 100,
+                            }}
+                          >
+                            {devi.status}
                           </div>
-                          
                         </StyledTableCell>
                         <StyledTableCell>{devi.amount}</StyledTableCell>
                         <StyledTableCell>{devi.created}</StyledTableCell>
                         {/* <StyledTableCell>{provider.email}</StyledTableCell> */}
                         {/* <StyledTableCell>{provider.phoneNumber}</StyledTableCell> */}
+                        <StyledTableCell align="left">
+                          <Stack direction="row">
+                            {role == "ROLE_CLIENT" || role == "ROLE_ADMIN" ? (
+                              <>
+                                <Tooltip
+                                  title={devi.providerId ? "voir cv" : ""}
+                                >
+                                  <Box
+                                    onClick={() => {
+                                      if (devi.providerId) {
+                                        console.log("devi", devi);
+                                        navigate("/VisualiserCvDetailsProvider",{state:devi.providerId});
+                                      } else {
+                                        return;
+                                      }
+                                    }}
+                                    sx={{
+                                      color: devi.providerId ? "#112" : "gray",
+                                    }}
+                                  >
+                                    <VisibilityIcon />
+                                  </Box>
+                                </Tooltip>
+                              </>
+                            ) : null}
+                            {/* {role == "ROLE_PROVIDER" ? (
+                                <Tooltip title="Creer devis">
+                                  <Box onClick={return}>
+                                    <InfoIcon />
+                                  </Box>
+                                </Tooltip>
+                              ) : null} */}
+                          </Stack>
+                        </StyledTableCell>
                       </StyledTableRow>
                     );
                   })}

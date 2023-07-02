@@ -201,7 +201,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               </MenuItem>
              
               <MenuItem 
-              // onClick={SignOut}
+           
               >
               Log Out
               </MenuItem>
