@@ -8,7 +8,6 @@ import { CardHeader } from "@mui/material";
 import Body from "../../components/Body";
 import Button from "@mui/material/Button";
 import EditIcon from "@material-ui/icons/Edit";
-import InputFeilds from "../../components/outils/InputFeilds";
 import SendIcon from "@mui/icons-material/Send";
 import CloseIcon from "@mui/icons-material/Close";
 import Space from "../../components/outils/Space";
@@ -22,11 +21,11 @@ const Profile = () => {
   const account = useSelector((state) => state.account?.user);
   const status = useSelector((state) => state.account?.status);
   const error = useSelector((state) => state.account?.error);
-  useEffect(() => {
+  // useEffect(() => {
    
-      dispatch(fetchAccount());
+  //     dispatch(fetchAccount());
    
-  }, [dispatch]);
+  // }, [dispatch]);
   return (
     <Box className="dashboard">
       <Box

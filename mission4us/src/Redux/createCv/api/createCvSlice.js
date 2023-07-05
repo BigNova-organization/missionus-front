@@ -5,7 +5,7 @@ export const CreateCvApi = createAsyncThunk(
   "CreateCvApi/post",
   async (object, thunkAPI) => {
     const token = localStorage.getItem("bearer-token");
-// console.log('object', object)
+// 
     const {obj,onErrorAction,onSuccesAction}=object
     try {
      let res= await CreateCvService.api(obj,token);

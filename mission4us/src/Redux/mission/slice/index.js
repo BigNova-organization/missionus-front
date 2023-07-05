@@ -16,6 +16,7 @@ export const fetchMissions = createAsyncThunk(
    
 
     const token = localStorage.getItem("bearer-token");
+
     const url='https://api.mission4us.com/api/missions';
     const response = await axios.get(url, {
       headers: {

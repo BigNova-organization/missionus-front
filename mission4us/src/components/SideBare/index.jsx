@@ -1,8 +1,7 @@
 import React from "react";
 import {
   Box,
-  Divider,
-  Drawer,
+ 
   List,
   ListItem,
   ListItemButton,
@@ -14,31 +13,28 @@ import {
 import {
   ChevronRightOutlined,
   HomeOutlined,
-  Groups2Outlined,
-  PublicOutlined,
+ 
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
   BookOutlined,
   FileCopyOutlined,
   GestureOutlined,
-  Work,
-  PersonOutline,
+ 
   PeopleOutline,
-  FormatQuote,
+ 
   FormatQuoteOutlined,
   Person3Outlined,
 } from "@mui/icons-material";
-// import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-
+ 
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "../FlexBetween";
-import profileImage from "../../assets/user.png";
+ 
 import logo from "../../assets/logo.png";
 import CustDrawer from "./components/Drawer";
 import { PrimaryText } from "../utils/typography";
-import { fetchAccount } from "../../Redux/account/slice";
-import { useDispatch, useSelector } from "react-redux";
+ 
+import {  useSelector } from "react-redux";
 import { WorkOutline } from "@material-ui/icons";
 
 // const userRole = localStorage.getItem("userRole")
@@ -55,7 +51,7 @@ const Sidebar = ({
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
-  const theme = useTheme();
+ 
  
   const role = useSelector((state) => state.account?.user.authorities);
   
@@ -76,12 +72,16 @@ const Sidebar = ({
       icon: role == "ROLE_CLIENT" ? null:<PeopleOutline />,
     },
     {
-      text: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN") ) ? "Fournisseurs": "",
+      text: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN")) ? "Fournisseurs": "",
       icon: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN")) ? <Person3Outlined />:null,
     },
+    // {
+    //   text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "Devis":"",
+    //   icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? <FormatQuoteOutlined />:null,
+    // },
     {
-      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "Devis":"",
-      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? <FormatQuoteOutlined />:null,
+      text:  "Devis" ,
+      icon:  <FormatQuoteOutlined />,
     },
     // {
     //   text: "Admins",
@@ -103,11 +103,11 @@ const Sidebar = ({
       text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "": "PageCv",
       icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? null:<FileCopyOutlined />,
     },
-    {
+    role == "ROLE_ADMIN"&& {
       text: "Jobs",
       icon: <WorkOutline />,
     },
-    {
+    role == "ROLE_ADMIN"&&{
       text: "Recruitment",
       icon: <GestureOutlined />,
     },
@@ -115,7 +115,7 @@ const Sidebar = ({
     //   text: "Gestion",
     //   icon: null,
     // },
-    {
+    role == "ROLE_ADMIN"&& {
       text: "Abonnement",
       icon: <BookOutlined />,
     },
@@ -123,7 +123,7 @@ const Sidebar = ({
     //   text: "Manage",
     //   icon: null,
     // },
-    {
+    role == "ROLE_ADMIN"&& {
       text: "Parametre",
       icon: <AdminPanelSettingsOutlined />,
     },
@@ -201,24 +201,13 @@ const ListItems = ({
 }) => {
   const theme = useTheme();
 
-  //   <Typography
-  //   key={text}
-  //   sx={{
-  //     m: !isSidebarOpen ? "2rem 0 1rem 1rem" : "2rem 0 1rem 3rem",
-  //     fontSize: !isSidebarOpen ? "11px" : "14px",
-  //    color: theme.palette.primary.light
-  //   }}
-  // >
-  //   {text}
-  // </Typography>
+ 
   return (
     <List>
       {navItems.map((i,index) => {
         if (!i.icon) {
           return (
             <Box key={index}>
-
-
               <PrimaryText
                 fontWeight={"500"}
                 fontSize={"25px"}

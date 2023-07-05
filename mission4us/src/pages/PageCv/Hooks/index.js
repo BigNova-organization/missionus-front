@@ -82,6 +82,7 @@ export function UseHooks() {
       // .required("a propos est requis")
       ,
     langue: Yup.string().required("la langue est requis"),
+    jobs: Yup.string().required("Emploi est requis"),
     permis: Yup.string().required("le permis est requis"),
     experience: Yup.string().required("l'experience est requis"),
     formation: Yup.string(),
@@ -162,9 +163,19 @@ export function UseHooks() {
     reseaux: "",
   };
 
+  const initialStatEmploi = {
+    jobs: [],
+  };
+
   let validationSchemaResSx = Yup.object().shape({
     reseaux: Yup.string().required("hobbies est requis"),
   });
+
+
+  let validationSchemaEmploi = Yup.object().shape({
+    jobs: Yup.string().required("emploi est requis"),
+  });
+
 
   return {
     initialState,
@@ -182,5 +193,7 @@ export function UseHooks() {
     validationSchemaHobbies,
     initialStateResSx,
     validationSchemaResSx,
+    validationSchemaEmploi,
+    initialStatEmploi
   };
 }

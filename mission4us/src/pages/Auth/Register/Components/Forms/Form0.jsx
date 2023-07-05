@@ -20,7 +20,7 @@ const Form0 = ({ changeMode }) => {
         <ReusableButton
           bigText={"ACCES CLIENT"}
           smallText={
-            "Connectez-vous pour céer vos offfres et envoyer vos colis"
+            "Connectez vous en tant que client "
           }
           Primary
           onClick={() => changeMode(2)}
@@ -28,7 +28,7 @@ const Form0 = ({ changeMode }) => {
         <ReusableButton
           bigText={"ACCES FOURNISSEUR"}
           smallText={
-            "Connectez-vous pour accéder a toutes les offres de transits et gérer vos propositions"
+            "Connectez vous en tant que fournisseur "
           }
           onClick={() => changeMode(3)}
         />

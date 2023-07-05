@@ -33,6 +33,7 @@ import ChipsArray from "../../components/Add-card";
 import {
   CloseModal,
   createCompetences,
+  createEmploi,
   createExperiences,
   createFomations,
   createLoisirs,
@@ -41,6 +42,7 @@ import {
   handleModelopenExp,
   handleModelopenForm,
   handleModelopenLois,
+  handleModeopenEmploi,
   handleModeopenResx,
 } from "../../Redux/createCv/slice";
 import { Person2Outlined } from "@mui/icons-material";
@@ -68,6 +70,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import DatePickers from "../../components/datePicker";
+import EmploiCo from "./Components/Emploi";
 
 const PageCv = () => {
   const theme = useTheme();
@@ -89,7 +92,6 @@ const PageCv = () => {
     setFieldValue("profile", imageUrl);
   };
 
- 
   const shapeStyles = {
     bgcolor: theme.palette.background.default,
     width: 80,
@@ -112,6 +114,8 @@ const PageCv = () => {
     loisirs,
     experience,
     competences,
+    EmploiArr,
+    openEmploi,
   } = useSelector((state) => state.cvs);
 
   const shapeCircleStyles = { borderRadius: "50%" };
@@ -137,15 +141,12 @@ const PageCv = () => {
     toast.error("échec de la création du CV");
   };
 
- 
- 
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear().toString();
-    
+
     return `${day}/${month}/${year}`;
   };
 
@@ -175,6 +176,10 @@ const PageCv = () => {
               });
               let expe = competences.map((i) => {
                 return i.label;
+              });
+
+              let EmArr = EmploiArr.map((i) => {
+                return { id: i.key };
               });
 
               let iok = expe.map((i) => {
@@ -214,11 +219,7 @@ const PageCv = () => {
                     id: 5,
                   },
                 ],
-                jobs: [
-                  {
-                    id: 5,
-                  },
-                ],
+                jobs: EmArr,
                 driverLicences: [
                   {
                     id: 1,
@@ -269,6 +270,7 @@ const PageCv = () => {
               langue,
               permis,
               presentation,
+              jobs,
             } = values;
             return (
               <>
@@ -285,39 +287,39 @@ const PageCv = () => {
                     <Space space={"20px"} /> */}
 
                   {imageUrl ? (
-                      <Box
-                        component={"img"}
-                        src={imageUrl}
-                        width="220px"
-                        height="150px"
-                        sx={{
-                          borderRadius: "10px",
-                          border: `2px solid ${theme.palette.secondary.light}`,
-                          mb: 1,
-                        }}
-                      />
-                    ) : (
-                      <Badge overlap="circular">{circle}</Badge>
-                    )}
-                    <InputBase
-                      id="standard-basic"
-                      placeholder={"placeholder"}
-                      value={File}
-                      onChange={(event) => {
-                        // handleFileSelection(event,setFieldValue);
-                        const file = event.target.files[0];
-                        const imageUrl = URL.createObjectURL(file);
-                        setImageUrl(imageUrl);
-                        setFieldValue("profile", imageUrl);
-                      }}
+                    <Box
+                      component={"img"}
+                      src={imageUrl}
+                      width="220px"
+                      height="150px"
                       sx={{
-                        pl: "10px",
-                        height: 40,
-                        color: "#000",
-                        width: "20%",
+                        borderRadius: "10px",
+                        border: `2px solid ${theme.palette.secondary.light}`,
+                        mb: 1,
                       }}
-                      type="file"
                     />
+                  ) : (
+                    <Badge overlap="circular">{circle}</Badge>
+                  )}
+                  <InputBase
+                    id="standard-basic"
+                    placeholder={"placeholder"}
+                    value={File}
+                    onChange={(event) => {
+                      // handleFileSelection(event,setFieldValue);
+                      const file = event.target.files[0];
+                      const imageUrl = URL.createObjectURL(file);
+                      setImageUrl(imageUrl);
+                      setFieldValue("profile", imageUrl);
+                    }}
+                    sx={{
+                      pl: "10px",
+                      height: 40,
+                      color: "#000",
+                      width: "20%",
+                    }}
+                    type="file"
+                  />
                   {/* <FormHelperText
                       sx={{ color: theme.palette.error.main, pl: 3 }}
                     >
@@ -426,7 +428,7 @@ const PageCv = () => {
                   /> */}
                 </RowBox>
 
-                <RowBox sx={{alignItems:"center"}}>
+                <RowBox sx={{ alignItems: "center" }}>
                   <InputFeilds
                     label={"Téléphone"}
                     error={errors.phone && touched.phone}
@@ -463,31 +465,28 @@ const PageCv = () => {
                 </RowBox>
 
                 <RowBox>
-
-
-                <DatePickers
-                       label={"Date de naissance"}
-                       error={errors.date && touched.date}
-                       helperText={errors.date && touched.date ? errors.date : ""}
-                       value={date}
-                        // onChange={handleChange}
-                       onChange={(date) => {
-                        // setFieldValue("date",formatDate(date.toString()));
-                        setFieldValue("date",date.toString());
-                      }}
-                       autoFocus={true}
-                       required={true}
-                       id={"outlined-controlled"}
-                       name={"date"}
-                       onBlur={() => {
-                         setFieldTouched("date", true);
-                       }}
-                       type=""
-                       shrink={true}
-                       formatDate={formatDate}
-                       setFieldValue={setFieldValue}
-
-                />
+                  <DatePickers
+                    label={"Date de naissance"}
+                    error={errors.date && touched.date}
+                    helperText={errors.date && touched.date ? errors.date : ""}
+                    value={date}
+                    // onChange={handleChange}
+                    onChange={(date) => {
+                      // setFieldValue("date",formatDate(date.toString()));
+                      setFieldValue("date", date.toString());
+                    }}
+                    autoFocus={true}
+                    required={true}
+                    id={"outlined-controlled"}
+                    name={"date"}
+                    onBlur={() => {
+                      setFieldTouched("date", true);
+                    }}
+                    type=""
+                    shrink={true}
+                    formatDate={formatDate}
+                    setFieldValue={setFieldValue}
+                  />
 
                   {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <StyledDatePicker
@@ -518,7 +517,6 @@ const PageCv = () => {
 
                     />
                   </LocalizationProvider> */}
-
 
                   {/* <InputFeilds
                     label={"Date de naissance"}
@@ -671,7 +669,6 @@ const PageCv = () => {
                     open={openExp}
                     chipData={experience}
                     handleDelete={(chipToDelete) => () => {
-
                       const newItems = experience.filter(
                         (item) => item.key !== chipToDelete.key
                       );
@@ -796,59 +793,80 @@ const PageCv = () => {
 
                 <Space space={10} />
 
-                <ChipsArray
-                  title={"Réseaux sociaux *"}
-                  sousTitre={"Réseaux sociaux non disponible"}
-                  addToCv={createRsociaux}
-                  error={errors.reseaux && touched.reseaux}
-                  helperText={
-                    errors.reseaux && touched.reseaux ? errors.reseaux : ""
-                  }
-                  onBlur={() => {
-                    setFieldTouched("reseaux", true);
+                <Stack
+                  flexDirection="row"
+                  direction={{
+                    xs: "column",
+                    sm: "column",
+                    md: "column",
+                    lg: "row",
                   }}
-                  setFieldValue={setFieldValue}
-                  name={"reseaux"}
-                  ModelComponent={ReseauxSc}
-                  handleClose={() => {
-                    dispatch(handleModeopenResx(false));
-                  }}
-                  handleOpen={() => {
-                    dispatch(handleModeopenResx(true));
-                  }}
-                  open={openResx}
-                  chipData={Rsociaux}
-                  handleDelete={(chipToDelete) => () => {
-                    // const updatedFruits = loisirs.filter(
-                    //   (fruit, i) => i !== chipToDelete.key - 1
-                    // );
+                >
+                  <ChipsArray
+                    title={"Réseaux sociaux *"}
+                    sousTitre={"Réseaux sociaux non disponible"}
+                    addToCv={createRsociaux}
+                    error={errors.reseaux && touched.reseaux}
+                    helperText={
+                      errors.reseaux && touched.reseaux ? errors.reseaux : ""
+                    }
+                    onBlur={() => {
+                      setFieldTouched("reseaux", true);
+                    }}
+                    setFieldValue={setFieldValue}
+                    name={"reseaux"}
+                    ModelComponent={ReseauxSc}
+                    handleClose={() => {
+                      dispatch(handleModeopenResx(false));
+                    }}
+                    handleOpen={() => {
+                      dispatch(handleModeopenResx(true));
+                    }}
+                    open={openResx}
+                    chipData={Rsociaux}
+                    handleDelete={(chipToDelete) => () => {
+                      // const updatedFruits = loisirs.filter(
+                      //   (fruit, i) => i !== chipToDelete.key - 1
+                      // );
 
-                    const newItems = createRsociaux.filter(
-                      (item) => item.key !== chipToDelete.key
-                    );
+                      const newItems = createRsociaux.filter(
+                        (item) => item.key !== chipToDelete.key
+                      );
 
-                    dispatch(createRsociaux(newItems));
-                  }}
-                />
+                      dispatch(createRsociaux(newItems));
+                    }}
+                  />
+
+                  <ChipsArray
+                    title={"Emploi *"}
+                    sousTitre={"La liste d'emplois est vide."}
+                    error={errors.jobs && touched.jobs}
+                    helperText={errors.jobs && touched.jobs ? errors.jobs : ""}
+                    onBlur={() => {
+                      setFieldTouched("jobs", true);
+                    }}
+                    setFieldValue={setFieldValue}
+                    name={"jobs"}
+                    ModelComponent={EmploiCo}
+                    handleClose={() => {
+                      dispatch(handleModeopenEmploi(false));
+                    }}
+                    handleOpen={() => {
+                      dispatch(handleModeopenEmploi(true));
+                    }}
+                    open={openEmploi}
+                    chipData={EmploiArr}
+                    handleDelete={(chipToDelete) => () => {
+                      const newItems = EmploiArr?.filter(
+                        (item) => item.key !== chipToDelete.key
+                      );
+
+                      dispatch(createEmploi(newItems));
+                    }}
+                  />
+                </Stack>
+
                 <Space space={30} />
-
-                {/* <Stack direction={"column"} spacing={3}>
-                  <PrimaryText
-                    fontWeight={"600"}
-                    fontSize={"25px"}
-                    text={"ajouter une video"}
-                    color={theme.palette.secondary.light}
-                    cursor
-                  />
-                  <InputBase
-                    id="standard-basic"
-                    placeholder={"placeholder"}
-                    value={File}
-                    onChange={handleFileSelection}
-                    sx={{ pl: "0px", flex: 1, height: 40, color: "#000" }}
-                    type="file"
-                  />
-                </Stack> */}
 
                 <Stack
                   justifyContent="flex-end"

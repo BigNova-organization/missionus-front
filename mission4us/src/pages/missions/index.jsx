@@ -200,7 +200,7 @@ const Missions = () => {
   const handleCloseEdit = useCallback(() => setOpenEdit(false), []);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchMissions());
+     dispatch(fetchMissions());
   }, [dispatch]);
 
   const [selectedRow, setSelectedRow] = useState(null);

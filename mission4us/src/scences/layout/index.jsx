@@ -3,14 +3,14 @@ import { Box, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/SideBare";
 import Navbar from "../../components/Navbar";
-// import { useDimensions } from 'react-native-hooks';
+import { useSelector } from "react-redux";
+import PermissionDenied from "../../components/Pages/WithoutPermission/PermissionDenied";
 
 const Layout = () => {
   let data = {};
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  // const { width } = useDimensions().window;
-  // console.log('isNonMobile', isNonMobile)
+
   useEffect(() => {
     if (!isNonMobile) {
       setIsSidebarOpen(false);
@@ -18,6 +18,10 @@ const Layout = () => {
       setIsSidebarOpen(true);
     }
   }, [isNonMobile]);
+
+  const { isAuthenticated, token } = useSelector((state) => state.logout);
+	const _user = localStorage.getItem("user")
+
   return (
     <Box display={"flex"} width="100%" height="100%">
       <Sidebar
@@ -35,8 +39,7 @@ const Layout = () => {
           setIsSidebarOpen={setIsSidebarOpen}
         />
         <Box flexGrow={1}>
-
-        <Outlet />
+          {_user ? <Outlet /> : <PermissionDenied />}
         </Box>
       </Box>
     </Box>

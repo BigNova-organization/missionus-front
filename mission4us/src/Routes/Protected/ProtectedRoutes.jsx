@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import jwtDecode from 'jwt-decode';
 import {Navigate, Outlet, useNavigate} from "react-router-dom"
 import { logout } from "../../Redux/logout/slice"
@@ -11,9 +11,10 @@ const useAuth = () => {
 
 	const _user = localStorage.getItem("user")
 
+
 	if (_user) {
 		user = JSON.parse(_user)
-		// console.log("user", user)
+	 console.log("user", user)
 	}
 	if (user) {
 		return {
@@ -34,7 +35,12 @@ const useAuth = () => {
 // }
 
 const ProtectedRoutes = (props) => {
-	const token = localStorage.getItem("bearer-token");
+	// const token = localStorage.getItem("bearer-token");
+
+	// const {isAuthenticated,token} = useSelector((state) => state.logout);
+	const {isAuthenticated,token}= useSelector((state) => state.logout);
+
+
 	// const expire_token = localStorage.getItem("expires_in");
 	const dispatch = useDispatch();
 	const navigate=useNavigate();
@@ -59,9 +65,12 @@ const ProtectedRoutes = (props) => {
 
 	const {auth, role} = useAuth()
 
+	// console.log('isAuthenticated--', isAuthenticated)
+	// console.log('props.roleRequired', props.roleRequired)
+
 	//if the role required is there or not
 	if (props.roleRequired) {
-		return auth ? (
+		return isAuthenticated ? (
 			props.roleRequired === role ? (
 				<Outlet />
 			) : (
@@ -71,7 +80,7 @@ const ProtectedRoutes = (props) => {
 			<Navigate to="/register" />
 		)
 	} else {
-		return auth ? <Outlet /> : <Navigate to="/register" />
+	return 	auth ? <Outlet /> : <Navigate to="register" />
 	}
 
 }

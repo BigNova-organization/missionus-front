@@ -110,7 +110,7 @@ export default function ChipsArray({
             <>
               {chipData?.map((data) => {
                 let icon;
-                if (data.label.title === "React") {
+                if (data?.label?.title === "React") {
                   icon = <TagFacesIcon />;
                 }
 
@@ -119,18 +119,18 @@ export default function ChipsArray({
                     <Chip
                       icon={icon}
                       label={
-                        data.label.title
-                          ? data.label.title
-                          : data.label.nomEntreprise
-                          ? data.label.nomEntreprise
-                          : data.label.competence?
-                          data.label.competence
-                          :data.label.hobbies?
-                          data.label.hobbies
-                          :data.label.reseaux
+                        data?.label?.title
+                          ? data?.label?.title
+                          : data?.label?.nomEntreprise
+                          ? data?.label?.nomEntreprise
+                          : data?.label?.competence?
+                          data?.label?.competence
+                          :data?.label?.hobbies?
+                          data?.label?.hobbies
+                          : data.label?  data.label:data?.label?.reseaux
                       }
                       onDelete={
-                        data.label.title === "React"
+                        data?.label?.title === "React"
                           ? undefined
                           : handleDelete(data)
                       }

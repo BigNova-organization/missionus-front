@@ -35,20 +35,23 @@ import Clients from "../pages/clients";
 import Fournisseurs from "../pages/fournisseurs";
 import Devis from "../pages/devis";
 import VisualiserCvDetailsProvider from "../pages/detailsProvider";
+import { useSelector } from "react-redux";
 
 const MainRoutes = () => (
+// 	const {isAuthenticated,token} = useSelector((state) => state.logout);
+
+//   console.log('isAuthenticated', isAuthenticated)
+// return (
+
   <Routes>
     {/** Protected Routes */}
 
-    <Route path="/" element={<ProtectedRoutes />}>
-      <Route path="/" element={<InnerContent />}>
+    <Route path="/" element={<ProtectedRoutes  />}>
+      {/* <Route path="/" element={<InnerContent />}> */}
         <Route element={<Layout />}>
           <Route path="/" element={<Navigate replace to="missions" />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route
-            path="tabs"
-            element={<Tabs props={{ userName: "BigNova" }} />}
-          >
+          <Route path="tabs" element={<Tabs props={{ userName: "BigNova" }} />}>
             <Route path="/tabs" element={<Navigate replace to="tab1" />} />
             <Route path="tab1" element={<Tab1 />} />
 
@@ -62,38 +65,16 @@ const MainRoutes = () => (
             <Route path="tab3" element={<Tab3 />} />
           </Route>
 
-          {/* <Route
-            path="PageCv"
-            element={<Tabs props={{ userName: "mission4us" }} />}
-          >
-            <Route path="/PageCv" element={<Navigate replace to="PageCv" />} />
-
-            <Route path="PageCv" element={<PageCv />} />
-
-            <Route
-              path="PageCv"
-              element={<ProtectedRoutes roleRequired="USER" />}
-            >
-              <Route path="/PageCv/VisualiserCv" element={<VisualiserCv />} />
-            </Route>
-
-            <Route
-              path="tab2"
-              element={<ProtectedRoutes roleRequired="USER" />}
-            >
-              <Route path="/tabs/tab2" element={<Tab2 />} />
-            </Route>
-
-            <Route path="tab3" element={<Tab3 />} />
-          </Route> */}
-
-          <Route path="VisualiserCvDetailsProvider" element={<VisualiserCvDetailsProvider />} />
+          <Route
+            path="VisualiserCvDetailsProvider"
+            element={<VisualiserCvDetailsProvider />}
+          />
           <Route path="PageCv" element={<PageCv />} />
           <Route path="PageCv/VisualiserCv" element={<VisualiserCv />} />
           <Route path="parametre" element={<Parametre />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />
           <Route path="clients" element={<Clients />} />
-          <Route path="fournisseurs" element={<Fournisseurs/>} />
+          <Route path="fournisseurs" element={<Fournisseurs />} />
           <Route path="gestion" element={<Gestion />} />
           <Route path="abonnement" element={<Abonnement />} />
           <Route path="recruitment" element={<Recruitment />} />
@@ -104,7 +85,7 @@ const MainRoutes = () => (
           <Route path="jobs/Add Job" element={<AddJob />} />
           <Route path="jobs/Update Job/:id" element={<UpdateJob />} />
         </Route>
-      </Route>
+      {/* </Route> */}
     </Route>
 
     {/** Public Routes */}
@@ -119,6 +100,9 @@ const MainRoutes = () => (
     {/** Permission denied route */}
     <Route path="/denied" element={<PermissionDenied />} />
   </Routes>
-);
+)
+
+
+
 
 export default MainRoutes;
