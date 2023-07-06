@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
- 
   List,
   ListItem,
   ListItemButton,
@@ -13,33 +12,29 @@ import {
 import {
   ChevronRightOutlined,
   HomeOutlined,
- 
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
   BookOutlined,
   FileCopyOutlined,
   GestureOutlined,
- 
   PeopleOutline,
- 
   FormatQuoteOutlined,
   Person3Outlined,
 } from "@mui/icons-material";
- 
+
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "../FlexBetween";
- 
+
 import logo from "../../assets/logo.png";
 import CustDrawer from "./components/Drawer";
 import { PrimaryText } from "../utils/typography";
- 
-import {  useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 import { WorkOutline } from "@material-ui/icons";
 
 // const userRole = localStorage.getItem("userRole")
 // console.log(userRole,'user role sidebar')
-
 
 const Sidebar = ({
   user,
@@ -51,37 +46,39 @@ const Sidebar = ({
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
- 
- 
+
   const role = useSelector((state) => state.account?.user.authorities);
-  
- 
+
   const navItems = [
     {
       text: "Dashboard",
       icon: <HomeOutlined />,
     },
-  
+
     // {
     //   text: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER")) ? "": "Utilisateurs",
     //   icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER"))? null: <PersonOutline />,
     // },
-    
-    {
-      text: role == "ROLE_CLIENT" ? "":"Clients",
-      icon: role == "ROLE_CLIENT" ? null:<PeopleOutline />,
-    },
-    {
-      text: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN")) ? "Fournisseurs": "",
-      icon: ((role == "ROLE_CLIENT")||(role == "ROLE_ADMIN")) ? <Person3Outlined />:null,
-    },
+
+    role == "ROLE_CLIENT" || role == "ROLE_ADMIN"
+      ? {
+          text: "Clients",
+          icon: <PeopleOutline />,
+        }
+      :  { text: "", icon: null },
+    role == "ROLE_PROVIDER" || role == "ROLE_ADMIN"
+      ? {
+          text: "Fournisseurs",
+          icon: <Person3Outlined />,
+        }
+      : { text: "", icon: null },
     // {
     //   text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "Devis":"",
     //   icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? <FormatQuoteOutlined />:null,
     // },
     {
-      text:  "Devis" ,
-      icon:  <FormatQuoteOutlined />,
+      text: "Devis",
+      icon: <FormatQuoteOutlined />,
     },
     // {
     //   text: "Admins",
@@ -100,14 +97,17 @@ const Sidebar = ({
     //   icon: role == "ROLE_CLIENT" ? null:<FileCopyOutlined />,
     // },
     {
-      text: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? "": "PageCv",
-      icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_ADMIN")) ? null:<FileCopyOutlined />,
+      text: role == "ROLE_CLIENT" || role == "ROLE_ADMIN" ? "" : "PageCv",
+      icon:
+        role == "ROLE_CLIENT" || role == "ROLE_ADMIN" ? null : (
+          <FileCopyOutlined />
+        ),
     },
-    role == "ROLE_ADMIN"&& {
+    role == "ROLE_ADMIN" && {
       text: "Jobs",
       icon: <WorkOutline />,
     },
-    role == "ROLE_ADMIN"&&{
+    role == "ROLE_ADMIN" && {
       text: "Recruitment",
       icon: <GestureOutlined />,
     },
@@ -115,7 +115,7 @@ const Sidebar = ({
     //   text: "Gestion",
     //   icon: null,
     // },
-    role == "ROLE_ADMIN"&& {
+    role == "ROLE_ADMIN" && {
       text: "Abonnement",
       icon: <BookOutlined />,
     },
@@ -123,7 +123,7 @@ const Sidebar = ({
     //   text: "Manage",
     //   icon: null,
     // },
-    role == "ROLE_ADMIN"&& {
+    role == "ROLE_ADMIN" && {
       text: "Parametre",
       icon: <AdminPanelSettingsOutlined />,
     },
@@ -201,10 +201,9 @@ const ListItems = ({
 }) => {
   const theme = useTheme();
 
- 
   return (
     <List>
-      {navItems.map((i,index) => {
+      {navItems.map((i, index) => {
         if (!i.icon) {
           return (
             <Box key={index}>

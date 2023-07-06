@@ -54,6 +54,7 @@ const SelectMenue = ({
   };
   const classes = useStyles();
   return (
+    <Stack width={"100%"} height='90%'>
     <Stack
       width={"100%"}
       mt={{
@@ -72,7 +73,7 @@ const SelectMenue = ({
         variant="outlined"
         style={{
           flexGrow: 1,
-          marginRight: marginRight ? "20px" : "0px",
+          marginRight: marginRight ?  "0px": "0px",
           color: theme.palette.secondary.light,
           border: `.2px solid ${
             error ? theme.palette.error.main : theme.palette.secondary.light
@@ -110,6 +111,8 @@ const SelectMenue = ({
         {helperText}
       </FormHelperText>
     </Stack>
+     {!helperText? <Box height='8px'></Box> : null}
+     </Stack>
   );
 };
 export default SelectMenue;

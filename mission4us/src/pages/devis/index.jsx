@@ -178,7 +178,7 @@ const Devis = () => {
                                   <Box
                                     onClick={() => {
                                       if (devi.providerId) {
-                                        console.log("devi", devi);
+                                        // console.log("devi", devi);
                                         navigate("/VisualiserCvDetailsProvider",{state:devi.providerId});
                                       } else {
                                         return;

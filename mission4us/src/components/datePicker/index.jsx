@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { useTheme, FormHelperText, Stack } from "@mui/material";
+import { useTheme, FormHelperText, Stack, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   inputStyles: {
@@ -82,6 +82,7 @@ export default function DatePickers({
   const classes = useStyles(mode);
   const theme = useTheme();
   return (
+    <Stack width={"100%"} height='90%'>
     <TextField
       id={id}
       label={label}
@@ -102,7 +103,7 @@ export default function DatePickers({
       // }}
       onBlur={onBlur}
       value={value}
-      className={mode == "dark" ? classes.inputStyles : classes.inputStylesDark}
+      // className={mode == "dark" ? classes.inputStyles : classes.inputStylesDark}
       InputLabelProps={{
         shrink: true,
         style: { color: theme.palette.primary.light },
@@ -112,10 +113,12 @@ export default function DatePickers({
       }}
       fullWidth
       error={error}
-      style={{ marginRight: margin ? "0px" : "20px" }}
+      //  style={{ marginRight: margin ? "0px" : "20px",  }}
       helperText={helperText}
       name={name}
 
     />
+    {!helperText? <Box height='8px'></Box> : null}
+    </Stack>
   );
 }

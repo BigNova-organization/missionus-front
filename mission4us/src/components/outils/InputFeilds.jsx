@@ -2,7 +2,7 @@ import React from "react";
 import { UseHooks } from "../../pages/PageCv/Hooks";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField } from "@material-ui/core";
-import { useTheme } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
 import VisibilityIcon from "@material-ui/icons/Visibility";
@@ -43,6 +43,10 @@ const InputFeilds = (props) => {
   const classes = useStyles(mode);
   const theme = useTheme();
   return (
+
+    <Stack width={"100%"} height='90%'>
+
+
     <TextField
       name={name}
       error={error}
@@ -73,7 +77,7 @@ const InputFeilds = (props) => {
       onBlur={onBlur}
       fullWidth
       select={select}
-      style={{ marginRight: margin ? "0px" : "20px" }}
+      // style={{ marginRight: margin ? "0px" : "20px" }}
       InputLabelProps={{
         style: {
           color: primary ? "#FFF" : theme.palette.primary.light,
@@ -114,6 +118,9 @@ const InputFeilds = (props) => {
           : null
       }
     />
+{    !helperText? <Box height='8px'></Box> : null}
+    </Stack>
+
   );
 };
 

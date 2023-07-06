@@ -7,10 +7,13 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     flexGrow: 1,
     alignItems:"center",
-    // backgroundColor:"#322"
+    justifyContent:"center",
+    marginBottom: 0,
+    gap:20,
     [theme.breakpoints.down("md")]: {
-    //   backgroundColor: "#ee2657",
       flexDirection: "column",
+      gap:0,
+
     },
   },
 }));

@@ -1,22 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  Input,
-  InputBase,
-  InputLabel,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Badge, Box, Button, InputBase, Stack, useTheme } from "@mui/material";
 import Head from "../../components/Head";
 import Body from "../../components/Body";
-import toast, { Toaster } from "react-hot-toast";
-// import { Formik } from "formik";
+import toast from "react-hot-toast";
 import { UseHooks } from "./Hooks";
 import InputFeilds from "../../components/outils/InputFeilds";
 import Space from "../../components/outils/Space";
@@ -31,7 +17,6 @@ import {
 } from "../../data/listLanguages";
 import ChipsArray from "../../components/Add-card";
 import {
-  CloseModal,
   createCompetences,
   createEmploi,
   createExperiences,
@@ -46,10 +31,9 @@ import {
   handleModeopenResx,
 } from "../../Redux/createCv/slice";
 import { Person2Outlined } from "@mui/icons-material";
-import { styled } from "@mui/material/styles";
 import { PrimaryText } from "../../components/utils/typography";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field } from "formik";
+import { Formik } from "formik";
 import ReseauxSc from "./Components/ReseauxSc";
 import Experiences from "./Components/Experiences";
 import Formations from "./Components/Formations";
@@ -57,18 +41,6 @@ import Loisirs from "./Components/Loisirs";
 import Competences from "./Components/Competences";
 import { CreateCvApi } from "../../Redux/createCv/api/createCvSlice";
 
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import TextField from "@mui/material/TextField";
-// import { DatePicker, LocalizationProvider } from '@mui/lab';
-import DatePikerProvider from "../../components/datePikerProvider";
-
-// import { makeStyles } from '@mui/stykles';
-
-// import { styled } from '@mui/system';
-
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import DatePickers from "../../components/datePicker";
 import EmploiCo from "./Components/Emploi";
 
@@ -76,21 +48,12 @@ const PageCv = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
-  const { OnSubmit, initialState, validationSchema, handleChangeInput } =
-    UseHooks();
+  const { OnSubmit, initialState, validationSchema } = UseHooks();
 
   const [File, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
 
   const classes = useStyles();
-
-  const handleFileSelection = (event, setFieldValue) => {
-    // setFile(event.target.files[0]);
-    const file = event.target.files[0];
-    const imageUrl = URL.createObjectURL(file);
-    setImageUrl(imageUrl);
-    setFieldValue("profile", imageUrl);
-  };
 
   const shapeStyles = {
     bgcolor: theme.palette.background.default,
@@ -137,7 +100,7 @@ const PageCv = () => {
     notify();
   };
 
-  const onErrorAction = (message) => {
+  const onErrorAction = () => {
     toast.error("échec de la création du CV");
   };
 
@@ -240,7 +203,7 @@ const PageCv = () => {
               };
               dispatch(CreateCvApi(object));
             } else {
-              console.log("visiualizer", values);
+              // console.log("visiualizer", values);
               OnSubmit(values);
             }
           }}
@@ -276,16 +239,6 @@ const PageCv = () => {
               <>
                 <Space space={"20px"} />
                 <Stack width={"100%"} spacing={3} display="flex">
-                  {/* <Stack direction={"column"} justifyContent="center"> */}
-                  {/* <PrimaryText
-                      fontWeight={"500"}
-                      fontSize={"25px"}
-                      text={"ajouter la photo du profile "}
-                      color={theme.palette.secondary.light}
-                      cursor
-                    />
-                    <Space space={"20px"} /> */}
-
                   {imageUrl ? (
                     <Box
                       component={"img"}
@@ -306,7 +259,6 @@ const PageCv = () => {
                     placeholder={"placeholder"}
                     value={File}
                     onChange={(event) => {
-                      // handleFileSelection(event,setFieldValue);
                       const file = event.target.files[0];
                       const imageUrl = URL.createObjectURL(file);
                       setImageUrl(imageUrl);
@@ -320,12 +272,6 @@ const PageCv = () => {
                     }}
                     type="file"
                   />
-                  {/* <FormHelperText
-                      sx={{ color: theme.palette.error.main, pl: 3 }}
-                    >
-                      {errors.profile && touched.profile ? errors.profile : ""}
-                    </FormHelperText>
-                  </Stack> */}
 
                   <RowBox>
                     <InputFeilds
@@ -362,20 +308,6 @@ const PageCv = () => {
                 </Stack>
 
                 <RowBox>
-                  {/* <InputFeilds
-                    label={"sexe"}
-                    error={errors.sexe && touched.sexe}
-                    helperText={errors.sexe && touched.sexe ? errors.sexe : ""}
-                    value={sexe}
-                    onChange={handleChange}
-                    autoFocus={true}
-                    required={true}
-                    id={"outlined-controlled"}
-                    name={"sexe"}
-                    onBlur={() => {
-                      setFieldTouched("sexe", true);
-                    }}
-                  /> */}
                   <SelectMenue
                     selectionTitle="Selectionner votre sexe*"
                     data={listSexe}
@@ -408,24 +340,7 @@ const PageCv = () => {
                     }}
                     marginRight
                   />
-                  {/* <InputFeilds
-                    label={"marié"}
-                    error={errors.situation && touched.situation}
-                    helperText={
-                      errors.situation && touched.situation
-                        ? errors.situation
-                        : ""
-                    }
-                    value={situation}
-                    onChange={handleChange}
-                    autoFocus={true}
-                    required={true}
-                    id={"outlined-controlled"}
-                    name={"situation"}
-                    onBlur={() => {
-                      setFieldTouched("situation", true);
-                    }}
-                  /> */}
+    
                 </RowBox>
 
                 <RowBox sx={{ alignItems: "center" }}>
@@ -488,53 +403,6 @@ const PageCv = () => {
                     setFieldValue={setFieldValue}
                   />
 
-                  {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <StyledDatePicker
-                      //
-                      //  label={"Date de naissance"}
-                      onChange={(date) => {
-                        setFieldValue("date",formatDate(date.toString()));
-                      }}
-                      format="DD/MM/YYYY"
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          variant="outlined"
-                          className={classes.datePicker}
-                          id="datepicker"
-                      value={date}
-                      error={errors.date && touched.date}
-                      helperText={errors.date && touched.date ? errors.date : ""}
-                      autoFocus={true}
-                      required={true}
-                    name={"date"}
-                    onBlur={() => {
-                      setFieldTouched("date", true);
-                    }}
-                        />
-                      )}
-                    shrink={true}
-
-                    />
-                  </LocalizationProvider> */}
-
-                  {/* <InputFeilds
-                    label={"Date de naissance"}
-                    error={errors.date && touched.date}
-                    helperText={errors.date && touched.date ? errors.date : ""}
-                    value={date}
-                    onChange={handleChange}
-                    autoFocus={true}
-                    required={true}
-                    id={"outlined-controlled"}
-                    name={"date"}
-                    onBlur={() => {
-                      setFieldTouched("date", true);
-                    }}
-                    type=""
-                    shrink={true}
-                    renderInput={(params) => <TextField {...params} />}
-                  /> */}
                   <InputFeilds
                     label={"Adresse"}
                     error={errors.adresse && touched.adresse}
@@ -574,31 +442,35 @@ const PageCv = () => {
                   />
                 </RowBox>
                 {/* <RowBox> */}
-                <InputFeilds
-                  label={"Presentation"}
-                  multiline={true}
-                  rows={4}
-                  id="standard-multiline-static"
-                  error={errors.presentation && touched.presentation}
-                  helperText={
-                    errors.presentation && touched.presentation
-                      ? errors.presentation
-                      : ""
-                  }
-                  value={presentation}
-                  onChange={handleChange}
-                  autoFocus={true}
-                  required={true}
-                  name={"presentation"}
-                  onBlur={() => {
-                    setFieldTouched("presentation", presentation);
-                  }}
-                />
+
+                <RowBox>
+                  <InputFeilds
+                    label={"Presentation"}
+                    multiline={true}
+                    rows={4}
+                    id="standard-multiline-static"
+                    error={errors.presentation && touched.presentation}
+                    helperText={
+                      errors.presentation && touched.presentation
+                        ? errors.presentation
+                        : ""
+                    }
+                    value={presentation}
+                    onChange={handleChange}
+                    autoFocus={true}
+                    required={true}
+                    name={"presentation"}
+                    onBlur={() => {
+                      setFieldTouched("presentation", presentation);
+                    }}
+                  />
+                </RowBox>
+
                 {/* </RowBox> */}
 
-                <Space space={30} />
+                {/* <Space space={30} /> */}
 
-                <Box className={classes.containerSelect}>
+                <RowBox >
                   <SelectMenue
                     selectionTitle="Selectionner une langue *"
                     data={listLangue}
@@ -631,7 +503,7 @@ const PageCv = () => {
                     }}
                     marginRight
                   />
-                </Box>
+                </RowBox>
 
                 <Space space={30} />
 
@@ -926,3 +798,75 @@ const PageCv = () => {
 };
 
 export default PageCv;
+
+{
+  /* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <StyledDatePicker
+                      //
+                      //  label={"Date de naissance"}
+                      onChange={(date) => {
+                        setFieldValue("date",formatDate(date.toString()));
+                      }}
+                      format="DD/MM/YYYY"
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          variant="outlined"
+                          className={classes.datePicker}
+                          id="datepicker"
+                      value={date}
+                      error={errors.date && touched.date}
+                      helperText={errors.date && touched.date ? errors.date : ""}
+                      autoFocus={true}
+                      required={true}
+                    name={"date"}
+                    onBlur={() => {
+                      setFieldTouched("date", true);
+                    }}
+                        />
+                      )}
+                    shrink={true}
+
+                    />
+                  </LocalizationProvider> */
+}
+
+{
+  /* <InputFeilds
+                    label={"Date de naissance"}
+                    error={errors.date && touched.date}
+                    helperText={errors.date && touched.date ? errors.date : ""}
+                    value={date}
+                    onChange={handleChange}
+                    autoFocus={true}
+                    required={true}
+                    id={"outlined-controlled"}
+                    name={"date"}
+                    onBlur={() => {
+                      setFieldTouched("date", true);
+                    }}
+                    type=""
+                    shrink={true}
+                    renderInput={(params) => <TextField {...params} />}
+                  /> */
+}
+
+
+              {/* <InputFeilds
+                    label={"marié"}
+                    error={errors.situation && touched.situation}
+                    helperText={
+                      errors.situation && touched.situation
+                        ? errors.situation
+                        : ""
+                    }
+                    value={situation}
+                    onChange={handleChange}
+                    autoFocus={true}
+                    required={true}
+                    id={"outlined-controlled"}
+                    name={"situation"}
+                    onBlur={() => {
+                      setFieldTouched("situation", true);
+                    }}
+                  /> */}

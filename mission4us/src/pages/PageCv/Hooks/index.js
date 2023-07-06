@@ -1,46 +1,33 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { fr } from "yup-locales";
 import useStyles from "../styles";
 
 export function UseHooks() {
+  const { user } = useSelector((state) => state.account);
+  console.log("user", user);
+
   const initialState = {
-    // nom: "",
-    // prenom: "",
-    // sexe: "",
-    // situation: "",
-    // phone: "",
-    // email: "",
-    // date: "",
-    // adresse: "",
-    // apropos: "",
-    // langue: "",
-    // permis: "",
-    // experience: "",
-    // formation: "",
-    // competence: "",
-    // loisir: "",
-    // reseaux: "",
-    nom: "nom",
-    prenom: "prenom",
-    sexe: "Male",
-    situation: "Marié",
-    phone: "09390299220",
-    email: "zinou@gmail.com",
-    date: "09/09/1998",
-    adresse: "algeria",
-    apropos: "oao ppalso plsk papsk",
-    langue: "Français",
-    permis: "B",
+    nom: user.lastName ? user.firstName : "",
+    prenom: user.lastName ? user.lastName : "",
+    sexe: "",
+    situation: "",
+    phone: "",
+    email: user.email ? user.email : "",
+    date: "",
+    adresse: "",
+    apropos: "",
+    langue: "",
+    permis: "",
     experience: "",
     formation: "",
     competence: "",
     loisir: "",
     reseaux: "",
     profile: "",
-    presentation:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis eligendi ex, distinctio consequuntur asperiores iure neque modi possimus eos temporibus eum pariatur qui ducimus, illum maiores. Minus consequatur ipsa quibusdam dolorem quos? Pariatur, optio qui. Temporibus ipsa eos deleniti rerum sed quam dolores cupiditate unde ut labore quas voluptate eaque, odit doloremque magni nihil adipisci! Inventore, commodi. Quia sint voluptatibus tenetur dolores beatae fugit minima quaerat quibusdam, facere harum neque eligendi facilis, a repudiandae, quis labore obcaecati? Rem expedita corporis numquam a perspiciatis maiores libero quas sint mollitia soluta. Cupiditate quia iste unde sapiente sunt praesentium in, esse exercitationem, suscipit nobis facilis.",
+    presentation: "",
   };
 
   const emailPhoneRegex =
@@ -78,9 +65,11 @@ export function UseHooks() {
       .required("L'adresse est requis"),
     apropos: Yup.string()
       .min(6, "a propos est trop court - doit être de 6 caractères minimum.")
-      .max(200, "a propos est trop long - doit être de 200 caractères maximum.")
-      // .required("a propos est requis")
-      ,
+      .max(
+        200,
+        "a propos est trop long - doit être de 200 caractères maximum."
+      ),
+    // .required("a propos est requis")
     langue: Yup.string().required("la langue est requis"),
     jobs: Yup.string().required("Emploi est requis"),
     permis: Yup.string().required("le permis est requis"),
@@ -108,7 +97,7 @@ export function UseHooks() {
     // console.log(`value`, value)
     setAuthUser({ ...authUser, [name]: value });
 
-    console.log("authUser", authUser);
+    // console.log("authUser", authUser);
   };
 
   const initialStateExperience = {
@@ -171,11 +160,9 @@ export function UseHooks() {
     reseaux: Yup.string().required("hobbies est requis"),
   });
 
-
   let validationSchemaEmploi = Yup.object().shape({
     jobs: Yup.string().required("emploi est requis"),
   });
-
 
   return {
     initialState,
@@ -194,6 +181,6 @@ export function UseHooks() {
     initialStateResSx,
     validationSchemaResSx,
     validationSchemaEmploi,
-    initialStatEmploi
+    initialStatEmploi,
   };
 }
