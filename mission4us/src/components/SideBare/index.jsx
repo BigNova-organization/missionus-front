@@ -60,13 +60,13 @@ const Sidebar = ({
     //   icon: ((role == "ROLE_CLIENT")|| (role == "ROLE_PROVIDER"))? null: <PersonOutline />,
     // },
 
-    role == "ROLE_CLIENT" || role == "ROLE_ADMIN"
+    role == "ROLE_ADMIN"
       ? {
           text: "Clients",
           icon: <PeopleOutline />,
         }
-      :  { text: "", icon: null },
-    role == "ROLE_PROVIDER" || role == "ROLE_ADMIN"
+      : { text: "", icon: null },
+    role == "ROLE_ADMIN"
       ? {
           text: "Fournisseurs",
           icon: <Person3Outlined />,

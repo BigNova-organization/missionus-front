@@ -22,7 +22,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Tooltip from "@material-ui/core/Tooltip";
 import ModalDelete from "../../components/modal";
-import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import DevisMission from "./formDevis";
 import EditMission from "./formEditMission";
 import { CircularProgress } from "@material-ui/core";
@@ -106,56 +106,56 @@ const rows = [
     "loremImpum",
     "Front-end Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
   createData(
     "Jack BK",
     "loremImpum",
     "Full stack Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
   createData(
     "John Dev",
     "loremImpum",
     "Front-end Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
   createData(
     "Jack BK",
     "loremImpum",
     "Full stack Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
   createData(
     "John Dev",
     "loremImpum",
     "Front-end Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
   createData(
     "Jack BK",
     "loremImpum",
     "Full stack Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
   createData(
     "John Dev",
     "loremImpum",
     "Front-end Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
   createData(
     "Jack BK",
     "loremImpum",
     "Full stack Engeenier",
     "Bejaia",
-    "0782205066"
+    "0782205066",
   ),
 ];
 
@@ -200,7 +200,7 @@ const Missions = () => {
   const handleCloseEdit = useCallback(() => setOpenEdit(false), []);
   const dispatch = useDispatch();
   useEffect(() => {
-     dispatch(fetchMissions());
+    dispatch(fetchMissions());
   }, [dispatch]);
 
   const [selectedRow, setSelectedRow] = useState(null);
@@ -354,27 +354,27 @@ const Missions = () => {
                         <div>{`${mission.street},${mission.city},${mission.country}`}</div>
                       </StyledTableCell>
                       <StyledTableCell align="left">
-                      <Stack direction="row">
-                              {role == "ROLE_CLIENT" || role == "ROLE_ADMIN" ? (
-                                <>
-                                  <Tooltip title="Supprimer">
-                                    <Box
-                                      onClick={() => handleDelete(mission.id)}
-                                      sx={{ color: "red" }}
-                                    >
-                                      <DeleteIcon />
-                                    </Box>
-                                  </Tooltip>
-                                </>
-                              ) : null}
-                              {role == "ROLE_PROVIDER" ? (
-                                <Tooltip title="Creer devis">
-                                  <Box onClick={handleOpenDevis}>
-                                    <FormatQuoteIcon />
-                                  </Box>
-                                </Tooltip>
-                              ) : null}
-                            </Stack>
+                        <Stack direction="row">
+                          {role == "ROLE_CLIENT" || role == "ROLE_ADMIN" ? (
+                            <>
+                              <Tooltip title="Supprimer">
+                                <Box
+                                  onClick={() => handleDelete(mission.id)}
+                                  sx={{ color: "red" }}
+                                >
+                                  <DeleteIcon />
+                                </Box>
+                              </Tooltip>
+                            </>
+                          ) : null}
+                          {role == "ROLE_PROVIDER" ? (
+                            <Tooltip title="Créer devis">
+                              <Box onClick={handleOpenDevis}>
+                                <LocalAtmIcon />
+                              </Box>
+                            </Tooltip>
+                          ) : null}
+                        </Stack>
                       </StyledTableCell>
                     </StyledTableRow>
                   ))}

@@ -217,10 +217,10 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                   navigate(`/${"profile"}`);
                 }}
               >
-                My profile
+                Mon profile
               </MenuItem>
 
-              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+              <MenuItem onClick={handleLogout}>Se déconnecter</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>
