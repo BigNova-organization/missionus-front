@@ -19,17 +19,13 @@ const Form0 = ({ changeMode }) => {
       >
         <ReusableButton
           bigText={"ACCES CLIENT"}
-          smallText={
-            "Connectez vous en tant que client "
-          }
+          smallText={"Inscrivez-vous en tant que client "}
           Primary
           onClick={() => changeMode(2)}
         />
         <ReusableButton
           bigText={"ACCES FOURNISSEUR"}
-          smallText={
-            "Connectez vous en tant que fournisseur "
-          }
+          smallText={"Inscrivez-vous en tant que fournisseur "}
           onClick={() => changeMode(3)}
         />
       </Box>
