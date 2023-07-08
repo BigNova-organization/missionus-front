@@ -2,13 +2,18 @@ import * as Yup from "yup";
 import { fr } from "yup-locales";
 import { setLocale } from "yup";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUpUser } from "../../../../Redux/register/slice";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 setLocale(fr);
 
 export function UseClient() {
   const [hidePass, setHidePass] = useState(true);
   const [hidePass2, setHidePass2] = useState(true);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const lowercaseRegEx = /(?=.*[a-z])/;
   const uppercaseRegEx = /(?=.*[A-Z])/;
   const numericRegEx = /(?=.*[0-9])/;
@@ -23,7 +28,6 @@ export function UseClient() {
   const HandlehidePass2 = () => {
     setHidePass2(!hidePass2);
   };
-
 
   const IdentityState = {
     firstName: "",
@@ -53,11 +57,36 @@ export function UseClient() {
       .matches(numericRegEx, "Must contain a numeric character!")
       .matches(specialsRegEx, "Must contain a special character")
       .required("password is required"),
-      
+
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Confirm Password is required"),
   });
+  const notify = () => toast.success("compte créé avec succès");
+
+  const onSuccesAction = () => {
+    notify();
+    navigate("/login");
+  };
+
+  const onError = (error) => {
+    console.log("error", error);
+    // toastRef.current.showToast(error);
+  };
+  const onErrorAction = () => {
+    toast.error("échec,quelque chose s'est mal passé ");
+  };
+
+  const onRegister = async (values) => {
+    let object = {
+      onSuccesAction,
+      onError,
+      onErrorAction,
+      obj: values,
+    };
+    dispatch(signUpUser(object));
+    //
+  };
 
   return {
     hidePass,
@@ -65,6 +94,7 @@ export function UseClient() {
     IdentityState,
     HandlehidePass,
     HandlehidePass2,
-    hidePass2
+    hidePass2,
+    onRegister,
   };
 }

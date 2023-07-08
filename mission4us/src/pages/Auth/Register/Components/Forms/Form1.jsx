@@ -8,11 +8,12 @@ import Space from "../../../../../components/outils/Space";
 import { signUpUser } from "../../../../../Redux/register/slice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import RowBox from "../../../../../components/RowBox";
 
 const Form1 = ({ changeMode }) => {
   const theme = useTheme();
 
-  const { IdentityState, validationSchema } = UseClient();
+  const { IdentityState, validationSchema,onRegister } = UseClient();
   const navigate=useNavigate()
   const dispatch=useDispatch()
 
@@ -24,8 +25,8 @@ const Form1 = ({ changeMode }) => {
         validationSchema={validationSchema}
         onSubmit={(values, formikAction) => {
           // dispatch(register(object, navigation));
-          dispatch(signUpUser(values))
-          navigate('/login')
+          // navigate('/login')
+          onRegister(values)
         }}
       >
         {({
@@ -83,6 +84,8 @@ const RenderInputs = ({
           borderRadius: 1,
         }}
       >
+         <RowBox>
+
         <InputFeilds
           label={"pseudo"}
           error={errors.login && touched.login}
@@ -97,6 +100,8 @@ const RenderInputs = ({
             setFieldTouched("login", true);
           }}
         />
+         </RowBox>
+         <RowBox>
         <InputFeilds
           label={"firstName"}
           error={errors.firstName && touched.firstName}
@@ -113,6 +118,9 @@ const RenderInputs = ({
             setFieldTouched("firstName", true);
           }}
         />
+        </RowBox>
+         <RowBox>
+
         <InputFeilds
           label={"lastName"}
           error={errors.lastName && touched.lastName}
@@ -128,7 +136,8 @@ const RenderInputs = ({
           onBlur={() => {
             setFieldTouched("lastName", true);
           }}
-        />
+        /></RowBox>
+         <RowBox>
 
         <InputFeilds
           label={"E-mail"}
@@ -145,6 +154,9 @@ const RenderInputs = ({
             setFieldTouched("email", true);
           }}
         />
+        </RowBox>
+         <RowBox>
+
         <InputFeilds
           label={"password"}
           error={errors.password && touched.password}
@@ -165,6 +177,9 @@ const RenderInputs = ({
           showPassword={hidePass}
           password
         />
+        </RowBox>
+
+         <RowBox>
 
         <InputFeilds
           label={"confirm password"}
@@ -188,6 +203,7 @@ const RenderInputs = ({
           showPassword={hidePass2}
           password
         />
+        </RowBox>
         <Space />
       {/* <PrimaryButton text="Creer mon compte" onClick={handleSubmit} /> */}
       <PrimaryButton text="Creer mon compte" type="submit"  onClick={handleSubmit} />
