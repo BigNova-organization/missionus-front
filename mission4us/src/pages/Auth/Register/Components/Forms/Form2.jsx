@@ -14,7 +14,8 @@ import RowBox from "../../../../../components/RowBox";
 const Form2 = ({ changeMode }) => {
   const theme = useTheme();
 
-  const { IdentityState, validationSchema } = UseFournisseur();
+  const { IdentityState, validationSchema, onRegister } = UseFournisseur();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
@@ -24,7 +25,7 @@ const Form2 = ({ changeMode }) => {
         initialValues={{ ...IdentityState }}
         validationSchema={validationSchema}
         onSubmit={(values, formikAction) => {
-          dispatch(signUpUser(values));
+          onRegister(values);
           // navigate('/login')
         }}
       >
