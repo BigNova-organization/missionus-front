@@ -11,23 +11,20 @@ import Hobies from "./components/hobie";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SocialMedia from "./components/rsociaux";
 
-
 const VisualiserCv = () => {
-
-
   const location = useLocation();
-  const  state  = location.state;
+  const state = location.state;
 
   const navigate = useNavigate();
 
-  const onReturn = () => { 
-    navigate('/PageCv')
-   }
-  
+  const onReturn = () => {
+    navigate("/PageCv");
+  };
+
   return (
     <>
-    <Head title="Visualiser Curriculum Vitae" retur btn onReturn={onReturn} />
-      <Body> 
+      <Head title="Visualiser Curriculum Vitae" retur btn onReturn={onReturn} />
+      <Body>
         <Stack>
           <Presentation state={state} />
           <Space space={20} />
@@ -38,8 +35,8 @@ const VisualiserCv = () => {
           <Competence />
           <Space space={20} />
           <Hobies />
-          <Space space={20} />
-          <SocialMedia/>
+          {/* <Space space={20} />
+          <SocialMedia/> */}
           <Space space={20} />
         </Stack>
       </Body>

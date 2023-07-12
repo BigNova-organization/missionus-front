@@ -340,7 +340,6 @@ const PageCv = () => {
                     }}
                     marginRight
                   />
-    
                 </RowBox>
 
                 <RowBox sx={{ alignItems: "center" }}>
@@ -470,7 +469,7 @@ const PageCv = () => {
 
                 {/* <Space space={30} /> */}
 
-                <RowBox >
+                <RowBox>
                   <SelectMenue
                     selectionTitle="Selectionner une langue *"
                     data={listLangue}
@@ -542,7 +541,7 @@ const PageCv = () => {
                     chipData={experience}
                     handleDelete={(chipToDelete) => () => {
                       const newItems = experience.filter(
-                        (item) => item.key !== chipToDelete.key
+                        (item) => item.key !== chipToDelete.key,
                       );
                       dispatch(createExperiences(newItems));
                     }}
@@ -576,10 +575,10 @@ const PageCv = () => {
                     chipData={fomations}
                     handleDelete={(chipToDelete) => () => {
                       const updatedFruits = fomations.filter(
-                        (fruit, i) => i !== chipToDelete.key - 1
+                        (fruit, i) => i !== chipToDelete.key - 1,
                       );
                       const newItems = fomations.filter(
-                        (item) => item.key !== chipToDelete.key
+                        (item) => item.key !== chipToDelete.key,
                       );
 
                       dispatch(createFomations(newItems));
@@ -598,8 +597,8 @@ const PageCv = () => {
                     lg: "row",
                   }}
                 >
-                  <ChipsArray
-                    title={"Compétences *"}
+                  {/* <ChipsArray
+                    title={"Compétences"}
                     sousTitre={"Aucune Compétences"}
                     addToCv={createCompetences}
                     error={errors.competence && touched.competence}
@@ -627,12 +626,12 @@ const PageCv = () => {
                       //   (fruit, i) => i !== chipToDelete.key - 1
                       // );
                       const newItems = competences.filter(
-                        (item) => item.key !== chipToDelete.key
+                        (item) => item.key !== chipToDelete.key,
                       );
 
                       dispatch(createCompetences(newItems));
                     }}
-                  />
+                  /> */}
                   <Space />
 
                   <ChipsArray
@@ -655,7 +654,7 @@ const PageCv = () => {
                       //   (fruit, i) => i !== chipToDelete.key - 1
                       // );
                       const newItems = loisirs.filter(
-                        (item) => item.key !== chipToDelete.key
+                        (item) => item.key !== chipToDelete.key,
                       );
 
                       dispatch(createLoisirs(newItems));
@@ -674,7 +673,7 @@ const PageCv = () => {
                     lg: "row",
                   }}
                 >
-                  <ChipsArray
+                  {/* <ChipsArray
                     title={"Réseaux sociaux *"}
                     sousTitre={"Réseaux sociaux non disponible"}
                     addToCv={createRsociaux}
@@ -707,7 +706,7 @@ const PageCv = () => {
 
                       dispatch(createRsociaux(newItems));
                     }}
-                  />
+                  /> */}
 
                   <ChipsArray
                     title={"Emploi *"}
@@ -730,7 +729,7 @@ const PageCv = () => {
                     chipData={EmploiArr}
                     handleDelete={(chipToDelete) => () => {
                       const newItems = EmploiArr?.filter(
-                        (item) => item.key !== chipToDelete.key
+                        (item) => item.key !== chipToDelete.key,
                       );
 
                       dispatch(createEmploi(newItems));
@@ -851,8 +850,8 @@ export default PageCv;
                   /> */
 }
 
-
-              {/* <InputFeilds
+{
+  /* <InputFeilds
                     label={"marié"}
                     error={errors.situation && touched.situation}
                     helperText={
@@ -869,4 +868,5 @@ export default PageCv;
                     onBlur={() => {
                       setFieldTouched("situation", true);
                     }}
-                  /> */}
+                  /> */
+}

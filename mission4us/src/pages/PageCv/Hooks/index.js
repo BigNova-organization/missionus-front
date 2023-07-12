@@ -60,14 +60,14 @@ export function UseHooks() {
       .min(6, "L'adresse est trop court - doit être de 6 caractères minimum.")
       .max(
         200,
-        "L'adresse est trop long - doit être de 200 caractères maximum."
+        "L'adresse est trop long - doit être de 200 caractères maximum.",
       )
       .required("L'adresse est requis"),
     apropos: Yup.string()
       .min(6, "a propos est trop court - doit être de 6 caractères minimum.")
       .max(
         200,
-        "a propos est trop long - doit être de 200 caractères maximum."
+        "a propos est trop long - doit être de 200 caractères maximum.",
       ),
     // .required("a propos est requis")
     langue: Yup.string().required("la langue est requis"),
@@ -76,7 +76,7 @@ export function UseHooks() {
     experience: Yup.string().required("l'experience est requis"),
     formation: Yup.string(),
     // .required("formation est requis")
-    competence: Yup.string().required("competence est requis"),
+    competence: Yup.string(),
     loisirs: Yup.string(),
     reseaux: Yup.string(),
     // .required("réseaux sociaux est requis")
@@ -84,7 +84,7 @@ export function UseHooks() {
     // .required("profile image est requis")
     presentation: Yup.string().min(
       350,
-      "La presentation est trop court - doit être de 150 caractères minimum."
+      "La presentation est trop court - doit être de 150 caractères minimum.",
     ),
     // .required("presentation est requis"),
   });
