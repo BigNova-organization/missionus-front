@@ -516,7 +516,7 @@ const PageCv = () => {
                   }}
                 >
                   <ChipsArray
-                    title={"Experiences Professionnelle *"}
+                    title={"Experiences Professionnelle "}
                     sousTitre={"Aucune expérience professionnelle"}
                     addToCv={createExperiences}
                     error={errors.experience && touched.experience}
@@ -549,7 +549,7 @@ const PageCv = () => {
                   <Space />
 
                   <ChipsArray
-                    title={"Formations *"}
+                    title={"Formations "}
                     sousTitre={"Aucune Formation"}
                     addToCv={createFomations}
                     // titleModel={"Ajouter une Formation"}
@@ -709,7 +709,7 @@ const PageCv = () => {
                   /> */}
 
                   <ChipsArray
-                    title={"Emploi *"}
+                    title={"Emploi "}
                     sousTitre={"La liste d'emplois est vide."}
                     error={errors.jobs && touched.jobs}
                     helperText={errors.jobs && touched.jobs ? errors.jobs : ""}

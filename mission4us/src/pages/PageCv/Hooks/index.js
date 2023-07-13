@@ -71,17 +71,14 @@ export function UseHooks() {
       ),
     // .required("a propos est requis")
     langue: Yup.string().required("la langue est requis"),
-    jobs: Yup.string().required("Emploi est requis"),
+    jobs: Yup.string(),
     permis: Yup.string().required("le permis est requis"),
-    experience: Yup.string().required("l'experience est requis"),
+    experience: Yup.string(),
     formation: Yup.string(),
-    // .required("formation est requis")
     competence: Yup.string(),
     loisirs: Yup.string(),
     reseaux: Yup.string(),
-    // .required("réseaux sociaux est requis")
     profile: Yup.string(),
-    // .required("profile image est requis")
     presentation: Yup.string().min(
       350,
       "La presentation est trop court - doit être de 150 caractères minimum.",
