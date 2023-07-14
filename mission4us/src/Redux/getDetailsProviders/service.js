@@ -1,9 +1,6 @@
 import axios from "axios";
 
- 
-const api = async (id,token) => {
-
- 
+const api = async (id, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -12,7 +9,10 @@ const api = async (id,token) => {
 
   // const res = await axios.get(`https://api.mission4us.com/api/providers/${id}`, config);
   //
-    const res = await axios.get(`https://api.mission4us.com/api/providers/me`, config);
+  const res = await axios.get(
+    `https://api.mission4us.com/api/providers/${id}`,
+    config,
+  );
   return res;
 };
 const DetailsProvidersService = {
