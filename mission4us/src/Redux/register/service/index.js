@@ -5,7 +5,7 @@ import axios from "axios";
 
 // const API_URL='http://api.mission4us.com/api/register';
 
-const API_URL='http://api.mission4us.com/api/register'
+const API_URL='https://api.mission4us.com/api/register'
  
 const api = async (obj,token) => {
 

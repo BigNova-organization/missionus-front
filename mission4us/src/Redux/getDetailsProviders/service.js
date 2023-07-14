@@ -10,7 +10,9 @@ const api = async (id,token) => {
     },
   };
 
-  const res = await axios.get(`https://api.mission4us.com/api/providers/${id}`, config);
+  // const res = await axios.get(`https://api.mission4us.com/api/providers/${id}`, config);
+  //
+    const res = await axios.get(`https://api.mission4us.com/api/providers/me`, config);
   return res;
 };
 const DetailsProvidersService = {
