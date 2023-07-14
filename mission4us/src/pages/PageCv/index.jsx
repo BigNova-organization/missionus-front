@@ -309,7 +309,7 @@ const PageCv = () => {
 
                 <RowBox>
                   <SelectMenue
-                    selectionTitle="Selectionner votre sexe*"
+                    selectionTitle="Selectionner votre sexe"
                     data={listSexe}
                     handleOpen={(val) => {
                       setFieldValue("sexe", val);
@@ -323,7 +323,7 @@ const PageCv = () => {
                     marginRight
                   />
                   <SelectMenue
-                    selectionTitle="Selectionner votre situation*"
+                    selectionTitle="Selectionner votre situation"
                     data={listSituation}
                     handleOpen={(val) => {
                       setFieldValue("situation", val);
@@ -352,7 +352,6 @@ const PageCv = () => {
                     value={phone}
                     onChange={handleChange}
                     autoFocus={true}
-                    required={true}
                     id={"outlined-controlled"}
                     name={"phone"}
                     onBlur={() => {
@@ -369,7 +368,6 @@ const PageCv = () => {
                     onChange={handleChange}
                     autoFocus={true}
                     autoComplete="email"
-                    required={true}
                     id={"outlined-controlled"}
                     name={"email"}
                     onBlur={() => {
@@ -390,7 +388,6 @@ const PageCv = () => {
                       setFieldValue("date", date.toString());
                     }}
                     autoFocus={true}
-                    required={true}
                     id={"outlined-controlled"}
                     name={"date"}
                     onBlur={() => {
@@ -411,7 +408,6 @@ const PageCv = () => {
                     value={adresse}
                     onChange={handleChange}
                     autoFocus={true}
-                    required={true}
                     id={"outlined-controlled"}
                     name={"adresse"}
                     onBlur={() => {
@@ -433,7 +429,6 @@ const PageCv = () => {
                     value={apropos}
                     onChange={handleChange}
                     autoFocus={true}
-                    required={true}
                     name={"apropos"}
                     onBlur={() => {
                       setFieldTouched("apropos", true);
@@ -457,7 +452,6 @@ const PageCv = () => {
                     value={presentation}
                     onChange={handleChange}
                     autoFocus={true}
-                    required={true}
                     name={"presentation"}
                     onBlur={() => {
                       setFieldTouched("presentation", presentation);
@@ -471,7 +465,7 @@ const PageCv = () => {
 
                 <RowBox>
                   <SelectMenue
-                    selectionTitle="Selectionner une langue *"
+                    selectionTitle="Selectionner une langue "
                     data={listLangue}
                     handleOpen={(val) => {
                       setFieldValue("langue", val);
@@ -487,7 +481,7 @@ const PageCv = () => {
                     marginRight
                   />
                   <SelectMenue
-                    selectionTitle="Selectionner une catégorie *"
+                    selectionTitle="Selectionner une catégorie "
                     data={listPermis}
                     handleOpen={(val) => {
                       setFieldValue("permis", val);
