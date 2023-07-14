@@ -56,7 +56,7 @@ export function UseHooks() {
       .matches(emailPhoneRegex, "Doit être un email valide !")
       .required("email est requis")
       ,
-    date: Yup.string().required("la date est requis"),
+    date: Yup.string(),
     adresse: Yup.string()
       .min(6, "L'adresse est trop court - doit être de 6 caractères minimum.")
       .max(
