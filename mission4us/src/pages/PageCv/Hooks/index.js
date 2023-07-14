@@ -50,11 +50,12 @@ export function UseHooks() {
     situation: Yup.string(),
     // .required("situation est requis")
     phone: Yup.number()
-      .min(10, "Le phone est trop court - doit être de 10 number minimum.")
-      .required("phone est requis"),
+      .min(10, "Le phone est trop court - doit être de 10 number minimum."),
+      // .required("phone est requis"),
     email: Yup.string()
       .matches(emailPhoneRegex, "Doit être un email valide !")
-      .required("email est requis"),
+      .required("email est requis")
+      ,
     date: Yup.string().required("la date est requis"),
     adresse: Yup.string()
       .min(6, "L'adresse est trop court - doit être de 6 caractères minimum.")
@@ -62,7 +63,8 @@ export function UseHooks() {
         200,
         "L'adresse est trop long - doit être de 200 caractères maximum.",
       )
-      .required("L'adresse est requis"),
+      // .required("L'adresse est requis")
+      ,
     apropos: Yup.string()
       .min(6, "a propos est trop court - doit être de 6 caractères minimum.")
       .max(
@@ -70,9 +72,13 @@ export function UseHooks() {
         "a propos est trop long - doit être de 200 caractères maximum.",
       ),
     // .required("a propos est requis")
-    langue: Yup.string().required("la langue est requis"),
+    langue: Yup.string()
+    // .required("la langue est requis")
+    ,
     jobs: Yup.string(),
-    permis: Yup.string().required("le permis est requis"),
+    permis: Yup.string()
+    // .required("le permis est requis")
+    ,
     experience: Yup.string(),
     formation: Yup.string(),
     competence: Yup.string(),
