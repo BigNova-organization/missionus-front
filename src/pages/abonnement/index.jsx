@@ -15,4 +15,4 @@ const Abonnement = () => {
   );
 };
 
-export default Abonnement;
+export  {Abonnement};

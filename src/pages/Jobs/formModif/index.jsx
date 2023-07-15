@@ -121,4 +121,4 @@ const dispatch=useDispatch()
   )
 }
 
-export default  UpdateJob
+export  {UpdateJob}

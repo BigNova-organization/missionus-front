@@ -330,4 +330,4 @@ const Utilisateurs = () => {
   );
 };
 
-export default Utilisateurs;
+export {Utilisateurs};

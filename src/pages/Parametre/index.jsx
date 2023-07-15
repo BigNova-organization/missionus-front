@@ -10,4 +10,4 @@ const Parametre = () => {
   );
 };
 
-export default Parametre;
+export  {Parametre};

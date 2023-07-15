@@ -224,4 +224,4 @@ const Clients = () => {
   );
 };
 
-export default Clients;
+export {Clients};

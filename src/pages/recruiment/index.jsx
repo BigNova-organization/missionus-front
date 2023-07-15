@@ -15,4 +15,4 @@ const Recruitment = () => {
   );
 };
 
-export default Recruitment;
+export {Recruitment};

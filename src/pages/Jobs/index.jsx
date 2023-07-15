@@ -309,4 +309,4 @@ const Jobs = () => {
   );
 };
 
-export default Jobs;
+export {Jobs};

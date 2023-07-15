@@ -92,4 +92,4 @@ const Login = () => {
   return <></>;
 };
 
-export default Login;
+export {Login};

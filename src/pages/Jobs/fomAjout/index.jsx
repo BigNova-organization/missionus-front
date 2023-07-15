@@ -178,4 +178,4 @@ const AddJob = () => {
   )
 }
 
-export default AddJob
+export {AddJob}

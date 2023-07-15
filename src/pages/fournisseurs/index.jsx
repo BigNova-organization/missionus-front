@@ -171,4 +171,4 @@ const Fournisseurs = () => {
   );
 };
 
-export default Fournisseurs;
+export {Fournisseurs};
