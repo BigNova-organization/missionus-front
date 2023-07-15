@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import DetailsProvidersService from "./service";
 
 export const getDetailsProviders = createAsyncThunk(
-  "CreateCvApi/post",
+  "DetailsProvider/post",
   async (object, thunkAPI) => {
     const token = localStorage.getItem("bearer-token");
     const { obj, onErrorAction, onSuccesAction } = object;
@@ -10,7 +10,7 @@ export const getDetailsProviders = createAsyncThunk(
       let res = await DetailsProvidersService.api(obj, token);
       console.log("res.status", res.status);
       if (res.status == 200) {
-        onSuccesAction("cv Created successfully");
+        onSuccesAction("get Details Providers successfully");
         return res.data;
       } else {
         onErrorAction();
@@ -20,7 +20,7 @@ export const getDetailsProviders = createAsyncThunk(
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
-      onErrorAction();
+      onErrorAction(message || "get Details Providers failed");
 
       return thunkAPI.rejectWithValue(message);
     }

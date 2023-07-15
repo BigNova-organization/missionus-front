@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import DetailsClientService from "./service";
 
 export const getDetailsClient = createAsyncThunk(
-  "CreateCvApi/post",
+  "DetailsClient/post",
   async (object, thunkAPI) => {
     const token = localStorage.getItem("bearer-token");
     const {obj,onErrorAction,onSuccesAction}=object
@@ -11,7 +11,7 @@ export const getDetailsClient = createAsyncThunk(
      console.log('res.status', res.status)
      if(res.status ==200){
        console.log('res', res.data)
-       onSuccesAction('cv Created successfully')
+       onSuccesAction()
         return res.data
      }else{
       onErrorAction()
@@ -22,7 +22,9 @@ export const getDetailsClient = createAsyncThunk(
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
-      onErrorAction()
+
+      onErrorAction(message || "get Details Client failed");
+
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -30,7 +32,7 @@ export const getDetailsClient = createAsyncThunk(
 );
 
 const DetailsClientSlice = createSlice({
-  name: "DetailsProviders",
+  name: "DetailsClient",
   initialState: {
     info: null,
     isLoading: false,
