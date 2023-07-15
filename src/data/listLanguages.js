@@ -1,12 +1,12 @@
 export const listLangue = [
   {
-    name: "Français",
-    value: "Français",
+    id: 1, code: 'FR', name: 'Français'
   },
   {
-    name: "Anglais",
-    value: "English",
+    id: 2, code: 'EN', name: 'English'
+
   },
+  {id: 3, code: 'DE', name: 'Deutsch'}
 ];
 
 

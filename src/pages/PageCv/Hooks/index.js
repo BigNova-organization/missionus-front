@@ -5,20 +5,24 @@ import * as Yup from "yup";
 import useStyles from "../styles";
 
 export function UseHooks() {
-  const { user } = useSelector((state) => state.account);
+  const user = useSelector((state) => state.detailsProvider.info);
 
   const initialState = {
-    nom: user.lastName ? user.firstName : "",
-    prenom: user.lastName ? user.lastName : "",
+    nom: user?.firstName ? user?.firstName : "",
+    prenom: user?.lastName ? user?.lastName : "",
     sexe: "",
     situation: "",
-    phone: "",
-    email: user.email ? user.email : "",
-    date: "",
-    adresse: "",
+    phone: user?.phoneNumber ? user?.phoneNumber : "",
+    email: user?.email ? user?.email : "",
+    date: user?.dateOfBirth ? user?.dateOfBirth : "",
+    adresse:
+      user?.city && user?.country
+        ? `${user?.city}, ${user?.country}`
+        : user?.city || user?.country || "",
+
     apropos: "",
-    langue: "",
-    permis: "",
+    langue: user?.languages ? user?.languages[0].code : "",
+    permis: user?.driverLicences ? user?.driverLicences[0]?.name : "",
     experience: "",
     formation: "",
     competence: "",
@@ -47,36 +51,34 @@ export function UseHooks() {
     // .required("sexe est requis")
     situation: Yup.string(),
     // .required("situation est requis")
-    phone: Yup.number()
-      .min(10, "Le phone est trop court - doit être de 10 number minimum."),
-      // .required("phone est requis"),
+    phone: Yup.number().min(
+      10,
+      "Le phone est trop court - doit être de 10 number minimum."
+    ),
+    // .required("phone est requis"),
     email: Yup.string()
       .matches(emailPhoneRegex, "Doit être un email valide !")
-      .required("email est requis")
-      ,
+      .required("email est requis"),
     date: Yup.string(),
     adresse: Yup.string()
       .min(6, "L'adresse est trop court - doit être de 6 caractères minimum.")
       .max(
         200,
-        "L'adresse est trop long - doit être de 200 caractères maximum.",
-      )
-      // .required("L'adresse est requis")
-      ,
+        "L'adresse est trop long - doit être de 200 caractères maximum."
+      ),
+    // .required("L'adresse est requis")
     apropos: Yup.string()
       .min(6, "a propos est trop court - doit être de 6 caractères minimum.")
       .max(
         200,
-        "a propos est trop long - doit être de 200 caractères maximum.",
+        "a propos est trop long - doit être de 200 caractères maximum."
       ),
     // .required("a propos est requis")
-    langue: Yup.string()
+    langue: Yup.string(),
     // .required("la langue est requis")
-    ,
     jobs: Yup.string(),
-    permis: Yup.string()
+    permis: Yup.string(),
     // .required("le permis est requis")
-    ,
     experience: Yup.string(),
     formation: Yup.string(),
     competence: Yup.string(),
@@ -85,7 +87,7 @@ export function UseHooks() {
     profile: Yup.string(),
     presentation: Yup.string().min(
       350,
-      "La presentation est trop court - doit être de 150 caractères minimum.",
+      "La presentation est trop court - doit être de 150 caractères minimum."
     ),
     // .required("presentation est requis"),
   });

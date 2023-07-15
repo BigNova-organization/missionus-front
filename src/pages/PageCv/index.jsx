@@ -83,14 +83,14 @@ const PageCv = () => {
   const handleSubmitButtonState = (isSubmit) => {
     setSubmitButtonState(isSubmit);
   };
-  const notify = () => toast.success("CV créée avec succés");
+  const notify = () => toast.success("fetched succesfully");
   const onError = () => {};
   const onSuccesAction = () => {
     notify();
   };
 
-  const onErrorAction = () => {
-    toast.error("échec de la création du CV");
+  const onErrorAction = (message) => {
+    toast.error(`échec ${message}`);
   };
 
   const formatDate = (dateString) => {
@@ -110,7 +110,14 @@ const PageCv = () => {
     dispatch(getDetailsProviders(object));
   }, []);
 
-  return (
+
+  const  {isLoading}  = useSelector((state) => state.detailsProvider);
+
+  console.log('isLoading', isLoading)
+
+  return isLoading ? (
+    <div>loading</div>
+  ) : (
     <Box>
       <Head title="Page Cv" />
       <Body>
@@ -470,6 +477,7 @@ const PageCv = () => {
                       setFieldTouched("langue", true);
                     }}
                     marginRight
+                    langue
                   />
                   <SelectMenue
                     selectionTitle="Selectionner une catégorie "

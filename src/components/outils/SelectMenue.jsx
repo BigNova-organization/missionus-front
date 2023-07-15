@@ -44,13 +44,15 @@ const SelectMenue = ({
   marginRight,
   disabled,
   multiple,
-  renderValue
+  renderValue,
+  langue
 }) => {
   const theme = useTheme();
   const { mode } = useSelector((state) => state.global);
 
   const handleChange = (event) => {
-    handleOpen(event.target.value);
+
+      handleOpen(event.target.value);
   };
   const classes = useStyles();
   return (
@@ -100,7 +102,7 @@ const SelectMenue = ({
             <MenuItem
               key={index}
               classes={{ root: classes.menuItem }}
-              value={item.value}
+              value={langue ?item.code :item.value}
             >
               {item.name}
             </MenuItem>
