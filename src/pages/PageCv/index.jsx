@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Badge, Box, Button, InputBase, Stack, useTheme } from "@mui/material";
 import Head from "../../components/Head";
 import Body from "../../components/Body";
@@ -36,6 +36,7 @@ import { CreateCvApi } from "../../Redux/createCv/api/createCvSlice";
 
 import DatePickers from "../../components/datePicker";
 import EmploiCo from "./Components/Emploi";
+import { getDetailsProviders } from "../../Redux/getDetailsProviders";
 
 const PageCv = () => {
   const theme = useTheme();
@@ -100,6 +101,14 @@ const PageCv = () => {
 
     return `${day}/${month}/${year}`;
   };
+
+  useEffect(() => {
+    let object = {
+      onSuccesAction,
+      onErrorAction,
+    };
+    dispatch(getDetailsProviders(object));
+  }, []);
 
   return (
     <Box>
@@ -445,7 +454,6 @@ const PageCv = () => {
                   />
                 </RowBox>
 
-
                 <RowBox>
                   <SelectMenue
                     selectionTitle="Selectionner une langue "
@@ -773,5 +781,4 @@ const PageCv = () => {
   );
 };
 
-export  {PageCv};
- 
+export { PageCv };
