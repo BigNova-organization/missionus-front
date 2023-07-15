@@ -8,7 +8,6 @@ import InputFeilds from "../../components/outils/InputFeilds";
 import Space from "../../components/outils/Space";
 import RowBox from "../../components/RowBox";
 import SelectMenue from "../../components/outils/SelectMenue";
-import useStyles from "./styles";
 import {
   listLangue,
   listPermis,
@@ -17,28 +16,22 @@ import {
 } from "../../data/listLanguages";
 import ChipsArray from "../../components/Add-card";
 import {
-  createCompetences,
   createEmploi,
   createExperiences,
   createFomations,
   createLoisirs,
-  createRsociaux,
-  handleModelopenComp,
   handleModelopenExp,
   handleModelopenForm,
   handleModelopenLois,
   handleModeopenEmploi,
-  handleModeopenResx,
 } from "../../Redux/createCv/slice";
 import { Person2Outlined } from "@mui/icons-material";
 import { PrimaryText } from "../../components/utils/typography";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
-import ReseauxSc from "./Components/ReseauxSc";
 import Experiences from "./Components/Experiences";
 import Formations from "./Components/Formations";
 import Loisirs from "./Components/Loisirs";
-import Competences from "./Components/Competences";
 import { CreateCvApi } from "../../Redux/createCv/api/createCvSlice";
 
 import DatePickers from "../../components/datePicker";
@@ -52,8 +45,6 @@ const PageCv = () => {
 
   const [File, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-
-  const classes = useStyles();
 
   const shapeStyles = {
     bgcolor: theme.palette.background.default,
@@ -69,10 +60,7 @@ const PageCv = () => {
   const {
     openExp,
     openForm,
-    openComp,
     openLois,
-    openResx,
-    Rsociaux,
     fomations,
     loisirs,
     experience,
@@ -116,7 +104,6 @@ const PageCv = () => {
   return (
     <Box>
       <Head title="Page Cv" />
-      {/* <ToastContainer /> */}
       <Body>
         <PrimaryText
           fontWeight={"600"}
@@ -435,7 +422,6 @@ const PageCv = () => {
                     }}
                   />
                 </RowBox>
-                {/* <RowBox> */}
 
                 <RowBox>
                   <InputFeilds
@@ -459,9 +445,6 @@ const PageCv = () => {
                   />
                 </RowBox>
 
-                {/* </RowBox> */}
-
-                {/* <Space space={30} /> */}
 
                 <RowBox>
                   <SelectMenue
@@ -535,7 +518,7 @@ const PageCv = () => {
                     chipData={experience}
                     handleDelete={(chipToDelete) => () => {
                       const newItems = experience.filter(
-                        (item) => item.key !== chipToDelete.key,
+                        (item) => item.key !== chipToDelete.key
                       );
                       dispatch(createExperiences(newItems));
                     }}
@@ -569,10 +552,10 @@ const PageCv = () => {
                     chipData={fomations}
                     handleDelete={(chipToDelete) => () => {
                       const updatedFruits = fomations.filter(
-                        (fruit, i) => i !== chipToDelete.key - 1,
+                        (fruit, i) => i !== chipToDelete.key - 1
                       );
                       const newItems = fomations.filter(
-                        (item) => item.key !== chipToDelete.key,
+                        (item) => item.key !== chipToDelete.key
                       );
 
                       dispatch(createFomations(newItems));
@@ -648,7 +631,7 @@ const PageCv = () => {
                       //   (fruit, i) => i !== chipToDelete.key - 1
                       // );
                       const newItems = loisirs.filter(
-                        (item) => item.key !== chipToDelete.key,
+                        (item) => item.key !== chipToDelete.key
                       );
 
                       dispatch(createLoisirs(newItems));
@@ -723,7 +706,7 @@ const PageCv = () => {
                     chipData={EmploiArr}
                     handleDelete={(chipToDelete) => () => {
                       const newItems = EmploiArr?.filter(
-                        (item) => item.key !== chipToDelete.key,
+                        (item) => item.key !== chipToDelete.key
                       );
 
                       dispatch(createEmploi(newItems));
@@ -790,77 +773,5 @@ const PageCv = () => {
   );
 };
 
-export default PageCv;
-
-{
-  /* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <StyledDatePicker
-                      //
-                      //  label={"Date de naissance"}
-                      onChange={(date) => {
-                        setFieldValue("date",formatDate(date.toString()));
-                      }}
-                      format="DD/MM/YYYY"
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          variant="outlined"
-                          className={classes.datePicker}
-                          id="datepicker"
-                      value={date}
-                      error={errors.date && touched.date}
-                      helperText={errors.date && touched.date ? errors.date : ""}
-                      autoFocus={true}
-                      required={true}
-                    name={"date"}
-                    onBlur={() => {
-                      setFieldTouched("date", true);
-                    }}
-                        />
-                      )}
-                    shrink={true}
-
-                    />
-                  </LocalizationProvider> */
-}
-
-{
-  /* <InputFeilds
-                    label={"Date de naissance"}
-                    error={errors.date && touched.date}
-                    helperText={errors.date && touched.date ? errors.date : ""}
-                    value={date}
-                    onChange={handleChange}
-                    autoFocus={true}
-                    required={true}
-                    id={"outlined-controlled"}
-                    name={"date"}
-                    onBlur={() => {
-                      setFieldTouched("date", true);
-                    }}
-                    type=""
-                    shrink={true}
-                    renderInput={(params) => <TextField {...params} />}
-                  /> */
-}
-
-{
-  /* <InputFeilds
-                    label={"marié"}
-                    error={errors.situation && touched.situation}
-                    helperText={
-                      errors.situation && touched.situation
-                        ? errors.situation
-                        : ""
-                    }
-                    value={situation}
-                    onChange={handleChange}
-                    autoFocus={true}
-                    required={true}
-                    id={"outlined-controlled"}
-                    name={"situation"}
-                    onBlur={() => {
-                      setFieldTouched("situation", true);
-                    }}
-                  /> */
-}
+export  {PageCv};
+ 

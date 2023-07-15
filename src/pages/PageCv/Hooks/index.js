@@ -2,12 +2,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { fr } from "yup-locales";
 import useStyles from "../styles";
 
 export function UseHooks() {
   const { user } = useSelector((state) => state.account);
-  console.log("user", user);
 
   const initialState = {
     nom: user.lastName ? user.firstName : "",
@@ -35,7 +33,7 @@ export function UseHooks() {
 
   const navigate = useNavigate();
   const OnSubmit = async (data) => {
-    navigate("VisualiserCv", { state: data });
+    navigate("/VisualiserCvFournisseur", { state: data });
   };
 
   let validationSchema = Yup.object().shape({

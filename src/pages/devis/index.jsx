@@ -179,7 +179,7 @@ const Devis = () => {
                                     onClick={() => {
                                       if (devi.providerId) {
                                         // console.log("devi", devi);
-                                        navigate("/VisualiserCvDetailsProvider",{state:devi.providerId});
+                                        navigate("/VisualiserCvClient",{state:devi.providerId});
                                       } else {
                                         return;
                                       }
@@ -228,4 +228,4 @@ const Devis = () => {
   );
 };
 
-export default Devis;
+export  {Devis};
