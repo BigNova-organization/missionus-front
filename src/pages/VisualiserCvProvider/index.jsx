@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Divider, Stack, useTheme } from "@mui/material";
+import { Stack } from "@mui/material";
 import Head from "../../components/Head";
 import Presentation from "./components/presentaion";
 import Body from "../../components/Body";
@@ -8,8 +8,7 @@ import Space from "../../components/outils/Space";
 import Formation from "./components/formations";
 import Competence from "./components/competence";
 import Hobies from "./components/hobie";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import SocialMedia from "./components/rsociaux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const VisualiserCvProvider = () => {
   const location = useLocation();
@@ -20,6 +19,9 @@ const VisualiserCvProvider = () => {
   const onReturn = () => {
     navigate("/PageCv");
   };
+
+
+
 
   return (
     <>
