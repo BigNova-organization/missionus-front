@@ -85,4 +85,4 @@ const ProtectedRoutes = (props) => {
 
 }
 
-export default ProtectedRoutes
+export { ProtectedRoutes };

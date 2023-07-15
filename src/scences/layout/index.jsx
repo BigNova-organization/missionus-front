@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/SideBare";
 import Navbar from "../../components/Navbar";
 import { useSelector } from "react-redux";
-import PermissionDenied from "../../components/Pages/WithoutPermission/PermissionDenied";
+import { NoPermission } from "../../Routes/page";
 
 const Layout = () => {
   let data = {};
@@ -39,11 +39,11 @@ const Layout = () => {
           setIsSidebarOpen={setIsSidebarOpen}
         />
         <Box flexGrow={1}>
-          {_user ? <Outlet /> : <PermissionDenied />}
+          {_user ? <Outlet /> : <NoPermission />}
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default Layout;
+export  {Layout};

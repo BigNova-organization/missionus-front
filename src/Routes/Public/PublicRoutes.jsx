@@ -18,4 +18,4 @@ const  PublicRoutes=(props) =>{
   return auth?<Navigate to="/missions"/>: <Outlet/>
 }
 
-export default PublicRoutes;
+export {PublicRoutes};

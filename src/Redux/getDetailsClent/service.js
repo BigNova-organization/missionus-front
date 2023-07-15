@@ -8,13 +8,12 @@ const api = async (id, token) => {
   };
 
   const res = await axios.get(
-    `https://api.mission4us.com/api/providers/me`,
-    config
+    `https://api.mission4us.com/api/providers/${id}`,
+    config,
   );
   return res;
 };
-
-const DetailsProvidersService = {
+const DetailsClientService = {
   api,
 };
-export default DetailsProvidersService;
+export default DetailsClientService;

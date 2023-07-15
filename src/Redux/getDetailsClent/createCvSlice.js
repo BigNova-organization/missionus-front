@@ -1,26 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import DetailsProvidersService from "./service";
+import DetailsClientService from "./service";
 
-export const getDetailsProviders = createAsyncThunk(
+export const getDetailsClient = createAsyncThunk(
   "CreateCvApi/post",
   async (object, thunkAPI) => {
     const token = localStorage.getItem("bearer-token");
-    const { obj, onErrorAction, onSuccesAction } = object;
+    const {obj,onErrorAction,onSuccesAction}=object
     try {
-      let res = await DetailsProvidersService.api(obj, token);
-      console.log("res.status", res.status);
-      if (res.status == 200) {
-        onSuccesAction("cv Created successfully");
-        return res.data;
-      } else {
-        onErrorAction();
-      }
+     let res= await DetailsClientService.api(obj,token);
+     console.log('res.status', res.status)
+     if(res.status ==200){
+       console.log('res', res.data)
+       onSuccesAction('cv Created successfully')
+        return res.data
+     }else{
+      onErrorAction()
+     }
+
     } catch (error) {
       const message =
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
-      onErrorAction();
+      onErrorAction()
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -44,14 +46,15 @@ const DetailsProvidersSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(getDetailsProviders.pending, (state) => {
+
+      .addCase(getDetailsClient.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getDetailsProviders.fulfilled, (state, action) => {
+      .addCase(getDetailsClient.fulfilled, (state, action) => {
         state.isLoading = false;
         state.info = action.payload;
       })
-      .addCase(getDetailsProviders.rejected, (state, action) => {
+      .addCase(getDetailsClient.rejected, (state, action) => {
         state.isLoading = false;
         state.message = action.payload;
         state.info = null;
