@@ -37,7 +37,8 @@ const VisualiserCvClient = () => {
     }
   }, [id]);
   
-  const { info: state } = useSelector((state) => state.detailsProvider);
+  const state  = useSelector((state) => state.detailsClient.info);
+
 
   return (
     <>

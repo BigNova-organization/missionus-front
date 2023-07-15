@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export function UseDetailsHook() {
-  const notify = () => toast.success("CV créée avec succés");
+  const notify = () => toast.success("détails client geted successfully");
   const onError = () => {};
   const onSuccesAction = () => {
     notify();
   };
 
   const onErrorAction = (message) => {
-    toast.error("échec de la création du CV");
+    toast.error(message);
   };
 
   return {

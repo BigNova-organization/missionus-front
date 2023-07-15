@@ -8,7 +8,6 @@ export const getDetailsProviders = createAsyncThunk(
     const { obj, onErrorAction, onSuccesAction } = object;
     try {
       let res = await DetailsProvidersService.api(obj, token);
-      console.log("res.status", res.status);
       if (res.status == 200) {
         onSuccesAction("get Details Providers successfully");
         return res.data;

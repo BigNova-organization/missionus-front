@@ -206,7 +206,6 @@ const PageCv = () => {
               };
               dispatch(CreateCvApi(object));
             } else {
-              // console.log("visiualizer", values);
               OnSubmit(values);
             }
           }}

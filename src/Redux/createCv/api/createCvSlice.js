@@ -9,10 +9,8 @@ export const CreateCvApi = createAsyncThunk(
     const {obj,onErrorAction,onSuccesAction}=object
     try {
      let res= await CreateCvService.api(obj,token);
-     console.log('res.status', res.status)
      if(res.status ==200){
-       console.log('res', res.data)
-       onSuccesAction('cv Created successfully')
+       onSuccesAction()
         return res.data
      }else{
       onErrorAction()
@@ -23,7 +21,7 @@ export const CreateCvApi = createAsyncThunk(
         (error.response && error.response.data) ||
         error.message ||
         error.toString();
-      onErrorAction()
+      onErrorAction(message || "get Details Client failed");
 
       return thunkAPI.rejectWithValue(message);
     }

@@ -8,9 +8,7 @@ export const getDetailsClient = createAsyncThunk(
     const {obj,onErrorAction,onSuccesAction}=object
     try {
      let res= await DetailsClientService.api(obj,token);
-     console.log('res.status', res.status)
      if(res.status ==200){
-       console.log('res', res.data)
        onSuccesAction()
         return res.data
      }else{
@@ -23,7 +21,7 @@ export const getDetailsClient = createAsyncThunk(
         error.message ||
         error.toString();
 
-      onErrorAction(message || "get Details Client failed");
+      onErrorAction(message || "failed geting details Cv client");
 
 
       return thunkAPI.rejectWithValue(message);
