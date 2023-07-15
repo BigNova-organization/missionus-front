@@ -12,7 +12,7 @@ import Presentation from "./components/presentaion";
 import Experience from "./components/experience";
 import Competence from "./components/competence";
 
-import { getDetailsProviders } from "../../Redux/getDetailsProviders/createCvSlice";
+import { getDetailsClient } from "../../Redux/getDetailsClent";
 
 const VisualiserCvClient = () => {
   const { onSuccesAction, onErrorAction } = UseDetailsHook();
@@ -33,7 +33,7 @@ const VisualiserCvClient = () => {
         onSuccesAction,
         onErrorAction,
       };
-      dispatch(getDetailsProviders(object));
+      dispatch(getDetailsClient(object));
     }
   }, [id]);
   
