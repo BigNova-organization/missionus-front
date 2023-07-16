@@ -7,10 +7,9 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import { FormHelperText, useTheme } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { PrimaryText } from "../utils/typography";
 import Space from "./Space";
-import { useEffect } from "react";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -49,70 +48,51 @@ const useStyles = makeStyles((theme) => ({
     fill: "#237a57",
   },
 }));
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
+
 
 export default function MultipleSelectCheckmarks({
   label,
-  handleOpen,
-  selectionTitle,
+
   error,
   helperText,
-  value,
-  onBlur,
+
   marginRight,
-  disabled,
-  multiple,
-  renderValue,
+
   setFieldValue,
   status,
-  data,name,personNames
-
+  data,
+  name,
+  personNames,
 }) {
   const [personName, setPersonName] = React.useState(personNames);
   const theme = useTheme();
   const { mode } = useSelector((state) => state.global);
 
-
-const handleChange = (event) => {
-  const { value } = event.target;
-  setPersonName(value);
-  setFieldValue(name, value.join(", "));
-};
- 
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setPersonName(value);
+    setFieldValue(name, value.join(", "));
+  };
 
   const classes = useStyles();
   return (
-      <FormControl sx={{  width: "100%" }}>
-        {/* <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel> */}
-        {status?.length == 0 || status == 'loading' ? (
-          <div>chargement ...</div>
-        ) : (
+    <FormControl sx={{ width: "100%" }}>
+      {/* <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel> */}
+      {status?.length == 0 || status == "loading" ? (
+        <div>chargement ...</div>
+      ) : (
+        <>
+          <Space space={"20px"} />
 
-          <>
-          <Space space={"20px"} />
-          
           <PrimaryText
-                    fontWeight={"600"}
-                    fontSize={"20px"}
-                    text={label}
-                    color={
-                      theme.palette.secondary.light
-                    }
-                  />
-          
+            fontWeight={"600"}
+            fontSize={"20px"}
+            text={label}
+            color={theme.palette.secondary.light}
+          />
+
           <Space space={"20px"} />
-          
+
           <Select
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
@@ -130,7 +110,6 @@ const handleChange = (event) => {
                 error ? theme.palette.error.main : theme.palette.secondary.light
               }`,
             }}
-            // className={classes.select}
             inputProps={{
               classes: {
                 icon: mode == "light" ? classes.icon : classes.iconDark,
@@ -138,25 +117,22 @@ const handleChange = (event) => {
             }}
             InputLabelProps={{
               style: {
-                color:theme.palette.secondary.dark,
+                color: theme.palette.secondary.dark,
               },
             }}
           >
             {data?.map((i) => (
               <MenuItem key={i.name} value={i.name}>
                 <Checkbox checked={personName.indexOf(i.name) > -1} />
-
                 <ListItemText primary={i.name} />
               </MenuItem>
             ))}
           </Select>
-          </>
-        )}
-        <FormHelperText sx={{ color: theme.palette.error.main, pl: 3 }}>
-          {helperText}
-        </FormHelperText>
-      </FormControl>
+        </>
+      )}
+      <FormHelperText sx={{ color: theme.palette.error.main, pl: 3 }}>
+        {helperText}
+      </FormHelperText>
+    </FormControl>
   );
 }
-
- 
