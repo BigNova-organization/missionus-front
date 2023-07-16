@@ -1,7 +1,5 @@
 import { Box, Stack, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-
-import imageProfile from "../../../../assets/profile.jpeg";
 import Space from "../../../../components/outils/Space";
 import { PrimaryText } from "../../../../components/utils/typography";
 
@@ -11,7 +9,7 @@ const Presentation = ({ state }) => {
   const [Age, setAge] = useState(null);
 
   const calculateAge = () => {
-    const birthDate = new Date(state.date);
+    const birthDate = new Date(state.dateOfBirth);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDifference = today.getMonth() - birthDate.getMonth();
@@ -28,6 +26,20 @@ const Presentation = ({ state }) => {
     let data = calculateAge();
     setAge(data);
   }, [state.date]);
+
+
+
+  let langue = state.languages.map((item) => {
+    return item.name
+  });
+
+  let Adresse = state.city + " " + state.country;
+    
+  let driverLicences = state.driverLicences.map((item) => {return item.name + " ," });
+
+  let phone = state.phoneNumber ? state.phoneNumber : "Non renseigné";
+
+
 
   return (
     <Stack
@@ -80,7 +92,7 @@ const Presentation = ({ state }) => {
         <PrimaryText
           fontWeight={"500"}
           fontSize={"25px"}
-          text={`${state.nom} ${state.prenom}`}
+          text={`${state.firstName} ${state.lastName}`}
           color={theme.palette.primary.light}
         />
 
@@ -146,7 +158,7 @@ const Presentation = ({ state }) => {
             <PrimaryText
               fontWeight={"500"}
               fontSize={"15px"}
-              text={state.langue}
+              text={langue}
               color={theme.palette.primary.contrastText}
               lineHeight="20px"
             />
@@ -163,7 +175,7 @@ const Presentation = ({ state }) => {
             <PrimaryText
               fontWeight={"500"}
               fontSize={"15px"}
-              text={state.phone}
+              text={phone}
               color={theme.palette.primary.contrastText}
               lineHeight="20px"
             />
@@ -190,7 +202,7 @@ const Presentation = ({ state }) => {
             <PrimaryText
               fontWeight={"500"}
               fontSize={"15px"}
-              text={state.adresse}
+              text={Adresse}
               color={theme.palette.primary.contrastText}
               lineHeight="20px"
             />
@@ -207,7 +219,7 @@ const Presentation = ({ state }) => {
             <PrimaryText
               fontWeight={"500"}
               fontSize={"15px"}
-              text={state.permis}
+              text={driverLicences}
               color={theme.palette.primary.contrastText}
               lineHeight="20px"
             />

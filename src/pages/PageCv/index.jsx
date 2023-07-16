@@ -143,7 +143,10 @@ const PageCv = () => {
   }, [experiences]);
 
   const defaultLaguagesName = datalanguages?.map((languages) => languages.name);
+  const defaultLaguagesName3 = datalanguages?.map((languages) => languages);
   const defaultdriverLicences = driverLicences?.map((Licence) => Licence.name);
+  const driverLicence = driverLicences?.map((Licence) => Licence);
+
 
   return isLoading ? (
     <div>loading</div>
@@ -163,69 +166,90 @@ const PageCv = () => {
           initialValues={initialState}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            if (submitButtonState == "Valider") {
-              // console.log("valider", values);
-              // console.log("formation", values.formation);
 
-              let exp = experience.map((i) => {
-                return i.label;
-              });
-              let expe = competences.map((i) => {
-                return i.label;
-              });
 
-              let jobs = EmploiArr.map((i) => {
-                return { id: i.key };
-              });
+            let exp = experience.map((i) => {
+              return i.label;
+            });
+            let expe = competences.map((i) => {
+              return i.label;
+            });
 
-              let skillAndHobbies = expe.map((i) => {
-                return {
-                  name: i.competence.toUpperCase(),
-                  type: "SKILL",
-                  description: i.description,
-                  rating: 9,
-                };
-              });
+            let jobs = EmploiArr.map((i) => {
+              return { id: i.key,label:i?.label, name: i?.label };
+            });
 
-              let experiences = exp.map((i) => {
-                return {
-                  name: i.nomExperience.toUpperCase(),
-                  type: "PROFESSIONNAL_EXPERIENCE",
-                  startDate: i.dateDebut,
-                  endDate: i.experienceDate,
-                  location: i.lieux,
-                  establishment: i.nomEntreprise,
-                  description: i.description,
-                };
-              });
-
-              let obj = {
-                firstName: values.nom,
-                lastName: values.prenom,
-                dateOfBirth: values.date,
-                street: values.adresse,
-                city: "Ginochester",
-                country: "Iran",
-                socialReason: "Intranet Cotton HTTP",
-                phoneNumber: values.phone,
-                email: values.email,
-                languages: [
-                  {
-                    id: 5,
-                  },
-                ],
-                jobs,
-                driverLicences: [
-                  {
-                    id: 1,
-                  },
-                  {
-                    id: 2,
-                  },
-                ],
-                skillAndHobbies,
-                experiences,
+            let skillAndHobbies = expe.map((i) => {
+              return {
+                name: i.competence.toUpperCase(),
+                type: "SKILL",
+                description: i.description,
+                rating: 9,
               };
+            });
+
+            let experiences = exp.map((i) => {
+              return {
+                name: i.nomExperience.toUpperCase(),
+                type: "PROFESSIONNAL_EXPERIENCE",
+                startDate: i.dateDebut,
+                endDate: i.experienceDate,
+                location: i.lieux,
+                establishment: i.nomEntreprise,
+                description: i.description,
+              };
+            });
+
+
+            let obj = {
+              firstName: values.nom,
+              lastName: values.prenom,
+              dateOfBirth: values.date,
+              street: values.adresse,
+              city: "Ginochester",
+              country: "Iran",
+              socialReason: "Intranet Cotton HTTP",
+              phoneNumber: values.phone,
+              email: values.email,
+              languages: [
+                {
+                  id: 5,
+                },
+              ],
+              jobs,
+              driverLicences: [
+                {
+                  id: 1,
+                },
+                {
+                  id: 2,
+                },
+              ],
+              skillAndHobbies,
+              experiences,
+            };
+
+
+
+            let objec =  {
+
+              firstName: values.nom,
+              lastName: values.prenom,
+              dateOfBirth: values.date,
+              street: values.adresse,
+              city: "Ginochester",
+              country: "Iran",
+              socialReason: "Intranet Cotton HTTP",
+              phoneNumber: values.phone,
+              email: values.email,
+              languages: defaultLaguagesName3,
+              driverLicences:driverLicence,
+              skillAndHobbies,
+              experiences
+            }
+            
+
+            if (submitButtonState == "Valider") {
               let object = {
                 obj,
                 onSuccesAction,
@@ -234,7 +258,7 @@ const PageCv = () => {
               };
               dispatch(CreateCvApi(object));
             } else {
-              OnSubmit(values);
+              OnSubmit(objec);
             }
           }}
         >

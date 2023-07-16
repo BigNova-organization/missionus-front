@@ -35,7 +35,7 @@ const Competence = () => {
     },
   ];
   return (
-    <>
+    competences.length?  <>
       <Stack
         component={"div"}
         sx={{
@@ -86,6 +86,7 @@ const Competence = () => {
         })}
       </Stack>
     </>
+    :null
   );
 };
 
