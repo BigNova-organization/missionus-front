@@ -179,7 +179,7 @@ const Devis = () => {
                                     onClick={() => {
                                       if (devi.providerId) {
                                         // console.log("devi", devi);
-                                        navigate("/VisualiserCvClient",{state:devi.providerId});
+                                        navigate(`/VisualiserCvClient/${devi.providerId}`,{state:devi.providerId});
                                       } else {
                                         return;
                                       }

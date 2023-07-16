@@ -25,11 +25,11 @@ const MainRoutes = () => (
         <Route path="fournisseurs" element={<Page.Fournisseurs />} />
         <Route path="jobs/Update Job/:id" element={<Page.UpdateJob />} />
         <Route
-          path="VisualiserCvClient"
+          path="VisualiserCvClient/:id"
           element={<Page.VisualiserCvClient />}
         />
         <Route
-          path="VisualiserCvFournisseur"
+          path="VisualiserCvFournisseur/:id"
           element={<Page.VisualiserCvProvider />}
         />
       </Route>

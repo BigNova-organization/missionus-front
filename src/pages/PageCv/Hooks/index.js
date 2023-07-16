@@ -37,7 +37,7 @@ export function UseHooks() {
 
   const navigate = useNavigate();
   const OnSubmit = async (data) => {
-    navigate("/VisualiserCvFournisseur", { state: data });
+    navigate(`/VisualiserCvFournisseur/${user?.id}`, { state: data ,});
   };
 
   let validationSchema = Yup.object().shape({
