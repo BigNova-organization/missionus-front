@@ -21,8 +21,6 @@ const VisualiserCvProvider = () => {
     navigate("/PageCv");
   };
 
-
-
   return (
     <>
       <Head title="Visualiser Curriculum Vitae" retur btn onReturn={onReturn} />
