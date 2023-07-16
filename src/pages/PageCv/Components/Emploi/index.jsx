@@ -18,12 +18,14 @@ const EmploiCo = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { initialStatEmploi, validationSchemaEmploi } = UseHooks();
-  const { jobs:data ,status} = useSelector((state) => state.jobs);
+  const { jobs:data ,status,} = useSelector((state) => state.jobs);
+  const { info} = useSelector((state) => state.detailsProvider);
 
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
 
+  const personName = info?.jobs?.map((d) => d.name);
   return (
     <Formik
       initialValues={initialStatEmploi}
@@ -84,8 +86,9 @@ const EmploiCo = () => {
                   setFieldTouched("jobs", true);
                 }}
                 setFieldValue={setFieldValue}
-                data={data}
+                 data={data}
                 status={status}
+                personNames={personName}
               />
 
               <Space space={"15px"} />

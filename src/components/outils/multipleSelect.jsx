@@ -63,6 +63,7 @@ export default function MultipleSelectCheckmarks({
   data,
   name,
   personNames,
+  jobs
 }) {
   const [personName, setPersonName] = React.useState(personNames);
   const theme = useTheme();
@@ -75,6 +76,8 @@ export default function MultipleSelectCheckmarks({
   };
 
   const classes = useStyles();
+
+
   return (
     <FormControl sx={{ width: "100%" }}>
       {/* <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel> */}
@@ -97,7 +100,7 @@ export default function MultipleSelectCheckmarks({
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
-            value={personName}
+            value={personNames}
             onChange={handleChange}
             input={<OutlinedInput label="Tag" />}
             renderValue={(selected) => selected.join(", ")}
