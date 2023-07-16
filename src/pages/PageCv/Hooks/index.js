@@ -21,8 +21,8 @@ export function UseHooks() {
         : user?.city || user?.country || "",
 
     apropos: "",
-    langue: user?.languages ? user?.languages[0].code : "",
-    permis: user?.driverLicences ? user?.driverLicences[0]?.name : "",
+    langue:  "",
+    permis:  "",
     experience: "",
     formation: "",
     competence: "",

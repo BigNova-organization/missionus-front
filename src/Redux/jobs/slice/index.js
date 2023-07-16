@@ -1,7 +1,5 @@
-import { ConstructionOutlined } from '@mui/icons-material';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 
 
 const initialState = {

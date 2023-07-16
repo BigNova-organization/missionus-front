@@ -9,8 +9,6 @@ import Space from "../../components/outils/Space";
 import RowBox from "../../components/RowBox";
 import SelectMenue from "../../components/outils/SelectMenue";
 import {
-  listLangue,
-  listPermis,
   listSexe,
   listSituation,
 } from "../../data/listLanguages";
@@ -18,10 +16,8 @@ import ChipsArray from "../../components/Add-card";
 import {
   createEmploi,
   createExperiences,
-  createFomations,
   createLoisirs,
   handleModelopenExp,
-  handleModelopenForm,
   handleModelopenLois,
   handleModeopenEmploi,
 } from "../../Redux/createCv/slice";
@@ -30,13 +26,14 @@ import { PrimaryText } from "../../components/utils/typography";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import Experiences from "./Components/Experiences";
-import Formations from "./Components/Formations";
 import Loisirs from "./Components/Loisirs";
 import { CreateCvApi } from "../../Redux/createCv/api/createCvSlice";
 
 import DatePickers from "../../components/datePicker";
 import EmploiCo from "./Components/Emploi";
 import { getDetailsProviders } from "../../Redux/getDetailsProviders";
+import { updateEmploiArr, updateExperienceArr } from "./Helpers";
+import MultipleSelectCheckmarks from "../../components/outils/multipleSelect";
 
 const PageCv = () => {
   const theme = useTheme();
@@ -60,9 +57,7 @@ const PageCv = () => {
 
   const {
     openExp,
-    openForm,
     openLois,
-    fomations,
     loisirs,
     experience,
     competences,
@@ -78,6 +73,7 @@ const PageCv = () => {
       />
     </Box>
   );
+  const { isLoading, info } = useSelector((state) => state.detailsProvider);
 
   const [submitButtonState, setSubmitButtonState] = useState(null);
   const handleSubmitButtonState = (isSubmit) => {
@@ -93,14 +89,30 @@ const PageCv = () => {
     toast.error(`échec ${message}`);
   };
 
+  const create = (jobsArray) => {
+    dispatch(createEmploi(jobsArray));
+  };
+
+  const createNewExperience = (experienceArray) => {
+    dispatch(createExperiences(experienceArray));
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear().toString();
+    const theme = useTheme();
 
     return `${day}/${month}/${year}`;
   };
+
+  let skillAndHobbies = info?.skillAndHobbies;
+  let experiences = info?.experiences;
+  let newData = info?.jobs;
+
+  let datalanguages = info?.languages;
+  let driverLicences = info?.driverLicences;
 
   useEffect(() => {
     let object = {
@@ -110,10 +122,28 @@ const PageCv = () => {
     dispatch(getDetailsProviders(object));
   }, []);
 
+  useEffect(() => {
+    if (newData) {
+      let obj = {
+        newData,
+        create,
+      };
+      updateEmploiArr(obj);
+    }
+  }, [newData]);
 
-  const  {isLoading}  = useSelector((state) => state.detailsProvider);
+  useEffect(() => {
+    if (newData) {
+      let obj = {
+        newData: experiences,
+        createNewExperience,
+      };
+      updateExperienceArr(obj);
+    }
+  }, [experiences]);
 
-  console.log('isLoading', isLoading)
+  const defaultLaguagesName = datalanguages?.map((languages) => languages.name);
+  const defaultdriverLicences = driverLicences?.map((Licence) => Licence.name);
 
   return isLoading ? (
     <div>loading</div>
@@ -144,11 +174,11 @@ const PageCv = () => {
                 return i.label;
               });
 
-              let EmArr = EmploiArr.map((i) => {
+              let jobs = EmploiArr.map((i) => {
                 return { id: i.key };
               });
 
-              let iok = expe.map((i) => {
+              let skillAndHobbies = expe.map((i) => {
                 return {
                   name: i.competence.toUpperCase(),
                   type: "SKILL",
@@ -157,14 +187,14 @@ const PageCv = () => {
                 };
               });
 
-              let iok2 = exp.map((i) => {
+              let experiences = exp.map((i) => {
                 return {
                   name: i.nomExperience.toUpperCase(),
                   type: "PROFESSIONNAL_EXPERIENCE",
-                  startDate: "2023-05-09",
-                  endDate: "2024-05-09",
+                  startDate: i.dateDebut,
+                  endDate: i.experienceDate,
                   location: i.lieux,
-                  establishment: "ti",
+                  establishment: i.nomEntreprise,
                   description: i.description,
                 };
               });
@@ -172,8 +202,7 @@ const PageCv = () => {
               let obj = {
                 firstName: values.nom,
                 lastName: values.prenom,
-                // dateOfBirth: JSON.stringify(values.date) "2023-05-09",
-                dateOfBirth: "2023-05-09",
+                dateOfBirth: values.date,
                 street: values.adresse,
                 city: "Ginochester",
                 country: "Iran",
@@ -185,7 +214,7 @@ const PageCv = () => {
                     id: 5,
                   },
                 ],
-                jobs: EmArr,
+                jobs,
                 driverLicences: [
                   {
                     id: 1,
@@ -194,9 +223,8 @@ const PageCv = () => {
                     id: 2,
                   },
                 ],
-                skillAndHobbies: iok,
-
-                experiences: iok2,
+                skillAndHobbies,
+                experiences,
               };
               let object = {
                 obj,
@@ -461,7 +489,7 @@ const PageCv = () => {
                 </RowBox>
 
                 <RowBox>
-                  <SelectMenue
+                  {/* <SelectMenue
                     selectionTitle="Selectionner une langue "
                     data={listLangue}
                     handleOpen={(val) => {
@@ -477,8 +505,50 @@ const PageCv = () => {
                     }}
                     marginRight
                     langue
+                  /> */}
+
+                  <MultipleSelectCheckmarks
+                    value={langue}
+                    label={"Séléctionner une langue"}
+                    // margin
+                    onChange={handleChange}
+                    error={errors.langue && touched.langue}
+                    helperText={
+                      errors.langue && touched.langue ? errors.langue : ""
+                    }
+                    autoFocus={true}
+                    required={true}
+                    id={"outlined-controlled"}
+                    name={"langue"}
+                    onBlur={() => {
+                      setFieldTouched("langue", true);
+                    }}
+                    setFieldValue={setFieldValue}
+                    data={datalanguages}
+                    personNames={defaultLaguagesName}
                   />
-                  <SelectMenue
+
+                  <MultipleSelectCheckmarks
+                    value={permis}
+                    label={"Séléctionner une catégorie "}
+                    // margin
+                    onChange={handleChange}
+                    error={errors.permis && touched.permis}
+                    helperText={
+                      errors.permis && touched.permis ? errors.permis : ""
+                    }
+                    autoFocus={true}
+                    required={true}
+                    id={"outlined-controlled"}
+                    name={"permis"}
+                    onBlur={() => {
+                      setFieldTouched("permis", true);
+                    }}
+                    setFieldValue={setFieldValue}
+                    data={driverLicences}
+                    personNames={defaultdriverLicences}
+                  />
+                  {/* <SelectMenue
                     selectionTitle="Selectionner une catégorie "
                     data={listPermis}
                     handleOpen={(val) => {
@@ -493,7 +563,7 @@ const PageCv = () => {
                       setFieldTouched("permis", true);
                     }}
                     marginRight
-                  />
+                  /> */}
                 </RowBox>
 
                 <Space space={30} />
@@ -539,8 +609,33 @@ const PageCv = () => {
                     }}
                   />
                   <Space />
-
                   <ChipsArray
+                    title={"loisirs "}
+                    sousTitre={"Aucun loisirs"}
+                    addToCv={createLoisirs}
+                    setFieldValue={setFieldValue}
+                    name={"loisirs"}
+                    ModelComponent={Loisirs}
+                    handleClose={() => {
+                      dispatch(handleModelopenLois(false));
+                    }}
+                    handleOpen={() => {
+                      dispatch(handleModelopenLois(true));
+                    }}
+                    open={openLois}
+                    chipData={loisirs}
+                    handleDelete={(chipToDelete) => () => {
+                      // const updatedFruits = experience.filter(
+                      //   (fruit, i) => i !== chipToDelete.key - 1
+                      // );
+                      const newItems = loisirs.filter(
+                        (item) => item.key !== chipToDelete.key
+                      );
+
+                      dispatch(createLoisirs(newItems));
+                    }}
+                  />
+                  {/* <ChipsArray
                     title={"Formations "}
                     sousTitre={"Aucune Formation"}
                     addToCv={createFomations}
@@ -575,7 +670,7 @@ const PageCv = () => {
 
                       dispatch(createFomations(newItems));
                     }}
-                  />
+                  /> */}
                 </Stack>
 
                 <Space space={10} />
@@ -625,33 +720,6 @@ const PageCv = () => {
                     }}
                   /> */}
                   <Space />
-
-                  <ChipsArray
-                    title={"loisirs "}
-                    sousTitre={"Aucun loisirs"}
-                    addToCv={createLoisirs}
-                    setFieldValue={setFieldValue}
-                    name={"loisirs"}
-                    ModelComponent={Loisirs}
-                    handleClose={() => {
-                      dispatch(handleModelopenLois(false));
-                    }}
-                    handleOpen={() => {
-                      dispatch(handleModelopenLois(true));
-                    }}
-                    open={openLois}
-                    chipData={loisirs}
-                    handleDelete={(chipToDelete) => () => {
-                      // const updatedFruits = experience.filter(
-                      //   (fruit, i) => i !== chipToDelete.key - 1
-                      // );
-                      const newItems = loisirs.filter(
-                        (item) => item.key !== chipToDelete.key
-                      );
-
-                      dispatch(createLoisirs(newItems));
-                    }}
-                  />
                 </Stack>
 
                 <Space space={10} />
@@ -725,6 +793,14 @@ const PageCv = () => {
                       );
 
                       dispatch(createEmploi(newItems));
+                      // const newItems = EmploiArr?.filter((item) => item.key !== chipToDelete.key).map((item) => {
+                      //   return {
+                      //     ...item,
+                      //     // label: item.label // If you want to keep the same label, you can omit this line
+                      //   };
+                      // });
+
+                      // dispatch(createEmploi(newItems));
                     }}
                   />
                 </Stack>
