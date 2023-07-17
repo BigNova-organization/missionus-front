@@ -13,6 +13,7 @@ import {
 } from "../../../../Redux/createCv/slice";
 import MultipleSelectCheckmarks from "../../../../components/outils/multipleSelect";
 import { fetchJobs } from "../../../../Redux/jobs/slice";
+import MultipleSelectCheckJobs from "../../../../components/outils/mutilpleSelctJobs";
 
 const EmploiCo = () => {
   const theme = useTheme();
@@ -71,7 +72,7 @@ const EmploiCo = () => {
               <Space space={"20px"} />
 
 
-              <MultipleSelectCheckmarks
+              <MultipleSelectCheckJobs
                 value={jobs}
                 label={"Ajouter"}
                 // margin

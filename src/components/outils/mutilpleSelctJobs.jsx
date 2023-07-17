@@ -1,5 +1,6 @@
 import * as React from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
@@ -7,9 +8,10 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import { FormHelperText, useTheme } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
-import { PrimaryText } from "../utils/typography";
-import Space from "./Space";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchJobs } from "../../Redux/jobs/slice";
+import { createEmploi } from "../../Redux/createCv/slice";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -48,80 +50,82 @@ const useStyles = makeStyles((theme) => ({
     fill: "#237a57",
   },
 }));
+const names = [
+  "Oliver Hansen",
+  "Van Henry",
+  "April Tucker",
+  "Ralph Hubbard",
+  "Omar Alexander",
+  "Carlos Abbott",
+  "Miriam Wagner",
+  "Bradley Wilkerson",
+  "Virginia Andrews",
+  "Kelly Snyder",
+];
 
-
-export default function MultipleSelectCheckmarks({
+export default function MultipleSelectCheckJobs({
   label,
-
+  data,
+  handleOpen,
+  selectionTitle,
   error,
   helperText,
-
+  value,
+  onBlur,
   marginRight,
-
-  setFieldValue,
-  status,
-  data,
-  name,
-  personNames,
+  disabled,
+  multiple,
+  renderValue,
+  setFieldValue
 }) {
-  const [personName, setPersonName] = React.useState(personNames);
+  const [personName, setPersonName] = React.useState([]);
   const theme = useTheme();
   const { mode } = useSelector((state) => state.global);
+  const { jobs ,status} = useSelector((state) => state.jobs);
+  const { EmploiArr } = useSelector((state) => state.cvs);
 
-  // const handleChange = (event) => {
-  //   const { value } = event.target;
-  //   setPersonName(value);
-  //   setFieldValue(name, value.join(", "));
-  // };
+  const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    const { value } = event.target;
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
 
-    // console.log('value', value)
-  
-    // Check if the selected value already exists in personNames
-    const isSelected = personName.includes(value);
-    // console.log('isSelected', isSelected)
-  
-    // Update the personNames state based on the selection
-    if (isSelected) {
-      // If the value is already selected, remove it from the array
-      setPersonName(personName.filter((name) => name !== value));
-    } else {
-      // If the value is not selected, add it to the array
-      setPersonName([...personName, value]);
-    }
-  };
+
+
+const handleChange = (event) => {
+  const { value } = event.target;
+  setPersonName(value);
+  setFieldValue("jobs", value.join(", "));
+};
+
+
+// const handleChange = (event) => {
+//   const { value } = event.target;
+//   const selectedJobs = value.map((jobName) => {
+//     const job = jobs.find((j) => j.name === jobName);
+//     return { id: job.id, label: jobName };
+//   });
+//   setPersonName(selectedJobs);
+//   setFieldValue("jobs", selectedJobs.map((job) => job.label).join(", "));
+// };
+
+
+
+// console.log('jobs', jobs)
 
   const classes = useStyles();
-
-  // console.log('personNames', personNames)
-  // console.log('data', data)
-
-
   return (
-    <FormControl sx={{ width: "100%" }}>
-      {/* <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel> */}
-      {status?.length == 0 || status == "loading" ? (
-        <div>chargement ...</div>
-      ) : (
-        <>
-          <Space space={"20px"} />
-
-          <PrimaryText
-            fontWeight={"600"}
-            fontSize={"20px"}
-            text={label}
-            color={theme.palette.secondary.light}
-          />
-
-          <Space space={"20px"} />
-
+    <div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        {/* <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel> */}
+        {jobs?.length == 0 || status == 'loading' ? (
+          <div>chargement ...</div>
+        ) : (
           <Select
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
-            value={personNames}
+            value={personName}
             onChange={handleChange}
             input={<OutlinedInput label="Tag" />}
             renderValue={(selected) => selected.join(", ")}
@@ -134,29 +138,25 @@ export default function MultipleSelectCheckmarks({
                 error ? theme.palette.error.main : theme.palette.secondary.light
               }`,
             }}
+            // className={classes.select}
             inputProps={{
               classes: {
                 icon: mode == "light" ? classes.icon : classes.iconDark,
               },
             }}
-            InputLabelProps={{
-              style: {
-                color: theme.palette.secondary.dark,
-              },
-            }}
           >
-            {data?.map((i) => (
+            {jobs?.map((i) => (
               <MenuItem key={i.name} value={i.name}>
                 <Checkbox checked={personName.indexOf(i.name) > -1} />
                 <ListItemText primary={i.name} />
               </MenuItem>
             ))}
           </Select>
-        </>
-      )}
-      <FormHelperText sx={{ color: theme.palette.error.main, pl: 3 }}>
-        {helperText}
-      </FormHelperText>
-    </FormControl>
+        )}
+        <FormHelperText sx={{ color: theme.palette.error.main, pl: 3 }}>
+          {helperText}
+        </FormHelperText>
+      </FormControl>
+    </div>
   );
 }
